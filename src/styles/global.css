@@ -97,7 +97,7 @@
 		--clr-yellow-700: hsla(44, 100%, 61%, 1);
 
 		--ff-heading: "JetBrains Mono", sans-serif;
-		--ff-body: "JetBrains Mono", sans-serif;
+		--ff-body: "-sf-pro-display", sans-serif;
 
 		--fs-300: 0.875rem;
 		--fs-400: 1rem;
@@ -105,7 +105,7 @@
 		--fs-600: 1.25rem;
 		--fs-700: 1.5rem;
 		--fs-800: 2rem;
-		--fs-900: 3.75rem;
+		--fs-900: 2.75rem;
 		--fs-1000: 3.75rem;
 
 		@media (width > 760px) {
@@ -115,7 +115,7 @@
 			--fs-600: 1.5rem;
 			--fs-700: 2rem;
 			--fs-800: 3rem;
-			--fs-900: 5rem;
+			--fs-900: 3.4rem;
 			--fs-1000: 7.5rem;
 		}
 	}
@@ -131,6 +131,7 @@
 
 		--background-main: var(--clr-gray-900);
 		--background-content: var(--clr-gray-100);
+		--background-secondary: var(--clr-yellow-500);
 
 		--font-size-heading-sm: var(--fs-700);
 		--font-size-heading-regular: var(--fs-800);
@@ -141,6 +142,11 @@
 		--font-size-regular: var(--fs-400);
 		--font-size-md: var(--fs-500);
 		--font-size-lg: var(--fs-600);
+
+		--button-hover-background-color: var(--clr-black);
+		--button-hover-color: var(--clr-white);
+		--button-border-color: var(--clr-black);
+		--button-colored-background: var(--clr-pink-500);
 
 		--border-radius-1: 10px;
 		--border-radius-2: 14px;
@@ -473,5 +479,40 @@
 		position: absolute;
 		white-space: nowrap;
 		width: 1px;
+	}
+}
+
+@layer components {
+	h1 {
+		font-size: var(--font-size-heading-lg);
+		line-height: 55px;
+		font-weight: 400;
+		font-family: var(--ff-heading);
+		color: var(--text-main);
+	}
+
+	h3 {
+		font-size: var(--font-size-heading-regular);
+		line-height: 30px;
+		font-weight: 400;
+		font-family: var(--ff-heading);
+		color: var(--text-main);
+	}
+
+	p {
+		font-size: var(--font-size-md);
+		line-height: 28px;
+		font-weight: 400;
+		font-family: var(--ff-body);
+		color: var(--text-main);
+		letter-spacing: 1%;
+	}
+
+	.cta-font {
+		font-size: var(--font-size-md);
+		line-height: 20px;
+		font-weight: 400;
+		font-family: var(--ff-heading);
+		color: var(--text-main);
 	}
 }

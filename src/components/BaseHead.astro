@@ -1,7 +1,7 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
 	title: string;
@@ -11,7 +11,7 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -21,10 +21,62 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/JetBrainsMono-Italic.woff2" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/JetBrainsMono-Light.woff2" as="font" type="font/woff" crossorigin />
+<link
+	rel="preload"
+	href="/fonts/JetBrainsMono-Regular.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/JetBrainsMono-Italic.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/JetBrainsMono-Bold.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/JetBrainsMono-Light.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/sf-pro-display-regular.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/sf-pro-display-italic.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/sf-pro-display-bold.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
+<link
+	rel="preload"
+	href="/fonts/sf-pro-display-light.woff2"
+	as="font"
+	type="font/woff"
+	crossorigin
+/>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

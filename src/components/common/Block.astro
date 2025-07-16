@@ -1,15 +1,28 @@
 ---
+interface Props {
+	backgroundColor?: "primary" | "secondary";
+}
+
+const { backgroundColor = "var(--background-content)" } = Astro.props;
 ---
 
-<section class="block border-radius-sm">
+<section
+	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`>
 	<slot></slot>
 	<style>
 		.block {
-			background: var(--background-content);
 			color: var(--text-main);
-			padding: 20px;
+			padding: 20px 30px 40px 30px;
 			width: 100%;
 			height: 100%;
+		}
+
+		.block-background-content {
+			background: var(--background-content);
+		}
+
+		.block-background-secondary {
+			background: var(--background-secondary);
 		}
 	</style>
 </section>

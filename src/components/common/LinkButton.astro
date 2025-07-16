@@ -1,0 +1,42 @@
+---
+interface Props {
+	variant?: "outline" | "link" | "colored" | "secondary";
+	text: string;
+}
+const { variant = "outline", text } = Astro.props;
+const isOutline = variant === "outline";
+const isLink = variant === "link";
+const isColored = variant === "colored";
+const isSecondary = variant === "secondary";
+---
+
+<button class={`${isColored ? "colored" : ""}`}>{text} -></button>
+<style>
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		background-color: transparent;
+		border: 1px solid var(--button-border-color);
+		color: var(--button-border-color);
+		text-align: center;
+		text-transform: uppercase;
+		font-size: var(--fs400);
+		cursor: pointer;
+		min-width: 200px;
+		height: 40px;
+		font-family: var(--ff-heading);
+	}
+
+	button:hover {
+		border-color: var(--button-hover-background-color);
+		background-color: var(--button-hover-background-color);
+		color: var(--button-hover-color);
+	}
+
+	.colored {
+		background-color: var(--button-colored-background);
+		border-color: var(--button-colored-background);
+	}
+</style>
