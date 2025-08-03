@@ -8,21 +8,21 @@ const { backgroundColor = "var(--background-content)" } = Astro.props;
 
 <section
 	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`>
-	<slot></slot>
-	<style>
-		.block {
-			color: var(--text-main);
-			padding: 20px 30px 40px 30px;
-			width: 100%;
-			height: 100%;
-		}
-
-		.block-background-content {
-			background: var(--background-content);
-		}
-
-		.block-background-secondary {
-			background: var(--background-secondary);
-		}
-	</style>
+	<slot class="block-content"></slot>
 </section>
+<style>
+	/* Block component enhancements */
+	.block {
+		background: var(--background-content);
+		border-radius: var(--radii-10);
+		padding: 20px var(--big-layout-gap);
+		height: 100%;
+	}
+	.block-background-secondary {
+		background: var(--background-secondary);
+	}
+
+	.block-content {
+		height: 100%;
+	}
+</style>

@@ -1,0 +1,20 @@
+---
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<div class="badge">{text}</div>
+<style>
+	.badge {
+		display: inline-block;
+		font-family: var(--ff-heading);
+		background-color: var(--badge-background);
+		color: var(--badge-text);
+		padding: 0 1rem;
+		font-size: 1rem;
+		font-weight: 400;
+	}
+</style>

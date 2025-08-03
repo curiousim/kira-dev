@@ -1,86 +1,158 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import MainLayout from "./MainLayout.astro";
+import Block from "../components/common/Block.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
-type Props = CollectionEntry<"blog">["data"];
-
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+<BaseHead title={title} description={description} />
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && (
-						<img width={1020} height={510} src={heroImage} alt="" />
-					)}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{updatedDate && (
-								<div class="last-updated-on">
-									Last updated on{" "}
-									<FormattedDate date={updatedDate} />
-								</div>
-							)}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot></slot>
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+<MainLayout>
+	<div slot="main">
+		<Block>
+			<div class="article-header">
+				<a href="/blog" class="back-link">← BACK TO BLOG</a>
+				<span class="blog-badge">BLOG</span>
+			</div>
+			<div class="article-meta">
+				<span class="article-date">
+					<FormattedDate date={pubDate} />
+				</span>
+			</div>
+			<h1 class="article-title">{title}</h1>
+			<div class="article-content">
+				<slot></slot>
+			</div>
+		</Block>
+	</div>
+	<div slot="sidebar">
+		<ThemeSwitcher />
+		<Block backgroundColor="secondary">
+			<h2 class="sidebar-title">About</h2>
+			<p>Kira_Menshov<br />Software_engineer<br />• Tel-Aviv</p>
+			<p>
+				Lorem Ipsum is simply dummy text of the printing and typesetting
+				industry. Lorem Ipsum has been the industry's standard dummy
+				text
+			</p>
+			<a class="blog-read-btn" href="/about"
+				>ABOUT <span class="arrow">→</span>
+			</a>
+		</Block>
+	</div>
+</MainLayout>
+
+<style>
+	.article-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1.5rem;
+	}
+	.back-link {
+		font-family: var(--ff-heading);
+		font-size: 1.1rem;
+		color: var(--text-high-contrast);
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		border-bottom: 2px solid var(--accent);
+		padding-bottom: 2px;
+		transition: color 0.2s, border-color 0.2s;
+	}
+	.back-link:hover {
+		color: var(--accent);
+		border-color: var(--text-high-contrast);
+	}
+	.blog-badge {
+		background: var(--accent);
+		color: #fff;
+		font-size: 0.95rem;
+		font-family: var(--ff-heading);
+		font-weight: 700;
+		border-radius: 0.3em;
+		padding: 0.1em 0.7em;
+		margin-left: 1rem;
+	}
+	.article-meta {
+		margin-bottom: 0.5rem;
+	}
+	.article-date {
+		color: #b0b0b0;
+		font-size: 1rem;
+		font-family: var(--ff-heading);
+		letter-spacing: 0.04em;
+	}
+	.article-title {
+		font-family: var(--ff-heading);
+		font-size: 2.7rem;
+		font-weight: 700;
+		margin: 0 0 2rem 0;
+		color: var(--text-high-contrast);
+		line-height: 1.1;
+		word-break: break-word;
+	}
+	.article-content {
+		color: var(--text-main);
+		font-size: 1.18rem;
+		line-height: 1.7;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.article-content code,
+	.article-content pre {
+		font-family: "JetBrains Mono", monospace;
+		background: #f5f5f5;
+		color: #222;
+		border-radius: 0.5em;
+		padding: 0.2em 0.5em;
+		font-size: 1em;
+	}
+	.article-content pre {
+		padding: 1em;
+		overflow-x: auto;
+		background: #ededed;
+		margin: 1.5em 0;
+	}
+	.sidebar-title {
+		font-size: 1.3rem;
+		color: var(--text-high-contrast);
+		margin-bottom: 1rem;
+	}
+	.blog-read-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--ff-heading);
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--text-high-contrast);
+		background: var(--blog-btn-bg, transparent);
+		border: 2px solid var(--text-high-contrast);
+		border-radius: 0.5em;
+		padding: 0.4em 1.5em;
+		text-decoration: none;
+		transition: background 0.2s, color 0.2s, border-color 0.2s;
+		margin-top: 1.5rem;
+	}
+	.blog-read-btn:hover {
+		background: var(--accent);
+		color: #fff;
+		border-color: var(--accent);
+	}
+	.arrow {
+		font-size: 1.2em;
+	}
+	@media (max-width: 900px) {
+		.article-title {
+			font-size: 1.5rem;
+		}
+		.article-content {
+			font-size: 1rem;
+		}
+	}
+</style>
+

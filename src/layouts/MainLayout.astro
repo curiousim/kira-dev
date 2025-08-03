@@ -1,0 +1,40 @@
+---
+---
+
+<div class="main-layout">
+	<main class="main-content">
+		<slot name="main"></slot>
+	</main>
+	<aside class="sidebar-content">
+		<slot name="sidebar"></slot>
+	</aside>
+</div>
+<style>
+	.main-layout {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: var(--default-layout-gap);
+		width: 100vw;
+		min-height: 100vh;
+		padding: var(--default-layout-gap);
+	}
+	.main-content {
+		height: 100%;
+	}
+	.sidebar-content {
+	}
+	@media (max-width: 900px) {
+		.main-layout {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto auto;
+			padding: var(--default-layout-gap);
+		}
+		.sidebar-content {
+			display: grid;
+			gap: var(--default-layout-gap);
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 3fr;
+			height: 100%;
+		}
+	}
+</style>

@@ -1,0 +1,106 @@
+---
+import { getCollection } from "astro:content";
+import { Fragment } from "astro/jsx-runtime";
+const posts = await getCollection("blog");
+---
+
+<div class="blog-roll">
+	{posts.map((post) => (
+		<div class="blog-card">
+			<div class="blog-card-header">
+				<span class="blog-date">
+					{post.data.pubDate.toLocaleDateString()}
+				</span>
+				<span class="blog-badge">BLOG</span>
+			</div>
+			<h2 class="blog-title">{post.data.title}</h2>
+			<p class="blog-desc">{post.data.description}</p>
+			<a class="blog-read-btn" href={`/blog/${post.id}`}>
+				READ <span class="arrow">→</span>
+			</a>
+		</div>
+	))}
+</div>
+<style>
+	.blog-roll {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	.blog-card {
+		background: var(--blog-card-bg, #e6edff);
+		border-radius: 1.2rem;
+		padding: 2rem 2.5rem 2rem 2.5rem;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+		position: relative;
+	}
+	.blog-card-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 0.5rem;
+	}
+	.blog-date {
+		color: #b0b0b0;
+		font-size: 1rem;
+		font-family: var(--ff-heading);
+		letter-spacing: 0.04em;
+	}
+	.blog-badge {
+		background: var(--accent);
+		color: #fff;
+		font-size: 0.95rem;
+		font-family: var(--ff-heading);
+		font-weight: 700;
+		border-radius: 0.3em;
+		padding: 0.1em 0.7em;
+		margin-left: auto;
+	}
+	.blog-title {
+		font-family: var(--ff-heading);
+		font-size: 2rem;
+		font-weight: 700;
+		margin: 0;
+		color: var(--text-high-contrast);
+	}
+	.blog-desc {
+		color: var(--text-main);
+		font-size: 1.1rem;
+		margin: 0 0 0.5rem 0;
+	}
+	.blog-read-btn {
+		align-self: flex-end;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--ff-heading);
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--text-high-contrast);
+		background: var(--blog-btn-bg, transparent);
+		border: 2px solid var(--text-high-contrast);
+		border-radius: 0.5em;
+		padding: 0.4em 1.5em;
+		text-decoration: none;
+		transition: background 0.2s, color 0.2s, border-color 0.2s;
+	}
+	.blog-read-btn:hover {
+		background: var(--accent);
+		color: #fff;
+		border-color: var(--accent);
+	}
+	.arrow {
+		font-size: 1.2em;
+	}
+	@media (max-width: 900px) {
+		.blog-card {
+			padding: 1.2rem 1rem 1.2rem 1rem;
+		}
+		.blog-title {
+			font-size: 1.2rem;
+		}
+	}
+</style>

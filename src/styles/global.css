@@ -23,6 +23,7 @@
 	dl,
 	dd {
 		margin: 0;
+		padding: 0;
 	}
 
 	/* https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html */
@@ -51,11 +52,15 @@
 	h3,
 	h4 {
 		text-wrap: balance;
+		font-family: var(--ff-heading);
 	}
 
 	p,
 	li {
 		text-wrap: pretty;
+		font-family: var(--ff-body);
+		font-size: var(--fs-300);
+		font-weight: 400;
 	}
 
 	img,
@@ -70,6 +75,71 @@
 	select {
 		font: inherit;
 	}
+}
+
+/* Font Face Declarations */
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url(/fonts/JetBrainsMono-Regular.woff2) format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url(/fonts/JetBrainsMono-Medium.woff2) format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url(/fonts/JetBrainsMono-Bold.woff2) format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url(/fonts/JetBrainsMono-Light.woff2) format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "SF Pro Display";
+	src: url(/fonts/sf-pro-display-regular.woff2) format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "SF Pro Display";
+	src: url(/fonts/sf-pro-display-medium.woff2) format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "SF Pro Display";
+	src: url(/fonts/sf-pro-display-bold.woff2) format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "SF Pro Display";
+	src: url(/fonts/sf-pro-display-light.woff2) format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
 @layer base {
@@ -96,8 +166,14 @@
 		--clr-yellow-500: hsla(52, 100%, 68%, 1);
 		--clr-yellow-700: hsla(44, 100%, 61%, 1);
 
-		--ff-heading: "JetBrains Mono", sans-serif;
-		--ff-body: "-sf-pro-display", sans-serif;
+		--ff-heading: "JetBrains Mono", monospace;
+		--ff-body: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
+			Roboto, sans-serif;
+
+		--radii-10: 10px;
+
+		--default-layout-gap: 1.5rem;
+		--big-layout-gap: 2.5rem;
 
 		--fs-300: 0.875rem;
 		--fs-400: 1rem;
@@ -106,50 +182,48 @@
 		--fs-700: 1.5rem;
 		--fs-800: 2rem;
 		--fs-900: 2.75rem;
-		--fs-1000: 3.75rem;
+		--fs-1000: 3.45rem;
 
 		@media (width > 760px) {
 			--fs-300: 0.875rem;
 			--fs-400: 1rem;
-			--fs-500: 1.25rem;
-			--fs-600: 1.5rem;
-			--fs-700: 2rem;
-			--fs-800: 3rem;
-			--fs-900: 3.4rem;
-			--fs-1000: 7.5rem;
+			--fs-500: 1.125rem;
+			--fs-600: 1.25rem;
+			--fs-700: 1.5rem;
+			--fs-800: 2rem;
+			--fs-900: 2.75rem;
+			--fs-1000: 3.45rem;
 		}
 	}
 	/* in another selector for syntax highlighting reasons only */
 	:root {
-		--text-main: var(--clr-black-100);
-		--text-high-contrast: var(--clr-white);
-		--text-brand: var(--clr-brand-500);
-		--text-brand-light: var(--clr-brand-400);
-
-		--background-accent-main: var(--clr-green-100);
-		--background-accent-widget: var(--clr-green-600);
-
+		/* Default theme: yellow */
+		--badge-background: var(--clr-pink-500);
+		--badge-text: var(--clr-yellow-500);
 		--background-main: var(--clr-gray-900);
 		--background-content: var(--clr-gray-100);
 		--background-secondary: var(--clr-yellow-500);
-
-		--font-size-heading-sm: var(--fs-700);
-		--font-size-heading-regular: var(--fs-800);
-		--font-size-heading-lg: var(--fs-900);
-		--font-size-heading-xl: var(--fs-1000);
-
-		--font-size-sm: var(--fs-300);
-		--font-size-regular: var(--fs-400);
-		--font-size-md: var(--fs-500);
-		--font-size-lg: var(--fs-600);
-
-		--button-hover-background-color: var(--clr-black);
-		--button-hover-color: var(--clr-white);
-		--button-border-color: var(--clr-black);
-		--button-colored-background: var(--clr-pink-500);
-
-		--border-radius-1: 10px;
-		--border-radius-2: 14px;
+		--button-hovered-background: var(--clr-pink-500);
+		--text-main: #222;
+		--text-high-contrast: #000;
+		--accent: #ffb6c1;
+		/* Add other variables as needed */
+	}
+	[data-theme="blue"] {
+		--background-main: #5c7cfa;
+		--background-content: #e6edff;
+		--background-secondary: #a5b4fc;
+		--text-main: #fff;
+		--text-high-contrast: #fff;
+		--accent: #ffd700;
+	}
+	[data-theme="pink"] {
+		--background-main: #ffb6c1;
+		--background-content: #fff0f6;
+		--background-secondary: #ff80ab;
+		--text-main: #222;
+		--text-high-contrast: #222;
+		--accent: #ffe95c;
 	}
 }
 
@@ -166,8 +240,6 @@
 	h3,
 	h4 {
 		font-family: var(--ff-heading);
-		font-weight: 700;
-		color: var(--text-high-contrast);
 	}
 
 	a {
@@ -356,7 +428,7 @@
 	}
 
 	.site-footer__title {
-		font-size: var(--font-size-md);
+		font-size: var(--fs-600);
 		font-family: var(--ff-heading);
 		font-weight: 700;
 	}
@@ -365,7 +437,7 @@
 		text-align: center;
 		background-image: url(/assets/hero.webp);
 		background-size: cover;
-		font-size: var(--font-size-md);
+		font-size: var(---fs-600);
 		color: var(--text-high-contrast);
 	}
 
@@ -401,7 +473,7 @@
 		cursor: pointer;
 		font-family: var(--ff-heading);
 		font-weight: 700;
-		font-size: var(--font-size-md);
+		font-size: var(--fs-600);
 		text-decoration: none;
 		background-color: var(--background-accent-main);
 		padding: 0.5rem 1rem;
@@ -417,7 +489,7 @@
 
 @layer utilities {
 	.border-radius-sm {
-		border-radius: var(--border-radius-1);
+		border-radius: var(--radii-10);
 	}
 
 	.border-radius-md {
@@ -484,8 +556,16 @@
 
 @layer components {
 	h1 {
-		font-size: var(--font-size-heading-lg);
+		font-size: var(--fs-1000);
 		line-height: 55px;
+		font-weight: 300;
+		font-family: var(--ff-heading);
+		color: var(--text-main);
+	}
+
+	h2 {
+		font-size: var(--fs-800);
+		line-height: 40px;
 		font-weight: 400;
 		font-family: var(--ff-heading);
 		color: var(--text-main);
@@ -500,8 +580,8 @@
 	}
 
 	p {
-		font-size: var(--font-size-md);
-		line-height: 28px;
+		font-size: var(--fs-600);
+		line-height: 140%;
 		font-weight: 400;
 		font-family: var(--ff-body);
 		color: var(--text-main);
@@ -509,7 +589,7 @@
 	}
 
 	.cta-font {
-		font-size: var(--font-size-md);
+		font-size: var(--fs-600);
 		line-height: 20px;
 		font-weight: 400;
 		font-family: var(--ff-heading);

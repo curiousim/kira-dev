@@ -2,17 +2,22 @@
 interface Props {
 	variant?: "outline" | "link" | "colored" | "secondary";
 	text: string;
+	href?: string;
 }
-const { variant = "outline", text } = Astro.props;
-const isOutline = variant === "outline";
+const { variant = "outline", text, href = "#" } = Astro.props;
 const isLink = variant === "link";
-const isColored = variant === "colored";
-const isSecondary = variant === "secondary";
 ---
 
-<button class={`${isColored ? "colored" : ""}`}>{text} -></button>
+{isLink ? (
+	<a href={href} class={`button ${variant}`}>
+		{text} ->
+	</a>
+) : (
+	<button class={`button ${variant}`}>{text} -></button>
+)}
+
 <style>
-	button {
+	.button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -25,18 +30,60 @@ const isSecondary = variant === "secondary";
 		font-size: var(--fs400);
 		cursor: pointer;
 		min-width: 200px;
+		width: fit-content;
 		height: 40px;
 		font-family: var(--ff-heading);
+		font-weight: 300;
+		text-decoration: none;
 	}
 
-	button:hover {
+	.button:hover {
 		border-color: var(--button-hover-background-color);
 		background-color: var(--button-hover-background-color);
 		color: var(--button-hover-color);
 	}
 
+	.button:focus {
+		outline: none;
+		outline-offset: 0px;
+	}
+
 	.colored {
 		background-color: var(--button-colored-background);
 		border-color: var(--button-colored-background);
+	}
+
+	.outline {
+		border: 1px solid var(--text-high-contrast);
+	}
+
+	.outline:hover {
+		background-color: var(--button-hovered-background);
+		border-color: var(--button-hovered-background);
+	}
+
+	.secondary {
+		background-color: var(
+			--button-secondary-background,
+			var(--background-secondary)
+		);
+		border-color: var(--button-secondary-border, var(--accent));
+		color: var(--button-secondary-text, var(--text-high-contrast));
+	}
+
+	.link {
+		border: none;
+		background: transparent;
+		min-width: auto;
+		height: auto;
+		padding: 0;
+		text-decoration: underline;
+		color: var(--button-link-color);
+	}
+
+	.link:hover {
+		background: transparent;
+		border: none;
+		color: var(--button-hovered-background);
 	}
 </style>

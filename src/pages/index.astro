@@ -1,13 +1,146 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
-import LandingPage from "../layouts/LandingPage.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import MainLayout from "../layouts/MainLayout.astro";
+import Badge from "../components/common/Badge.astro";
+import Block from "../components/common/Block.astro";
+import LinkButton from "../components/common/LinkButton.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body><LandingPage /></body>
-</html>
+<BaseHead
+	title="Kira Menshov – Software Engineer"
+	description="Personal site of Kira Menshov, frontend developer."
+/>
+
+<MainLayout>
+	<Block slot="main">
+		<div class="main-content">
+			<span class="main-title">
+				<h1>Kira_Menshov</h1>
+				<h1>Software_Engineer</h1>
+				<h1>•Tel-Aviv</h1>
+			</span>
+			<div class="intro">
+				<p>
+					I am a software engineer with a passion for building
+					products that make a difference. I have experience in
+					full-stack development, with a focus on front-end
+					technologies. I am currently working at a startup in Tel
+					Aviv, where I am responsible for building and maintaining
+					the company's web application.
+				</p>
+				<p>
+					I am always looking for new opportunities to learn and grow
+					as a developer. I am excited to work on projects that
+					challenge me and allow me to use my skills to create
+					something meaningful.
+				</p>
+				<p>
+					In my free time, I enjoy reading, hiking, and spending time
+					with my family. I am also an avid traveler and love
+					exploring new places and cultures.
+				</p>
+			</div>
+			<div class="buttons-container">
+				<LinkButton text="Blog" href="/blog" variant="outline" />
+				<LinkButton
+					text="Github"
+					href="https://github.com/kira"
+					variant="outline"
+				/>
+				<LinkButton
+					text="LinkedIn"
+					href="https://linkedin.com/in/kira"
+					variant="outline"
+				/>
+			</div>
+		</div>
+	</Block>
+	<div class="sidebar" slot="sidebar">
+		<ThemeSwitcher />
+		<Block backgroundColor="secondary">
+			<div class="blog-banner">
+				<div class="sidebar-title">
+					<Badge text="BLOG" />
+					<LinkButton
+						text="VISIT BLOG"
+						href="/blog/new"
+						variant="link"
+					/>
+				</div>
+				<div class="blog-latest-post">
+					<h2>Latest Post</h2>
+					<p>
+						How to build a modern web application with React and
+						Node.js.
+					</p>
+				</div>
+				<LinkButton text="Read" href="/blog/new" variant="outline" />
+			</div>
+		</Block>
+	</div>
+</MainLayout>
+<style>
+	.main-content {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	.main-title {
+		display: flex;
+		flex-direction: column;
+	}
+	.intro {
+		margin-top: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		color: var(--text-main);
+		font-size: 1.15rem;
+		line-height: 1.7;
+	}
+	.buttons-container {
+		display: flex;
+		gap: 1.5rem;
+		margin-top: auto;
+	}
+	/* Sidebar styles */
+	.sidebar {
+		display: grid;
+		gap: var(--default-layout-gap);
+		grid-template-rows: 1fr 3fr;
+		grid-template-columns: 1fr;
+		height: 100%;
+	}
+	.blog-banner {
+		height: 100%;
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 10fr 1fr;
+	}
+	.blog-latest-post {
+		width: 80%;
+		display: flex;
+		justify-content: end;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding-block: 3rem;
+	}
+	.sidebar-title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	@media (max-width: 900px) {
+		.main-title {
+			font-size: 1.5rem;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+		.intro {
+			font-size: 1rem;
+		}
+	}
+</style>
