@@ -42,43 +42,39 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 				</p>
 			</div>
 			<div class="buttons-container">
-				<LinkButton text="Blog" href="/blog" variant="outline" />
+				<LinkButton text="Blog -->" href="/blog" variant="outline" />
 				<LinkButton
-					text="Github"
+					text="Github -->"
 					href="https://github.com/kira"
 					variant="outline"
 				/>
 				<LinkButton
-					text="LinkedIn"
+					text="LinkedIn -->"
 					href="https://linkedin.com/in/kira"
 					variant="outline"
 				/>
 			</div>
 		</div>
 	</Block>
-	<div class="sidebar" slot="sidebar">
+	<div slot="theme">
 		<ThemeSwitcher />
-		<Block backgroundColor="secondary">
-			<div class="blog-banner">
-				<div class="sidebar-title">
-					<Badge text="BLOG" />
-					<LinkButton
-						text="VISIT BLOG"
-						href="/blog/new"
-						variant="link"
-					/>
-				</div>
-				<div class="blog-latest-post">
-					<h2>Latest Post</h2>
-					<p>
-						How to build a modern web application with React and
-						Node.js.
-					</p>
-				</div>
-				<LinkButton text="Read" href="/blog/new" variant="outline" />
-			</div>
-		</Block>
 	</div>
+	<Block slot="latest" backgroundColor="secondary">
+		<div class="blog-banner">
+			<div class="sidebar-title">
+				<Badge text="BLOG" />
+				<LinkButton text="VISIT BLOG" href="/blog" variant="link" />
+			</div>
+			<div class="blog-latest-post">
+				<h2>Latest Post</h2>
+				<p>
+					How to build a modern web application with React and
+					Node.js.
+				</p>
+			</div>
+			<LinkButton text="Read" href="/blog" variant="outline" />
+		</div>
+	</Block>
 </MainLayout>
 <style>
 	.main-content {
@@ -103,14 +99,6 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 		display: flex;
 		gap: 1.5rem;
 		margin-top: auto;
-	}
-	/* Sidebar styles */
-	.sidebar {
-		display: grid;
-		gap: var(--default-layout-gap);
-		grid-template-rows: 1fr 3fr;
-		grid-template-columns: 1fr;
-		height: 100%;
 	}
 	.blog-banner {
 		height: 100%;

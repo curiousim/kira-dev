@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import { Fragment } from "astro/jsx-runtime";
+import ArticleCard from "./ArticleCard.astro";
+import Block from "../common/Block.astro";
+import LinkButton from "../common/LinkButton.astro";
+import Badge from "../common/Badge.astro";
+const posts = await getCollection("blog");
+---
+
+<Block backgroundColor="primary" growWithContent={true}>
+	<div class="blog-roll-header">
+		<LinkButton text="<-- Main" href="/" variant="link" />
+		<Badge text="BLOG" />
+	</div>
+	<div class="blog-roll">
+		{posts.map((post) => <ArticleCard post={post} />)}
+	</div>
+</Block>
+
+<style>
+	.blog-roll-header {
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.blog-roll {
+		display: flex;
+		flex-direction: column;
+		border-radius: var(--radii-10);
+		gap: 1.2rem;
+	}
+</style>

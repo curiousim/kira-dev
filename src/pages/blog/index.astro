@@ -3,7 +3,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import Block from "../../components/common/Block.astro";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
-import BlogRoll from "../../components/BlogRoll.astro";
+import BlogRoll from "../../components/BlogRoll/BlogRoll.astro";
 ---
 
 <BaseHead
@@ -12,24 +12,19 @@ import BlogRoll from "../../components/BlogRoll.astro";
 />
 
 <MainLayout>
-	<div slot="main">
-		<BlogRoll />
-	</div>
-	<div slot="sidebar">
-		<ThemeSwitcher />
-		<Block backgroundColor="secondary">
-			<h2 class="sidebar-title">About</h2>
-			<p>Kira_Menshov<br />Software_engineer<br />• Tel-Aviv</p>
-			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting
-				industry. Lorem Ipsum has been the industry's standard dummy
-				text
-			</p>
-			<a class="blog-read-btn" href="/about"
-				>ABOUT <span class="arrow">→</span>
-			</a>
-		</Block>
-	</div>
+	<BlogRoll slot="main" />
+	<ThemeSwitcher slot="theme" />
+	<Block slot="latest" backgroundColor="secondary">
+		<h2 class="sidebar-title">About</h2>
+		<p>Kira_Menshov<br />Software_engineer<br />• Tel-Aviv</p>
+		<p>
+			Lorem Ipsum is simply dummy text of the printing and typesetting
+			industry. Lorem Ipsum has been the industry's standard dummy text
+		</p>
+		<a class="blog-read-btn" href="/about"
+			>ABOUT <span class="arrow">→</span>
+		</a>
+	</Block>
 </MainLayout>
 <style>
 	.sidebar-title {

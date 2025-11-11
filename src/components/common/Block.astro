@@ -1,28 +1,32 @@
 ---
 interface Props {
 	backgroundColor?: "primary" | "secondary";
+	growWithContent?: boolean;
 }
 
-const { backgroundColor = "var(--background-content)" } = Astro.props;
+const {
+	backgroundColor = "var(--background-content)",
+	growWithContent = false,
+} = Astro.props;
 ---
 
 <section
-	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`>
+	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`
+	style={`height: ${growWithContent ? "auto" : "100%"};`}>
 	<slot class="block-content"></slot>
 </section>
 <style>
-	/* Block component enhancements */
 	.block {
 		background: var(--background-content);
 		border-radius: var(--radii-10);
 		padding: 20px var(--big-layout-gap);
-		height: 100%;
+		width: 100%;
 	}
 	.block-background-secondary {
 		background: var(--background-secondary);
 	}
 
 	.block-content {
-		height: 100%;
+		min-height: 100%;
 	}
 </style>

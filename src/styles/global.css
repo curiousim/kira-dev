@@ -157,9 +157,12 @@
 		--clr-blueberry-500: hsla(229, 90%, 65%, 1);
 		--clr-blueberry-700: hsla(229, 61%, 47%, 1);
 		/* pink */
+		--clr-pink-100: hsla(331, 76%, 94%, 1);
 		--clr-pink-300: hsla(331, 76%, 87%, 1);
 		--clr-pink-500: hsla(331, 95%, 75%, 1);
 		/* lavender */
+		--clr-lavender-100: hsla(266, 66%, 94%, 1);
+		--clr-lavender-300: hsla(266, 66%, 77%, 1);
 		--clr-lavender-500: hsla(266, 66%, 62%, 1);
 		/* yellow */
 		/* --clr-yellow-300: hsla(52, 100%, 68%, 0.4); */
@@ -204,26 +207,29 @@
 		--background-content: var(--clr-gray-100);
 		--background-secondary: var(--clr-yellow-500);
 		--button-hovered-background: var(--clr-pink-500);
+		--block-card-background: var(--clr-blueberry-100);
 		--text-main: #222;
 		--text-high-contrast: #000;
 		--accent: #ffb6c1;
-		/* Add other variables as needed */
+		/* BUTTON */
+		--button-blog-card-background-hover: var(--clr-blueberry-500);
 	}
 	[data-theme="blue"] {
 		--background-main: #5c7cfa;
 		--background-content: #e6edff;
 		--background-secondary: #a5b4fc;
+		--block-card-background: #cfd8fc;
 		--text-main: #fff;
 		--text-high-contrast: #fff;
 		--accent: #ffd700;
 	}
 	[data-theme="pink"] {
-		--background-main: #ffb6c1;
-		--background-content: #fff0f6;
-		--background-secondary: #ff80ab;
-		--text-main: #222;
-		--text-high-contrast: #222;
-		--accent: #ffe95c;
+		--background-main: var(--clr-pink-500);
+		--background-content: var(--clr-gray-100);
+		--background-secondary: var(--clr-lavender-500);
+		--text-main: var(--clr-black);
+		--text-high-contrast: var(--clr-white);
+		--accent: var(--clr-yellow-500);
 	}
 }
 

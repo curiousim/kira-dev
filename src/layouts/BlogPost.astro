@@ -2,8 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
-import ThemeSwitcher from "../components/ThemeSwitcher.astro";
-import FormattedDate from "../components/FormattedDate.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 
 const { title, description, pubDate } = Astro.props;
 ---
@@ -19,7 +18,7 @@ const { title, description, pubDate } = Astro.props;
 			</div>
 			<div class="article-meta">
 				<span class="article-date">
-					<FormattedDate date={pubDate} />
+					<!-- <FormattedDate date={pubDate} /> -->
 				</span>
 			</div>
 			<h1 class="article-title">{title}</h1>
@@ -155,4 +154,3 @@ const { title, description, pubDate } = Astro.props;
 		}
 	}
 </style>
-
