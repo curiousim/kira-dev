@@ -1,5 +1,8 @@
 ---
 import Block from "../common/Block.astro";
+import YellowButton from "./YellowButton.astro";
+import BlueButton from "./BlueButton.astro";
+import PinkButton from "./PinkButton.astro";
 ---
 
 <Block>
@@ -8,46 +11,19 @@ import Block from "../common/Block.astro";
 			aria-label="Yellow theme"
 			class="theme-btn theme-yellow"
 			onclick="window.setTheme && window.setTheme('yellow')">
-			<img
-				src="/pictures/yellow_button.svg"
-				alt="Yellow theme"
-				class="button-img regular"
-			/>
-			<img
-				src="/pictures/yellow_hover.svg"
-				alt="Yellow theme hover"
-				class="button-img hover"
-			/>
+			<YellowButton />
 		</button>
 		<button
 			aria-label="Blue theme"
 			class="theme-btn theme-blue"
 			onclick="window.setTheme && window.setTheme('blue')">
-			<img
-				src="/pictures/blue_button.svg"
-				alt="Blue theme"
-				class="button-img regular"
-			/>
-			<img
-				src="/pictures/blue_hover.svg"
-				alt="Blue theme hover"
-				class="button-img hover"
-			/>
+			<BlueButton />
 		</button>
 		<button
 			aria-label="Pink theme"
 			class="theme-btn theme-pink"
 			onclick="window.setTheme && window.setTheme('pink')">
-			<img
-				src="/pictures/pink_button.svg"
-				alt="Pink theme"
-				class="button-img regular"
-			/>
-			<img
-				src="/pictures/pink_hover.svg"
-				alt="Pink theme hover"
-				class="button-img hover"
-			/>
+			<PinkButton />
 		</button>
 	</div>
 
@@ -75,32 +51,11 @@ import Block from "../common/Block.astro";
 			cursor: pointer;
 			transition: transform 0.1s;
 			padding: 0;
-			position: relative;
 			width: 30%;
 			height: 120px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-		}
-		.button-img {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			transition: opacity 0.2s ease;
-		}
-		.button-img.regular {
-			opacity: 1;
-		}
-		.button-img.hover {
-			opacity: 0;
-		}
-		.theme-btn:hover .button-img.regular {
-			opacity: 0;
-		}
-		.theme-btn:hover .button-img.hover {
-			opacity: 1;
 		}
 		.theme-btn:hover {
 			transform: scale(1.1);
