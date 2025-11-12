@@ -5,7 +5,15 @@ import ArticleCard from "./ArticleCard.astro";
 import Block from "../common/Block.astro";
 import LinkButton from "../common/LinkButton.astro";
 import Badge from "../common/Badge.astro";
-const posts = await getCollection("blog");
+import type { TPost } from "../../types/post";
+
+const unsortedPosts = await getCollection("posts");
+
+const posts = unsortedPosts
+	.filter((post) => !post.data.draft)
+	.sort(
+		(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+	) as TPost[];
 ---
 
 <Block backgroundColor="primary" growWithContent={true}>

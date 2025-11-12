@@ -13,7 +13,9 @@ const isLink = variant === "link";
 		{text}
 	</a>
 ) : (
-	<button class={`button ${variant}`}>{text} -></button>
+	<a class={`button ${variant}`} href={href}>
+		{text}
+	</a>
 )}
 
 <style>

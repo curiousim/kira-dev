@@ -1,7 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import Badge from "../components/common/Badge.astro";
+import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
@@ -16,7 +16,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 	<Block slot="main">
 		<div class="main-content">
 			<span class="main-title">
-				<h1>Kira_Menshov</h1>
+				<h1>Kira</h1>
 				<h1>Software_Engineer</h1>
 				<h1>•Tel-Aviv</h1>
 			</span>
@@ -59,22 +59,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 	<div slot="theme">
 		<ThemeSwitcher />
 	</div>
-	<Block slot="latest" backgroundColor="secondary">
-		<div class="blog-banner">
-			<div class="sidebar-title">
-				<Badge text="BLOG" />
-				<LinkButton text="VISIT BLOG" href="/blog" variant="link" />
-			</div>
-			<div class="blog-latest-post">
-				<h2>Latest Post</h2>
-				<p>
-					How to build a modern web application with React and
-					Node.js.
-				</p>
-			</div>
-			<LinkButton text="Read" href="/blog" variant="outline" />
-		</div>
-	</Block>
+	<InfoCardMainPage slot="latest" />
 </MainLayout>
 <style>
 	.main-content {

@@ -3,8 +3,20 @@ import BaseHead from "../components/BaseHead.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
+import Badge from "../components/common/Badge.astro";
+import Button from "../components/common/LinkButton.astro";
 
-const { title, description, pubDate } = Astro.props;
+const { title, description, pubDate, tags } = Astro.props;
+
+const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
+const pubDateObj = new Date(pubDate);
+const pubDateOptions: Intl.DateTimeFormatOptions = {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+};
+const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 ---
 
 <BaseHead title={title} description={description} />
@@ -13,12 +25,12 @@ const { title, description, pubDate } = Astro.props;
 	<div slot="main">
 		<Block>
 			<div class="article-header">
-				<a href="/blog" class="back-link">← BACK TO BLOG</a>
-				<span class="blog-badge">BLOG</span>
+				<Button text="← Back to Blog" href="/blog" variant="link" />
+				<Badge text={tagsToString} />
 			</div>
 			<div class="article-meta">
 				<span class="article-date">
-					<!-- <FormattedDate date={pubDate} /> -->
+					{pubDateFormatted}
 				</span>
 			</div>
 			<h1 class="article-title">{title}</h1>
@@ -27,21 +39,8 @@ const { title, description, pubDate } = Astro.props;
 			</div>
 		</Block>
 	</div>
-	<div slot="sidebar">
-		<ThemeSwitcher />
-		<Block backgroundColor="secondary">
-			<h2 class="sidebar-title">About</h2>
-			<p>Kira_Menshov<br />Software_engineer<br />• Tel-Aviv</p>
-			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting
-				industry. Lorem Ipsum has been the industry's standard dummy
-				text
-			</p>
-			<a class="blog-read-btn" href="/about"
-				>ABOUT <span class="arrow">→</span>
-			</a>
-		</Block>
-	</div>
+	<ThemeSwitcher slot="theme" />
+	<InfoCardBlogPost slot="latest" />
 </MainLayout>
 
 <style>
@@ -51,35 +50,11 @@ const { title, description, pubDate } = Astro.props;
 		align-items: flex-start;
 		margin-bottom: 1.5rem;
 	}
-	.back-link {
-		font-family: var(--ff-heading);
-		font-size: 1.1rem;
-		color: var(--text-high-contrast);
-		text-decoration: none;
-		letter-spacing: 0.04em;
-		border-bottom: 2px solid var(--accent);
-		padding-bottom: 2px;
-		transition: color 0.2s, border-color 0.2s;
-	}
-	.back-link:hover {
-		color: var(--accent);
-		border-color: var(--text-high-contrast);
-	}
-	.blog-badge {
-		background: var(--accent);
-		color: #fff;
-		font-size: 0.95rem;
-		font-family: var(--ff-heading);
-		font-weight: 700;
-		border-radius: 0.3em;
-		padding: 0.1em 0.7em;
-		margin-left: 1rem;
-	}
 	.article-meta {
 		margin-bottom: 0.5rem;
 	}
 	.article-date {
-		color: #b0b0b0;
+		color: var(--text-blog-date);
 		font-size: 1rem;
 		font-family: var(--ff-heading);
 		letter-spacing: 0.04em;

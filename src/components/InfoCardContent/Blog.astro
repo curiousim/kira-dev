@@ -1,0 +1,25 @@
+---
+import Badge from "../common/Badge.astro";
+import Block from "../common/Block.astro";
+import LinkButton from "../common/LinkButton.astro";
+
+import "./style.css";
+---
+
+<Block backgroundColor="secondary">
+	<div class="blog-banner">
+		<div class="sidebar-title">
+			<Badge text="ABOUT" />
+		</div>
+		<div class="blog-latest-post">
+			<h2>
+				{`
+                Kira
+                Software_engineer
+                `}
+			</h2>
+			<p></p>
+		</div>
+		<LinkButton text="About -->" href={`/about`} variant="outline" />
+	</div>
+</Block>

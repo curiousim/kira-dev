@@ -1,0 +1,28 @@
+.blog-banner {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 10fr 1fr;
+	h2,
+	p,
+	a {
+		margin: 0;
+		color: var(--text-info-card) !important;
+		border-color: var(--text-info-card) !important;
+	}
+}
+.blog-latest-post {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding-block: 3rem;
+}
+.sidebar-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--text-info-card);
+}

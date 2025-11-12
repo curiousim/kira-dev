@@ -1,17 +1,13 @@
 ---
+import type { TPost } from "../../types/post";
 import LinkButton from "../common/LinkButton.astro";
 
 interface Props {
-	post: {
-		id: string;
-		data: {
-			title: string;
-			description: string;
-			pubDate: Date;
-		};
-	};
+	post: TPost;
 }
 const { post } = Astro.props;
+
+console.log(`/blog/${post.id}`);
 ---
 
 <div class="blog-card">
@@ -20,10 +16,11 @@ const { post } = Astro.props;
 			{post.data.pubDate.toLocaleDateString()}
 		</span>
 		<h2>{post.data.title}</h2>
-		<p class="blog-desc">{post.data.description}</p>
-	</div>
-	<div class="blog-card-action">
-		<LinkButton text="READ" href={`/blog/${post.id}`} variant="outline" />
+		<div class="blog-description-action">
+			<p class="blog-desc">{post.data.description}</p>
+			<LinkButton text="READ" href={`/blog/${post.id}`} variant="outline"
+			/>
+		</div>
 	</div>
 </div>
 
@@ -33,11 +30,13 @@ const { post } = Astro.props;
 		background: var(--block-card-background);
 		border-radius: var(--radii-10);
 		padding: 1rem;
-		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
 		height: 160px;
+	}
+	.blog-card:hover {
+		background: var(--block-card-background-hover);
 	}
 	.blog-card-content {
 		display: flex;
@@ -45,21 +44,35 @@ const { post } = Astro.props;
 
 		height: 100%;
 		flex: 3;
+		h2 {
+			color: var(--block-card-text);
+		}
 	}
-	.blog-card-action {
+	.blog-description-action {
+		margin-top: 10px;
 		display: flex;
-		align-items: flex-end;
-		justify-content: center;
+		align-items: center;
+		justify-content: space-between;
 		flex: 1;
+		color: var(--button-blog-card-color);
 
-		> button:hover {
+		p {
+			color: var(--block-card-text);
+		}
+
+		> a {
+			border-color: 1px var(--button-blog-card-color);
+			color: var(--button-blog-card-color);
+		}
+
+		> a:hover {
 			background-color: var(--button-blog-card-background-hover);
 			border-color: var(--button-blog-card-background-hover);
-			color: #fff;
+			color: var(--button-blog-card-color-hover);
 		}
 	}
 	.blog-date {
-		color: #b0b0b0;
+		color: var(--text-blog-date);
 		font-size: 14px;
 		letter-spacing: 0.04em;
 		padding-bottom: 10px;
@@ -70,29 +83,10 @@ const { post } = Astro.props;
 		margin: 0 0 0.5rem 0;
 		max-lines: 2;
 	}
-	.blog-read-btn {
-		align-self: flex-end;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5em;
-		font-family: var(--ff-heading);
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--text-high-contrast);
-		background: var(--blog-btn-bg, transparent);
-		border: 2px solid var(--text-high-contrast);
-		border-radius: 0.5em;
-		padding: 0.4em 1.5em;
-		text-decoration: none;
-		transition: background 0.2s, color 0.2s, border-color 0.2s;
-	}
 	.blog-read-btn:hover {
 		background: var(--accent);
 		color: #fff;
 		border-color: var(--accent);
-	}
-	.arrow {
-		font-size: 1.2em;
 	}
 	@media (max-width: 900px) {
 		.blog-card {

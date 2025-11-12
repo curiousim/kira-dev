@@ -1,0 +1,33 @@
+---
+import Badge from "../common/Badge.astro";
+import Block from "../common/Block.astro";
+import LinkButton from "../common/LinkButton.astro";
+import { getCollection } from "astro:content";
+
+import "./style.css";
+
+const posts = await getCollection("posts");
+
+const latestPost = posts.sort(
+	(a, b) =>
+		new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+)[0];
+---
+
+<Block backgroundColor="secondary">
+	<div class="blog-banner">
+		<div class="sidebar-title">
+			<Badge text="BLOG" />
+			<LinkButton text="VISIT BLOG" href="/blog" variant="link" />
+		</div>
+		<div class="blog-latest-post">
+			<h2>{latestPost.data.title}</h2>
+			<p>{latestPost.data.description}</p>
+		</div>
+		<LinkButton
+			text="Read"
+			href={`/blog/${latestPost.id}`}
+			variant="outline"
+		/>
+	</div>
+</Block>

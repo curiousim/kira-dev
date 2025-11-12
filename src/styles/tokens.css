@@ -1,0 +1,140 @@
+@layer base {
+	:root {
+		--clr-white: hsl(0, 0%, 100%);
+		--clr-black: hsla(0, 0%, 16%, 1);
+		/* grey */
+		--clr-gray-100: hsla(0, 0%, 95%, 1);
+		--clr-gray-500: hsla(0, 0%, 69%, 1);
+		--clr-gray-700: hsla(0, 0%, 56%, 1);
+		--clr-gray-900: hsla(0, 1%, 53%, 1);
+		/* blue */
+		--clr-blueberry-100: hsla(231, 59%, 89%, 1);
+		--clr-blueberry-200: hsla(231, 59%, 80%, 1);
+		--clr-blueberry-300: hsla(229, 88%, 70%, 1);
+		--clr-blueberry-500: hsla(229, 90%, 65%, 1);
+		--clr-blueberry-600: hsla(229, 61%, 56%, 1);
+		--clr-blueberry-700: hsla(229, 61%, 47%, 1);
+		/* pink */
+		--clr-pink-100: hsla(331, 76%, 94%, 1);
+		--clr-pink-300: hsla(331, 76%, 87%, 1);
+		--clr-pink-500: hsla(331, 95%, 75%, 1);
+		/* lavender */
+		--clr-lavender-100: hsla(266, 66%, 94%, 1);
+		--clr-lavender-200: hsla(266, 66%, 85%, 1);
+		--clr-lavender-300: hsla(266, 66%, 77%, 1);
+		--clr-lavender-500: hsla(266, 66%, 62%, 1);
+		/* yellow */
+		/* --clr-yellow-300: hsla(52, 100%, 68%, 0.4); */
+		--clr-yellow-500: hsla(52, 100%, 68%, 1);
+		--clr-yellow-700: hsla(44, 100%, 61%, 1);
+
+		--ff-heading: "JetBrains Mono", monospace;
+		--ff-body: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
+			Roboto, sans-serif;
+
+		--radii-10: 10px;
+
+		--default-layout-gap: 1.5rem;
+		--big-layout-gap: 2.5rem;
+
+		--fs-300: 0.875rem;
+		--fs-400: 1rem;
+		--fs-500: 1.125rem;
+		--fs-600: 1.25rem;
+		--fs-700: 1.5rem;
+		--fs-800: 2rem;
+		--fs-900: 2.75rem;
+		--fs-1000: 3.45rem;
+
+		@media (width > 760px) {
+			--fs-300: 0.875rem;
+			--fs-400: 1rem;
+			--fs-500: 1.125rem;
+			--fs-600: 1.25rem;
+			--fs-700: 1.5rem;
+			--fs-800: 2rem;
+			--fs-900: 2.75rem;
+			--fs-1000: 3.45rem;
+		}
+	}
+	/* in another selector for syntax highlighting reasons only */
+	:root {
+		/* Default theme: yellow */
+		--badge-background: var(--clr-pink-500);
+		--badge-text: var(--clr-yellow-500);
+
+		--background-main: var(--clr-gray-900);
+		--background-content: var(--clr-gray-100);
+		--background-secondary: var(--clr-yellow-500);
+
+		/* BUTTON */
+		--button-blog-card-background-hover: var(--clr-blueberry-500);
+		--button-blog-card-color: var(--clr-black);
+		--button-blog-card-color-hover: var(--clr-white);
+		--button-hovered-background: var(--clr-pink-500);
+
+		/* BLOCK CARD */
+		--block-card-background: var(--clr-blueberry-100);
+		--block-card-background-hover: var(--clr-blueberry-200);
+		--block-card-text: var(--clr-black);
+
+		--text-main: var(--clr-black);
+		--text-high-contrast: var(--clr-black);
+		--text-info-card: var(--clr-black);
+		--text-blog-date: var(--clr-gray-900);
+
+		--accent: #ffb6c1;
+	}
+	[data-theme="blue"] {
+		--badge-background: var(--clr-black);
+		--badge-text: var(--clr-blueberry-500);
+
+		--background-main: var(--clr-black);
+		--background-content: var(--clr-blueberry-500);
+		--background-secondary: var(--clr-blueberry-500);
+
+		/* BUTTON */
+		--button-blog-card-background-hover: var(--clr-blueberry-700);
+		--button-blog-card-color: var(--clr-white);
+		--button-blog-card-color-hover: var(--clr-white);
+		--button-hovered-background: var(--clr-pink-500);
+
+		/* BLOCK CARD */
+		--block-card-background: var(--clr-blueberry-300);
+		--block-card-background-hover: var(--clr-blueberry-600);
+		--block-card-text: var(--clr-white);
+
+		--text-main: var(--clr-black);
+		--text-high-contrast: var(--clr-black);
+		--text-info-card: var(--clr-white);
+		--text-blog-date: var(--clr-white);
+
+		--accent: #ffb6c1;
+	}
+	[data-theme="pink"] {
+		--badge-background: var(--clr-yellow-500);
+		--badge-text: var(--clr-black);
+
+		--background-main: var(--clr-pink-500);
+		--background-content: var(--clr-gray-100);
+		--background-secondary: var(--clr-lavender-500);
+
+		/* BUTTON */
+		--button-blog-card-background-hover: var(--clr-lavender-500);
+		--button-blog-card-color: var(--clr-black);
+		--button-blog-card-color-hover: var(--clr-white);
+		--button-hovered-background: var(--clr-pink-500);
+
+		/* BLOCK CARD */
+		--block-card-background-hover: var(--clr-lavender-200);
+		--block-card-background: var(--clr-lavender-100);
+		--block-card-text: var(--clr-black);
+
+		--text-main: var(--clr-black);
+		--text-high-contrast: var(--clr-white);
+		--text-info-card: var(--clr-white);
+		--text-blog-date: var(--clr-gray-900);
+
+		--accent: var(--clr-yellow-500);
+	}
+}

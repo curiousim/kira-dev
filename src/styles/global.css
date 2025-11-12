@@ -1,3 +1,5 @@
+@import "./tokens.css";
+
 @layer reset {
 	*,
 	*::before,
@@ -140,97 +142,6 @@
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
-}
-
-@layer base {
-	:root {
-		--clr-white: hsl(0, 0%, 100%);
-		--clr-black: hsla(0, 0%, 17%, 1);
-		/* grey */
-		--clr-gray-100: hsla(0, 0%, 95%, 1);
-		--clr-gray-500: hsla(0, 0%, 69%, 1);
-		--clr-gray-700: hsla(0, 0%, 56%, 1);
-		--clr-gray-900: hsla(0, 1%, 53%, 1);
-		/* blue */
-		--clr-blueberry-100: hsla(231, 59%, 89%, 1);
-		--clr-blueberry-300: hsla(229, 88%, 70%, 1);
-		--clr-blueberry-500: hsla(229, 90%, 65%, 1);
-		--clr-blueberry-700: hsla(229, 61%, 47%, 1);
-		/* pink */
-		--clr-pink-100: hsla(331, 76%, 94%, 1);
-		--clr-pink-300: hsla(331, 76%, 87%, 1);
-		--clr-pink-500: hsla(331, 95%, 75%, 1);
-		/* lavender */
-		--clr-lavender-100: hsla(266, 66%, 94%, 1);
-		--clr-lavender-300: hsla(266, 66%, 77%, 1);
-		--clr-lavender-500: hsla(266, 66%, 62%, 1);
-		/* yellow */
-		/* --clr-yellow-300: hsla(52, 100%, 68%, 0.4); */
-		--clr-yellow-500: hsla(52, 100%, 68%, 1);
-		--clr-yellow-700: hsla(44, 100%, 61%, 1);
-
-		--ff-heading: "JetBrains Mono", monospace;
-		--ff-body: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
-			Roboto, sans-serif;
-
-		--radii-10: 10px;
-
-		--default-layout-gap: 1.5rem;
-		--big-layout-gap: 2.5rem;
-
-		--fs-300: 0.875rem;
-		--fs-400: 1rem;
-		--fs-500: 1.125rem;
-		--fs-600: 1.25rem;
-		--fs-700: 1.5rem;
-		--fs-800: 2rem;
-		--fs-900: 2.75rem;
-		--fs-1000: 3.45rem;
-
-		@media (width > 760px) {
-			--fs-300: 0.875rem;
-			--fs-400: 1rem;
-			--fs-500: 1.125rem;
-			--fs-600: 1.25rem;
-			--fs-700: 1.5rem;
-			--fs-800: 2rem;
-			--fs-900: 2.75rem;
-			--fs-1000: 3.45rem;
-		}
-	}
-	/* in another selector for syntax highlighting reasons only */
-	:root {
-		/* Default theme: yellow */
-		--badge-background: var(--clr-pink-500);
-		--badge-text: var(--clr-yellow-500);
-		--background-main: var(--clr-gray-900);
-		--background-content: var(--clr-gray-100);
-		--background-secondary: var(--clr-yellow-500);
-		--button-hovered-background: var(--clr-pink-500);
-		--block-card-background: var(--clr-blueberry-100);
-		--text-main: #222;
-		--text-high-contrast: #000;
-		--accent: #ffb6c1;
-		/* BUTTON */
-		--button-blog-card-background-hover: var(--clr-blueberry-500);
-	}
-	[data-theme="blue"] {
-		--background-main: #5c7cfa;
-		--background-content: #e6edff;
-		--background-secondary: #a5b4fc;
-		--block-card-background: #cfd8fc;
-		--text-main: #fff;
-		--text-high-contrast: #fff;
-		--accent: #ffd700;
-	}
-	[data-theme="pink"] {
-		--background-main: var(--clr-pink-500);
-		--background-content: var(--clr-gray-100);
-		--background-secondary: var(--clr-lavender-500);
-		--text-main: var(--clr-black);
-		--text-high-contrast: var(--clr-white);
-		--accent: var(--clr-yellow-500);
-	}
 }
 
 @layer base {
