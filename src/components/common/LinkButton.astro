@@ -3,17 +3,26 @@ interface Props {
 	variant?: "outline" | "link" | "colored" | "secondary";
 	text: string;
 	href?: string;
+	outside?: boolean;
 }
-const { variant = "outline", text, href = "#" } = Astro.props;
+const { variant = "outline", text, href = "#", outside = false } = Astro.props;
 const isLink = variant === "link";
 ---
 
 {isLink ? (
-	<a href={href} class={`button ${variant}`}>
+	<a
+		href={href}
+		class={`button ${variant}`}
+		target={outside ? "_blank" : "_self"}
+		rel={outside ? "noopener noreferrer" : ""}>
 		{text}
 	</a>
 ) : (
-	<a class={`button ${variant}`} href={href}>
+	<a
+		class={`button ${variant}`}
+		href={href}
+		target={outside ? "_blank" : "_self"}
+		rel={outside ? "noopener noreferrer" : ""}>
 		{text}
 	</a>
 )}
@@ -56,7 +65,7 @@ const isLink = variant === "link";
 	}
 
 	.outline {
-		border: 1px solid var(--text-high-contrast);
+		border: 1px solid var(--button-border-color);
 	}
 
 	.outline:hover {

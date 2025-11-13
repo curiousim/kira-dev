@@ -5,53 +5,68 @@ import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+
+const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
 <BaseHead
 	title="Kira Menshov – Software Engineer"
-	description="Personal site of Kira Menshov, frontend developer."
+	description="Personal site of Kira Menshov, frontend engineer."
 />
 
 <MainLayout>
 	<Block slot="main">
 		<div class="main-content">
 			<span class="main-title">
-				<h1>Kira</h1>
-				<h1>Software_Engineer</h1>
-				<h1>•Tel-Aviv</h1>
+				<h1></h1>
+				<h1>Hi,I'm Kira</h1>
+				<h1>• Front-End Developer</h1>
 			</span>
 			<div class="intro">
 				<p>
-					I am a software engineer with a passion for building
-					products that make a difference. I have experience in
-					full-stack development, with a focus on front-end
-					technologies. I am currently working at a startup in Tel
-					Aviv, where I am responsible for building and maintaining
-					the company's web application.
+					Well, <u>mostly</u> a front-end developer. I happened to fall
+					into this rabbit hole {yearsInTheField}+ years ago and while
+					being interested in many other things outside of front-end,
+					my main focus stays on web development. But I think in
+					general I just like to build things, solve problems, and
+					learn about new technologies.
 				</p>
+
 				<p>
-					I am always looking for new opportunities to learn and grow
-					as a developer. I am excited to work on projects that
-					challenge me and allow me to use my skills to create
-					something meaningful.
+					I worked in <a href="https://cheq.ai/">Cheq</a>,
+					<a href="https://esh.com/">EshOS</a> and <a
+						href="https://torq.io/"
+						>Torq
+					</a> as a senior front-end developer. But frankly, I still feel
+					like a junior, as there is so much to learn and explore in this
+					field. Just now I know how many more areas and technologies are
+					out there.
 				</p>
+
 				<p>
-					In my free time, I enjoy reading, hiking, and spending time
-					with my family. I am also an avid traveler and love
-					exploring new places and cultures.
+					I also love to write and try to put on paper (quite
+					literally 📖🖋️) everything I learn. So why not to share it
+					with others?
 				</p>
 			</div>
 			<div class="buttons-container">
-				<LinkButton text="Blog -->" href="/blog" variant="outline" />
+				<LinkButton
+					text="Bluesky -->"
+					href="https://bsky.app/profile/kiramnshv.bsky.social"
+					variant="outline"
+					outside
+				/>
 				<LinkButton
 					text="Github -->"
-					href="https://github.com/kira"
+					href="https://github.com/curiousim"
 					variant="outline"
+					outside
 				/>
 				<LinkButton
 					text="LinkedIn -->"
-					href="https://linkedin.com/in/kira"
+					href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
 					variant="outline"
+					outside
 				/>
 			</div>
 		</div>
@@ -70,9 +85,10 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 	.main-title {
 		display: flex;
 		flex-direction: column;
+		padding-top: 100px;
 	}
 	.intro {
-		margin-top: 2rem;
+		margin-top: 62px;
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;

@@ -68,6 +68,7 @@
 		--background-secondary: var(--clr-yellow-500);
 
 		/* BUTTON */
+		--button-border-color: var(--clr-black);
 		--button-blog-card-background-hover: var(--clr-blueberry-500);
 		--button-blog-card-color: var(--clr-black);
 		--button-blog-card-color-hover: var(--clr-white);
@@ -114,17 +115,19 @@
 		--background-secondary: var(--clr-blueberry-500);
 
 		/* BUTTON */
+		--button-border-color: var(--clr-white);
+		--button-hover-color: var(--clr-black);
+		--button-hovered-background: var(--clr-white);
 		--button-blog-card-background-hover: var(--clr-blueberry-700);
 		--button-blog-card-color: var(--clr-white);
 		--button-blog-card-color-hover: var(--clr-white);
-		--button-hovered-background: var(--clr-pink-500);
 
 		/* BLOCK CARD */
 		--block-card-background: var(--clr-blueberry-300);
 		--block-card-background-hover: var(--clr-blueberry-600);
 		--block-card-text: var(--clr-white);
 
-		--text-main: var(--clr-black);
+		--text-main: var(--clr-white);
 		--text-high-contrast: var(--clr-black);
 		--text-info-card: var(--clr-white);
 		--text-blog-date: var(--clr-white);
@@ -160,10 +163,12 @@
 		--background-secondary: var(--clr-lavender-500);
 
 		/* BUTTON */
+		--button-border-color: var(--clr-black);
+		--button-hover-color: var(--clr-white);
 		--button-blog-card-background-hover: var(--clr-lavender-500);
 		--button-blog-card-color: var(--clr-black);
 		--button-blog-card-color-hover: var(--clr-white);
-		--button-hovered-background: var(--clr-pink-500);
+		--button-hovered-background: var(--clr-black);
 
 		/* BLOCK CARD */
 		--block-card-background-hover: var(--clr-lavender-200);

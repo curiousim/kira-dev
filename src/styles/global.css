@@ -57,6 +57,11 @@
 		font-family: var(--ff-heading);
 	}
 
+	code {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.95em;
+	}
+
 	p,
 	li {
 		text-wrap: pretty;
@@ -160,12 +165,7 @@
 	}
 
 	a {
-		color: var(--text-high-contrast);
-	}
-
-	a:hover,
-	a:focus-visible {
-		color: var(--text-brand-light);
+		color: var(--text-color);
 	}
 
 	img {

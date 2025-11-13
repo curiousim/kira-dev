@@ -11,6 +11,10 @@
 		color: var(--text-info-card) !important;
 		border-color: var(--text-info-card) !important;
 	}
+
+	a:hover {
+		color: var(--button-hover-color) !important;
+	}
 }
 .blog-latest-post {
 	width: 100%;
