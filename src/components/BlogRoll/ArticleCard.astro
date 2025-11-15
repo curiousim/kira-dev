@@ -96,4 +96,17 @@ console.log(`/blog/${post.id}`);
 			font-size: 1.2rem;
 		}
 	}
+
+	@media (max-width: 900px) {
+		.blog-card {
+			height: auto;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.blog-description-action {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+	}
 </style>
