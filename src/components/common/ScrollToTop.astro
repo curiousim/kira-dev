@@ -1,0 +1,32 @@
+---
+import Block from "./Block.astro";
+---
+
+<div class="scroll-to-top-container">
+	<button
+		class="scroll-to-top-btn"
+		onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+		aria-label="Scroll to top">
+		↑ Back To The Top
+	</button>
+</div>
+
+<style>
+	.scroll-to-top-container {
+		background-color: var(--background-content);
+		padding: var(--default-layout-gap);
+		border-radius: var(--radii-10);
+		text-align: center;
+	}
+	.scroll-to-top-btn {
+		background-color: transparent;
+		border: none;
+		font-family: var(--ff-heading);
+		text-decoration: underline;
+		text-transform: uppercase;
+		color: var(--text-main);
+		cursor: pointer;
+		font-size: 16px;
+		font-weight: 500;
+	}
+</style>
