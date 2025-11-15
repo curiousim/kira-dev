@@ -85,10 +85,10 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	.main-title {
 		display: flex;
 		flex-direction: column;
-		padding-top: 50px;
+		margin-top: 50px;
+		margin-bottom: 62px;
 	}
 	.intro {
-		margin-top: 62px;
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
@@ -123,13 +123,17 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	}
 	@media (max-width: 900px) {
 		.main-title {
-			font-size: 1.5rem;
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.5rem;
+			margin-top: 0px;
+			margin-bottom: 36px;
 		}
-		.intro {
-			font-size: 1rem;
+
+		.buttons-container {
+			margin-top: 50px;
+			flex-direction: column;
+			gap: 1rem;
 		}
 	}
 </style>

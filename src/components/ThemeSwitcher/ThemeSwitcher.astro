@@ -5,7 +5,7 @@ import BlueButton from "./BlueButton.astro";
 import PinkButton from "./PinkButton.astro";
 ---
 
-<Block>
+<div class="theme-switcher-container">
 	<div class="theme-switcher">
 		<button
 			aria-label="Yellow theme"
@@ -37,9 +37,15 @@ import PinkButton from "./PinkButton.astro";
 		if (saved) document.documentElement.setAttribute("data-theme", saved);
 	</script>
 	<style>
+		.theme-switcher-container {
+			width: 100%;
+			padding: var(--default-layout-gap) 0;
+			background: var(--background-content);
+			border-radius: var(--radii-10);
+			padding: var(--default-layout-gap) var(--default-layout-gap);
+		}
 		.theme-switcher {
 			display: flex;
-			height: 100%;
 			width: 100%;
 			gap: var(--default-layout-gap);
 			justify-content: space-between;
@@ -60,5 +66,16 @@ import PinkButton from "./PinkButton.astro";
 		.theme-btn:hover {
 			transform: scale(1.1);
 		}
+
+		@media (max-width: 900px) {
+			.theme-switcher-container {
+				border-radius: var(--radii-10);
+				padding: 10px;
+			}
+
+			.theme-btn {
+				height: 48px;
+			}
+		}
 	</style>
-</Block>
+</div>

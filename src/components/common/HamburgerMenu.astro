@@ -1,0 +1,215 @@
+---
+interface Props {
+	links?: Array<{ href: string; label: string }>;
+}
+
+const { links = [] } = Astro.props;
+---
+
+<div class="hamburger-wrapper">
+	<button
+		class="hamburger-button"
+		aria-label="Toggle menu"
+		aria-expanded="false">
+		<span class="hamburger-line"></span>
+		<span class="hamburger-line"></span>
+		<span class="hamburger-line"></span>
+	</button>
+
+	<nav class="mobile-menu" aria-hidden="true">
+		<ul class="menu-list">
+			{links.map((link) => (
+				<li class="menu-item">
+					<a href={link.href} class="menu-link">
+						{link.label}
+					</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+</div>
+
+<style>
+	.hamburger-wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 68px;
+		height: 68px;
+		background-color: var(--background-content);
+		border-radius: var(--radii-10);
+	}
+
+	.hamburger-button {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 32px;
+		height: 24px;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		z-index: 1001;
+		position: relative;
+	}
+
+	.hamburger-line {
+		width: 100%;
+		height: 3px;
+		background-color: var(--text-main);
+		border-radius: 2px;
+		transition: all 0.3s ease-in-out;
+		transform-origin: center;
+	}
+
+	/* Hamburger animation to X */
+	.hamburger-button.active .hamburger-line:nth-child(1) {
+		transform: translateY(10.5px) rotate(45deg);
+	}
+
+	.hamburger-button.active .hamburger-line:nth-child(2) {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+
+	.hamburger-button.active .hamburger-line:nth-child(3) {
+		transform: translateY(-10.5px) rotate(-45deg);
+	}
+
+	/* Mobile menu */
+	.mobile-menu {
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 100%;
+		max-width: 300px;
+		height: 100vh;
+		background: var(--background-content);
+		border-left: 2px solid var(--button-border-color);
+		transform: translateX(100%);
+		transition: transform 0.3s ease-in-out;
+		z-index: 1000;
+		padding: 80px 32px 32px;
+		box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+	}
+
+	.mobile-menu.active {
+		transform: translateX(0);
+	}
+
+	.menu-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.menu-item {
+		opacity: 0;
+		transform: translateX(20px);
+		transition: all 0.3s ease-in-out;
+	}
+
+	.mobile-menu.active .menu-item {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	/* Stagger animation for menu items */
+	.mobile-menu.active .menu-item:nth-child(1) {
+		transition-delay: 0.1s;
+	}
+
+	.mobile-menu.active .menu-item:nth-child(2) {
+		transition-delay: 0.2s;
+	}
+
+	.mobile-menu.active .menu-item:nth-child(3) {
+		transition-delay: 0.3s;
+	}
+
+	.mobile-menu.active .menu-item:nth-child(4) {
+		transition-delay: 0.4s;
+	}
+
+	.mobile-menu.active .menu-item:nth-child(5) {
+		transition-delay: 0.5s;
+	}
+
+	.menu-link {
+		color: var(--text-main);
+		text-decoration: none;
+		font-size: 20px;
+		font-weight: 500;
+		font-family: var(--ff-heading);
+		transition: color 0.2s ease;
+		display: block;
+		padding: 8px 0;
+	}
+
+	.menu-link:hover {
+		color: var(--background-secondary);
+	}
+
+	/* Hide on desktop */
+	@media (min-width: 901px) {
+		.hamburger-wrapper {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const hamburgerButton = document.querySelector(".hamburger-button");
+	const mobileMenu = document.querySelector(".mobile-menu");
+
+	if (hamburgerButton && mobileMenu) {
+		hamburgerButton.addEventListener("click", () => {
+			const isActive = hamburgerButton.classList.contains("active");
+
+			// Toggle active classes
+			hamburgerButton.classList.toggle("active");
+			mobileMenu.classList.toggle("active");
+
+			// Update aria attributes
+			hamburgerButton.setAttribute(
+				"aria-expanded",
+				(!isActive).toString()
+			);
+			mobileMenu.setAttribute("aria-hidden", isActive.toString());
+
+			// Prevent body scroll when menu is open
+			document.body.style.overflow = isActive ? "" : "hidden";
+		});
+
+		// Close menu when clicking on a link
+		const menuLinks = document.querySelectorAll(".menu-link");
+		menuLinks.forEach((link) => {
+			link.addEventListener("click", () => {
+				hamburgerButton.classList.remove("active");
+				mobileMenu.classList.remove("active");
+				hamburgerButton.setAttribute("aria-expanded", "false");
+				mobileMenu.setAttribute("aria-hidden", "true");
+				document.body.style.overflow = "";
+			});
+		});
+
+		// Close menu on escape key
+		document.addEventListener("keydown", (e) => {
+			if (
+				e.key === "Escape" &&
+				hamburgerButton.classList.contains("active")
+			) {
+				hamburgerButton.classList.remove("active");
+				mobileMenu.classList.remove("active");
+				hamburgerButton.setAttribute("aria-expanded", "false");
+				mobileMenu.setAttribute("aria-hidden", "true");
+				document.body.style.overflow = "";
+			}
+		});
+	}
+</script>

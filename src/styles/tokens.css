@@ -34,27 +34,30 @@
 
 		--radii-10: 10px;
 
-		--default-layout-gap: 1.5rem;
-		--big-layout-gap: 2.5rem;
+		--default-layout-gap: 24px;
+		--big-layout-gap: 40px;
 
-		--fs-300: 0.875rem;
-		--fs-400: 1rem;
-		--fs-500: 1.125rem;
-		--fs-600: 1.25rem;
-		--fs-700: 1.5rem;
-		--fs-800: 2rem;
-		--fs-900: 2.75rem;
-		--fs-1000: 3.45rem;
+		--fs-300: 14px;
+		--fs-400: 16px;
+		--fs-500: 18px;
+		--fs-600: 20px;
+		--fs-700: 24px;
+		--fs-800: 32px;
+		--fs-900: 44px;
+		--fs-1000: 55.2px;
 
-		@media (width > 760px) {
-			--fs-300: 0.875rem;
-			--fs-400: 1rem;
-			--fs-500: 1.125rem;
-			--fs-600: 1.25rem;
-			--fs-700: 1.5rem;
-			--fs-800: 2rem;
-			--fs-900: 2.75rem;
-			--fs-1000: 3.45rem;
+		@media (max-width: 900px) {
+			--default-layout-gap: 16px;
+			--big-layout-gap: 24px;
+
+			--fs-300: 13px;
+			--fs-400: 15px;
+			--fs-500: 16px;
+			--fs-600: 18px;
+			--fs-700: 20px;
+			--fs-800: 24px;
+			--fs-900: 32px;
+			--fs-1000: 40px;
 		}
 	}
 	/* in another selector for syntax highlighting reasons only */
