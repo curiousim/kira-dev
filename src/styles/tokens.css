@@ -139,23 +139,23 @@
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
-		--theme-btn-yellow-background: var(--clr-yellow-500);
-		--theme-btn-yellow-foreground: var(--clr-black);
-		--theme-btn-yellow-hover-background: var(--clr-yellow-500);
-		--theme-btn-yellow-hover-foreground: var(--clr-black);
+		--theme-btn-yellow-background: var(--clr-black);
+		--theme-btn-yellow-foreground: var(--clr-yellow-500);
+		--theme-btn-yellow-hover-background: var(--clr-black);
+		--theme-btn-yellow-hover-foreground: var(--clr-yellow-500);
 
 		/* Blue Button */
-		--theme-btn-blue-background: var(--clr-blueberry-500);
+		--theme-btn-blue-background: var(--clr-black);
 		--theme-btn-blue-foreground: var(--clr-white);
 		--theme-btn-blue-hover-background: var(--clr-black);
 		--theme-btn-blue-hover-foreground: var(--clr-gray-700);
 		--theme-btn-blue-hover-accent: var(--clr-blueberry-500);
 
 		/* Pink Button */
-		--theme-btn-pink-background: var(--clr-pink-500);
-		--theme-btn-pink-foreground: var(--clr-black);
-		--theme-btn-pink-hover-background: var(--clr-pink-500);
-		--theme-btn-pink-hover-foreground: var(--clr-black);
+		--theme-btn-pink-background: var(--clr-black);
+		--theme-btn-pink-foreground: var(--clr-pink-500);
+		--theme-btn-pink-hover-background: var(--clr-black);
+		--theme-btn-pink-hover-foreground: var(--clr-pink-500);
 	}
 	[data-theme="pink"] {
 		--badge-background: var(--clr-yellow-500);
@@ -187,16 +187,16 @@
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
-		--theme-btn-yellow-background: var(--clr-yellow-500);
-		--theme-btn-yellow-foreground: var(--clr-black);
-		--theme-btn-yellow-hover-background: var(--clr-yellow-500);
-		--theme-btn-yellow-hover-foreground: var(--clr-black);
+		--theme-btn-yellow-background: var(--clr-pink-500);
+		--theme-btn-yellow-foreground: var(--clr-yellow-500);
+		--theme-btn-yellow-hover-background: var(--clr-pink-500);
+		--theme-btn-yellow-hover-foreground: var(--clr-yellow-500);
 
 		/* Blue Button */
-		--theme-btn-blue-background: var(--clr-blueberry-500);
-		--theme-btn-blue-foreground: var(--clr-white);
-		--theme-btn-blue-hover-background: var(--clr-black);
-		--theme-btn-blue-hover-foreground: var(--clr-gray-700);
+		--theme-btn-blue-background: var(--clr-pink-500);
+		--theme-btn-blue-foreground: var(--clr-blueberry-500);
+		--theme-btn-blue-hover-background: var(--clr-pink-500);
+		--theme-btn-blue-hover-foreground: var(--clr-blueberry-500);
 		--theme-btn-blue-hover-accent: var(--clr-blueberry-500);
 
 		/* Pink Button */
