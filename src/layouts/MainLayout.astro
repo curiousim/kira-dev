@@ -38,9 +38,10 @@ import { INTERNAL_LINKS } from "../consts";
 	}
 
 	.shell {
-		min-height: 100vh;
+		height: 100vh;
 		width: var(--shell-max);
 		padding: var(--pad);
+		box-sizing: border-box;
 		display: grid;
 		gap: var(--gap);
 		grid-template-columns: minmax(0, 2fr) minmax(var(--col-min), 1fr);
@@ -79,6 +80,8 @@ import { INTERNAL_LINKS } from "../consts";
 	/* MOBILE / SMALL screens */
 	@media (max-width: 900px) {
 		.shell {
+			height: 100vh;
+			overflow-y: auto;
 			gap: var(--gap);
 			grid-template-columns: 1fr;
 			grid-template-rows: auto;
