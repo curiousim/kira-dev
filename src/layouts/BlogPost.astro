@@ -7,7 +7,8 @@ import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
 import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
 
-const { title, description, pubDate, tags = [], heroImage } = Astro.props;
+const { title, description, pubDate, tags = [], heroImage, slug } = Astro.props;
+const ogImage = heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
 
 const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
 const pubDateObj = new Date(pubDate);
@@ -22,7 +23,7 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 <BaseHead
 	title={title}
 	description={description}
-	image={heroImage}
+	image={ogImage}
 	type="article"
 	pubDate={new Date(pubDate)}
 	tags={tags}
