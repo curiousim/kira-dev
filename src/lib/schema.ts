@@ -1,4 +1,4 @@
-const SITE_URL = "https://kira.dev";
+const SITE_URL = "https://kiramenshov.com";
 
 export const personSchema = {
 	"@context": "https://schema.org",

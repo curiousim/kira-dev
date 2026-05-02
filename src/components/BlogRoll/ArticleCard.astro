@@ -6,8 +6,7 @@ interface Props {
 	post: TPost;
 }
 const { post } = Astro.props;
-
-console.log(`/blog/${post.id}`);
+const slug = post.id.replace(/\.mdx?$/, "");
 ---
 
 <div class="blog-card">
@@ -18,7 +17,7 @@ console.log(`/blog/${post.id}`);
 		<h2>{post.data.title}</h2>
 		<div class="blog-description-action">
 			<p class="blog-desc">{post.data.description}</p>
-			<LinkButton text="READ" href={`/blog/${post.id}`} variant="outline"
+			<LinkButton text="READ" href={`/blog/${slug}`} variant="outline"
 			/>
 		</div>
 	</div>

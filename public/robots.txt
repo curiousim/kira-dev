@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kira.dev/sitemap-index.xml
+Sitemap: https://kiramenshov.com/sitemap-index.xml

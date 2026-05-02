@@ -10,6 +10,7 @@ import Button from "../components/common/LinkButton.astro";
 import { blogPostingSchema } from "../lib/schema";
 
 const { title, description, pubDate, updatedDate, tags = [], heroImage, slug } = Astro.props;
+const isGeneratedCard = !heroImage;
 const ogImage = heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
 const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const absoluteImage = new URL(ogImage, Astro.site ?? Astro.url).toString();
@@ -37,6 +38,8 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 	title={title}
 	description={description}
 	image={ogImage}
+	imageWidth={isGeneratedCard ? 1200 : undefined}
+	imageHeight={isGeneratedCard ? 630 : undefined}
 	type="article"
 	pubDate={new Date(pubDate)}
 	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
