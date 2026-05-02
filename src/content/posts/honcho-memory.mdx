@@ -1,0 +1,85 @@
+---
+title: "Honcho: agentic memory is different"
+description: "Exploring Honcho and Hindsight: two very different approaches to AI agent memory, and how I ended up with Honcho as the core of my personal AI setup."
+pubDate: 2026-05-02
+draft: false
+---
+
+import Callout from "../../components/common/Callout.astro";
+
+<img
+	src="/pictures/posts/honcho-memory/ghost-in-the-shell.jpg"
+	alt="Ghost in the Shell (1995) UK quad poster"
+	class="post-hero"
+/>
+
+## The ghost in the shell
+
+Since the beginning of the AI era, I dreamed about a sci-fi-level AI assistant. You know, HAL 9000, Tachikoma, Samantha from *Her*, JARVIS, etc. A computer you can talk to. And finally, I got one: Hermes Agent from Nous Research looked promising enough for me to overcome my laziness and dive into the new world of autonomous agents.
+
+But the agent itself is just another shell for an LLM. And I wanted a ghost in that shell, something that would create a persona, some essence that would persist. And Hermes docs offered me Honcho memory. Without much hesitation, I just created an account, swiftly created a workspace, and used the memory setup command in Hermes to connect the agent to memory.
+
+## First contact with Honcho
+
+<img
+	src="/pictures/posts/honcho-memory/honcho-logo.svg"
+	alt="Honcho logo"
+	class="post-figure-sm"
+/>
+
+The Honcho dashboard made no sense to me. I expected some kind of NoSQL database. Maybe a graph. But it had peers, personal cards, and chat. Figuring out what exactly I had bought and connected turned into an exciting deep dive into the new, for me, world of agent memory.
+
+I'm not capable of deep analysis of technical solutions in the AI field, so in my scope, I have a much simpler task: to help myself digest all the articles, videos, and documentation I consumed into simpler concepts about memory for thinking machines.
+
+Honcho operates differently from what I would expect from regular memory. It's not just storage, it's more like a subsystem that reflects on conversations and stores short conclusions. *"Kira prefers short clear messages"*, *"Kira likes to use emoji in her messages"*, *"Kira is working on a new ESLint setup for her project"*, *"Diana is asked to store forwarded messages in an Obsidian vault"*. Lots and lots of these one-sentence conclusions for each peer; in a week of use, I got more than 1000 of them.
+
+## Honcho as relational memory
+
+The concept behind this is quite cool. Honcho is building a representation of each peer and their perception of each other. It's clear to everyone that your teacher sees you differently from your boss at work, and your wife does not see you the same way as your mother or children. You are the same person, but everyone around you sees you according to their needs and roles.
+
+Something similar happens inside Honcho. It builds different connections between peers and uses conversations that go to it from the agent to make these conclusions. As a result, your coding agent won't be polluted with data from your personal assistant agent or facts from other users who use it, in case you have a common agent.
+
+It actually builds representations of peers by each other to give context and help find better answers. Kinda like humans do.
+
+## Honcho vs Hindsight
+
+For example, Hindsight, on the other hand, is less bothered with representations and works in a much more habitual way for memory: it collects facts and conclusions in the *"banks"* that are bound to each user. It also has some relationships between them, but not the way Honcho does it. Hindsight is about facts and relationships between them (*"evidence hierarchy"*).
+
+Both of them have *"dreaming"*: the process of analyzing received conversation. But here, also, the difference is huge.
+
+Honcho is reasoning about facts to build conclusions about the peer. Something like: *"Kira said she prefers Rust, she's working on VPN infrastructure, she asks about self-hosting a lot... she's probably a privacy-conscious systems-oriented developer."*
+
+Now with fact-based Hindsight, the same input will lead to something like this after consolidation, their name for dreaming:
+
+<Callout>
+	**World Facts:**
+	- *"Kira is learning Rust"*
+	- *"Kira deployed a Meridian VPN on DigitalOcean"*
+	- *"Kira has a personal website on Cloudflare Pages"*
+	- *"Kira asked about self-hosting Honcho"*
+
+	**Observations:**
+	- *"Kira has an interest in self-hosted infrastructure"* (proof count: 3, trend: strengthening)
+	- *"Kira is in the early-to-mid stages of learning Rust"* (proof count: 2, trend: stable)
+	- *"Kira uses privacy-oriented tooling"* (proof count: 2, trend: stable)
+</Callout>
+
+Almost no identity, cold facts.
+
+The last, so far, surprise that I found is in the way the agent retrieves data from memory. Again, I was expecting your usual *"give me data on that -> here's your JSON"* kinda way. And that's more or less what Hindsight does, but it also can reflect() if needed. But Honcho does something different.
+
+Honcho opens a chat between two agents, theirs called Neuromancer — they are so cool — and agents speak to each other in natural language. It's called *"dialectic chat"* in their concepts. So it's not about a collection of facts, or a DB lookup; that's not the Honcho way. They give concepts and representation.
+
+Again, as Hindsight has "reflect" that can also summarize the data and give a natural-language response, Honcho has its own base context, which can be sent as JSON and consists of some very basic knowledge about the peer.
+
+But again, how cool is this new world, and how different from what we used to think of as memory. Much closer to human memory.
+
+## My current setup
+
+So if you have read this far, you, like me, might think that Honcho and Hindsight are two totally different memories and should complement each other. I'm not sure if two memories can be connected to Hermes, and I don't think I'm ready to pay for another service/server to have a second one. So for *"hard"* memory, I went with an Obsidian vault, which turned out really great.
+
+So my Diana built a skill to store things as .md files in the folder which is set to be my Obsidian vault. This way, we have a clear structure and interlinked files for each type of data and theme. My runs, plans, saved books and movies, wishlists, results of research, and so on live in this place.
+
+The agent can easily retrieve and store data, I can edit it or create new entries/folders. Everything is synced with Obsidian Sync, thank god there is a CLI, and available across devices.
+
+So in my case, Honcho really works great and I now see it as the most important part of my AI setup. I can change agents, I can change models: it's only a shell for the ghost, which lives in Honcho.

@@ -1,0 +1,50 @@
+---
+interface Props {
+	maxWidth?: string;
+}
+
+const { maxWidth = "88%" } = Astro.props;
+---
+
+<aside class="callout" style={`--callout-max-width: ${maxWidth};`}>
+	<slot />
+</aside>
+
+<style>
+	.callout {
+		border: 1px solid var(--block-card-background-hover);
+		border-left: 7px solid var(--blockquote-accent);
+		border-radius: var(--radii-10);
+		padding: 1.25rem 1.5rem;
+		max-width: var(--callout-max-width);
+		margin: 0 auto;
+	}
+	.callout :global(> * + *) {
+		margin-top: 0.5rem;
+	}
+	.callout :global(p + ul),
+	.callout :global(p + ol) {
+		margin-top: 0.25rem;
+	}
+	.callout :global(strong) {
+		font-size: 0.75em;
+		font-family: var(--ff-heading);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+	.callout :global(ul),
+	.callout :global(ol) {
+		padding-left: 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+	.callout :global(p) {
+		margin: 0;
+	}
+	@media (max-width: 900px) {
+		.callout {
+			max-width: 100%;
+		}
+	}
+</style>
