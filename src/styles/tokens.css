@@ -88,6 +88,7 @@
 		--text-blog-date: var(--clr-gray-900);
 
 		--accent: #ffb6c1;
+		--blockquote-accent: var(--badge-background);
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
@@ -136,6 +137,7 @@
 		--text-blog-date: var(--clr-white);
 
 		--accent: #ffb6c1;
+		--blockquote-accent: var(--badge-background);
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
@@ -184,6 +186,7 @@
 		--text-blog-date: var(--clr-gray-900);
 
 		--accent: var(--clr-yellow-500);
+		--blockquote-accent: var(--badge-background);
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */

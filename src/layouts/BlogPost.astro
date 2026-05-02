@@ -1,13 +1,27 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
 import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
+import { blogPostingSchema } from "../lib/schema";
 
-const { title, description, pubDate, tags = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, tags = [], heroImage, slug } = Astro.props;
+const ogImage = heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const absoluteImage = new URL(ogImage, Astro.site ?? Astro.url).toString();
+const articleSchema = blogPostingSchema({
+	title,
+	description,
+	url: pageUrl,
+	image: absoluteImage,
+	pubDate: new Date(pubDate),
+	updatedDate: updatedDate ? new Date(updatedDate) : undefined,
+	tags,
+});
 
 const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
 const pubDateObj = new Date(pubDate);
@@ -19,7 +33,16 @@ const pubDateOptions: Intl.DateTimeFormatOptions = {
 const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 ---
 
-<BaseHead title={title} description={description} />
+<BaseHead
+	title={title}
+	description={description}
+	image={ogImage}
+	type="article"
+	pubDate={new Date(pubDate)}
+	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+	tags={tags}
+/>
+<JsonLd schema={articleSchema} />
 
 <MainLayout>
 	<div slot="main">
@@ -75,6 +98,7 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		padding-bottom: 100px;
 	}
 	.article-content code,
 	.article-content pre {
@@ -119,6 +143,24 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 	}
 	.arrow {
 		font-size: 1.2em;
+	}
+	:global(.article-content img) {
+		display: block;
+		max-width: 100%;
+		height: auto;
+		border-radius: var(--radii-10);
+		margin: 0 auto;
+	}
+	:global(.article-content .post-hero) {
+		max-width: 100%;
+	}
+	:global(.article-content .post-figure) {
+		max-width: 480px;
+		margin: 0 auto;
+	}
+	:global(.article-content .post-figure-sm) {
+		max-width: 360px;
+		margin: 0 auto;
 	}
 	@media (max-width: 900px) {
 		.article-title {
