@@ -19,7 +19,14 @@ const pubDateOptions: Intl.DateTimeFormatOptions = {
 const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 ---
 
-<BaseHead title={title} description={description} image={heroImage ?? "/og-default.jpg"} />
+<BaseHead
+	title={title}
+	description={description}
+	image={heroImage}
+	type="article"
+	pubDate={new Date(pubDate)}
+	tags={tags}
+/>
 
 <MainLayout>
 	<div slot="main">
