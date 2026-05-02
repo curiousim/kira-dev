@@ -1,10 +1,12 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+import { personSchema, websiteSchema } from "../lib/schema";
 
 const yearsInTheField = new Date().getFullYear() - 2019;
 ---
@@ -15,6 +17,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	image="/og/index.png"
 	imageAlt="Kira Menshov — Software engineer"
 />
+<JsonLd schema={[websiteSchema, personSchema]} />
 
 <MainLayout>
 	<Block slot="main">
