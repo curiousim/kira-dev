@@ -26,7 +26,7 @@ const latestPost = posts.sort(
 		</div>
 		<LinkButton
 			text="Read"
-			href={`/blog/${latestPost.id}`}
+			href={`/blog/${latestPost.id.replace(/\.mdx?$/, "")}`}
 			variant="outline"
 		/>
 	</div>
