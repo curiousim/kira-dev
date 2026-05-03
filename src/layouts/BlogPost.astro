@@ -147,6 +147,17 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 	.arrow {
 		font-size: 1.2em;
 	}
+	:global(.article-content a) {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		cursor: pointer;
+		transition: color 0.15s ease;
+	}
+	:global(.article-content a:hover),
+	:global(.article-content a:focus-visible) {
+		color: var(--badge-background);
+	}
 	:global(.article-content img) {
 		display: block;
 		max-width: 100%;
