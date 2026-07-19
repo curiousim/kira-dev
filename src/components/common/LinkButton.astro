@@ -38,7 +38,7 @@ const isLink = variant === "link";
 		color: var(--button-border-color);
 		text-align: center;
 		text-transform: uppercase;
-		font-size: var(--fs400);
+		font-size: var(--fs-400);
 		cursor: pointer;
 		min-width: 200px;
 		width: fit-content;
@@ -49,8 +49,8 @@ const isLink = variant === "link";
 	}
 
 	.button:hover {
-		border-color: var(--button-hover-background-color);
-		background-color: var(--button-hover-background-color);
+		border-color: var(--button-hover-background);
+		background-color: var(--button-hover-background);
 		color: var(--button-hover-color);
 	}
 
@@ -69,8 +69,8 @@ const isLink = variant === "link";
 	}
 
 	.outline:hover {
-		background-color: var(--button-hovered-background);
-		border-color: var(--button-hovered-background);
+		background-color: var(--button-hover-background);
+		border-color: var(--button-hover-background);
 	}
 
 	.secondary {
@@ -95,6 +95,6 @@ const isLink = variant === "link";
 	.link:hover {
 		background: transparent;
 		border: none;
-		color: var(--button-hovered-background);
+		color: var(--button-hover-background);
 	}
 </style>
