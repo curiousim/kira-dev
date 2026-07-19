@@ -30,15 +30,12 @@ import { INTERNAL_LINKS } from "../consts";
 </div>
 
 <style>
-	:root {
+	.shell {
 		--gap: var(--default-layout-gap, 24px);
 		--pad: var(--default-layout-gap, 24px);
 		--col-min: 200px; /* minimum for the right column */
 		--sidebar-stick: 24px;
-	}
-
-	.shell {
-		height: 100vh;
+		min-height: 100dvh;
 		width: var(--shell-max);
 		padding: var(--pad);
 		box-sizing: border-box;
@@ -80,8 +77,6 @@ import { INTERNAL_LINKS } from "../consts";
 	/* MOBILE / SMALL screens */
 	@media (max-width: 900px) {
 		.shell {
-			height: 100vh;
-			overflow-y: auto;
 			gap: var(--gap);
 			grid-template-columns: 1fr;
 			grid-template-rows: auto;
