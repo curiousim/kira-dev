@@ -6,11 +6,10 @@ import { getCollection } from "astro:content";
 
 import "./style.css";
 
-const posts = await getCollection("posts");
+const posts = (await getCollection("posts")).filter((p) => !p.data.draft);
 
 const latestPost = posts.sort(
-	(a, b) =>
-		new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 )[0];
 ---
 
@@ -20,14 +19,18 @@ const latestPost = posts.sort(
 			<Badge text="BLOG" />
 			<LinkButton text="VISIT BLOG" href="/blog" variant="link" />
 		</div>
-		<div class="blog-latest-post">
-			<h2>{latestPost.data.title}</h2>
-			<p>{latestPost.data.description}</p>
-		</div>
-		<LinkButton
-			text="Read"
-			href={`/blog/${latestPost.id}`}
-			variant="outline"
-		/>
+		{latestPost && (
+			<>
+				<div class="blog-latest-post">
+					<h2>{latestPost.data.title}</h2>
+					<p>{latestPost.data.description}</p>
+				</div>
+				<LinkButton
+					text="Read"
+					href={`/blog/${latestPost.id}`}
+					variant="outline"
+				/>
+			</>
+		)}
 	</div>
 </Block>
