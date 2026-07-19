@@ -5,7 +5,7 @@ interface Props {
 }
 
 const {
-	backgroundColor = "var(--background-content)",
+	backgroundColor = "primary",
 	growWithContent = false,
 } = Astro.props;
 ---
@@ -13,7 +13,7 @@ const {
 <section
 	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`
 	style={`height: ${growWithContent ? "auto" : "100%"};`}>
-	<slot class="block-content"></slot>
+	<slot></slot>
 </section>
 <style>
 	.block {
@@ -26,9 +26,4 @@ const {
 		background: var(--background-secondary);
 	}
 
-	.block-content {
-		min-height: 100%;
-	}
-
-	@media (max-width: 900px);
 </style>
