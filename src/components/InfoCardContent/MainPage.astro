@@ -17,7 +17,7 @@ const latestPost = posts.sort(
 	<div class="blog-banner">
 		<div class="sidebar-title">
 			<Badge text="BLOG" />
-			<LinkButton text="VISIT BLOG" href="/blog" variant="link" />
+			<LinkButton text="VISIT BLOG" href="/blog/" variant="link" />
 		</div>
 		{latestPost && (
 			<>
@@ -27,7 +27,7 @@ const latestPost = posts.sort(
 				</div>
 				<LinkButton
 					text="Read"
-					href={`/blog/${latestPost.id}`}
+					href={`/blog/${latestPost.id}/`}
 					variant="outline"
 				/>
 			</>

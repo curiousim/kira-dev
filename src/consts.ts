@@ -7,6 +7,6 @@ export const SITE_DESCRIPTION =
 
 export const INTERNAL_LINKS = [
 	{ href: "/", title: "Home" },
-	{ href: "/about", title: "About" },
-	{ href: "/blog", title: "Blog" },
+	{ href: "/about/", title: "About" },
+	{ href: "/blog/", title: "Blog" },
 ];
