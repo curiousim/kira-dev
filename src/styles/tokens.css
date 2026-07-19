@@ -87,6 +87,8 @@
 		--text-high-contrast: var(--clr-black);
 		--text-info-card: var(--clr-black);
 		--text-blog-date: var(--clr-gray-900);
+		--code-background: var(--clr-gray-100);
+		--code-text: var(--clr-black);
 
 		--accent: #ffb6c1;
 		--blockquote-accent: var(--badge-background);
@@ -136,6 +138,8 @@
 		--text-high-contrast: var(--clr-black);
 		--text-info-card: var(--clr-white);
 		--text-blog-date: var(--clr-white);
+		--code-background: var(--clr-blueberry-100);
+		--code-text: var(--clr-black);
 
 		--accent: #ffb6c1;
 		--blockquote-accent: var(--badge-background);
@@ -185,6 +189,8 @@
 		--text-high-contrast: var(--clr-white);
 		--text-info-card: var(--clr-white);
 		--text-blog-date: var(--clr-gray-900);
+		--code-background: var(--clr-lavender-100);
+		--code-text: var(--clr-black);
 
 		--accent: var(--clr-yellow-500);
 		--blockquote-accent: var(--badge-background);
