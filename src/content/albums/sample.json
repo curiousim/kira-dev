@@ -1,0 +1,14 @@
+{
+	"title": "Sample Album",
+	"description": "Placeholder album for development.",
+	"pubDate": "2026-07-18",
+	"photos": [
+		{ "src": "./sample/photo-1.jpg", "alt": "First sample photo" },
+		{
+			"src": "./sample/photo-2.jpg",
+			"alt": "Second sample photo",
+			"caption": "An optional caption shown in the lightbox."
+		},
+		{ "src": "./sample/photo-3.jpg", "alt": "Third sample photo" }
+	]
+}
