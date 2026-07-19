@@ -14,4 +14,24 @@ const posts = defineCollection({
 	}),
 });
 
-export const collections = { posts };
+const albums = defineCollection({
+	loader: glob({ pattern: "*.json", base: "./src/content/albums" }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string().optional(),
+			pubDate: z.coerce.date(),
+			cover: image().optional(),
+			photos: z
+				.array(
+					z.object({
+						src: image(),
+						alt: z.string().min(1),
+						caption: z.string().optional(),
+					})
+				)
+				.min(1),
+		}),
+});
+
+export const collections = { posts, albums };
