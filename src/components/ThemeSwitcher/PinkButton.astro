@@ -336,15 +336,8 @@
 <style>
 	.button-container {
 		position: relative;
-		width: 46px;
-		height: 48px;
-	}
-
-	@media (min-width: 768px) {
-		.button-container {
-			width: 120px;
-			height: 120px;
-		}
+		width: min(120px, 100%);
+		aspect-ratio: 1;
 	}
 
 	svg {
