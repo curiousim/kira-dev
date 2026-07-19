@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Block from "../../components/common/Block.astro";
+import Badge from "../../components/common/Badge.astro";
+import LinkButton from "../../components/common/LinkButton.astro";
+import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
+import InfoCardMainPage from "../../components/InfoCardContent/MainPage.astro";
+import PhotoGrid from "../../components/PhotoGallery/PhotoGrid.astro";
+import Lightbox from "../../components/PhotoGallery/Lightbox.astro";
+
+export async function getStaticPaths() {
+	const albums = await getCollection("albums");
+	return albums.map((album) => ({
+		params: { album: album.id },
+		props: album,
+	}));
+}
+
+const album = Astro.props;
+---
+
+<BaseLayout
+	title={`${album.data.title} – Kira Menshov`}
+	description={album.data.description ?? `Photo album: ${album.data.title}`}>
+	<MainLayout>
+		<Block slot="main" growWithContent={true}>
+			<div class="album-header">
+				<LinkButton text="<-- Photos" href="/photos/" variant="link" />
+				<Badge text="PHOTOS" />
+			</div>
+			<h1 class="album-title">{album.data.title}</h1>
+			{
+				album.data.description && (
+					<p class="album-description">{album.data.description}</p>
+				)
+			}
+			<PhotoGrid photos={album.data.photos} />
+		</Block>
+		<ThemeSwitcher slot="theme" />
+		<InfoCardMainPage slot="latest" />
+	</MainLayout>
+	<Lightbox />
+</BaseLayout>
+
+<style>
+	.album-header {
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.album-title {
+		font-size: var(--fs-800);
+		margin-bottom: 0.5rem;
+	}
+	.album-description {
+		margin-bottom: 1.5rem;
+	}
+</style>
