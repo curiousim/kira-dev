@@ -11,13 +11,14 @@ import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 const { title, description, pubDate, tags = [] } = Astro.props;
 
 const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
-const pubDateObj = new Date(pubDate);
 const pubDateOptions: Intl.DateTimeFormatOptions = {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
 };
-const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
+const pubDateFormatted = pubDate
+	? new Date(pubDate).toLocaleDateString("en-US", pubDateOptions)
+	: "";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -28,11 +29,11 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 				<Button text="← Back to Blog" href="/blog" variant="link" />
 				<Badge text={tagsToString} />
 			</div>
-			<div class="article-meta">
-				<span class="article-date">
-					{pubDateFormatted}
-				</span>
-			</div>
+			{pubDate && (
+				<div class="article-meta">
+					<span class="article-date">{pubDateFormatted}</span>
+				</div>
+			)}
 			<h1 class="article-title">{title}</h1>
 			<div class="article-content">
 				<slot></slot>
