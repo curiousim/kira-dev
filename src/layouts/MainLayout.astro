@@ -42,7 +42,7 @@ import { INTERNAL_LINKS } from "../consts";
 		display: grid;
 		gap: var(--gap);
 		grid-template-columns: minmax(0, 2fr) minmax(var(--col-min), 1fr);
-		grid-template-rows: 0.8fr 4.2fr;
+		grid-template-rows: auto 1fr;
 		grid-template-areas:
 			"main controls"
 			"main latest";
@@ -63,6 +63,8 @@ import { INTERNAL_LINKS } from "../consts";
 	}
 	.latest {
 		grid-area: latest;
+		align-self: start;
+		height: fit-content;
 	}
 
 	.back {
