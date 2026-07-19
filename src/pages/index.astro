@@ -1,5 +1,5 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
@@ -9,12 +9,10 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
-<BaseHead
+<BaseLayout
 	title="Kira Menshov – Software Engineer"
-	description="Personal site of Kira Menshov, frontend engineer."
-/>
-
-<MainLayout>
+	description="Personal site of Kira Menshov, frontend engineer.">
+	<MainLayout>
 	<Block slot="main">
 		<div class="main-content">
 			<span class="main-title">
@@ -72,8 +70,9 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	<div slot="theme">
 		<ThemeSwitcher />
 	</div>
-	<InfoCardMainPage slot="latest" />
-</MainLayout>
+		<InfoCardMainPage slot="latest" />
+	</MainLayout>
+</BaseLayout>
 <style>
 	.main-content {
 		display: flex;

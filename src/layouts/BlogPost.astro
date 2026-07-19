@@ -1,11 +1,12 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "./BaseLayout.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
 import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
+import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 
 const { title, description, pubDate, tags = [] } = Astro.props;
 
@@ -19,11 +20,10 @@ const pubDateOptions: Intl.DateTimeFormatOptions = {
 const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 ---
 
-<BaseHead title={title} description={description} />
-
-<MainLayout>
-	<div slot="main">
-		<Block>
+<BaseLayout title={title} description={description}>
+	<MainLayout>
+		<div slot="main">
+			<Block>
 			<div class="article-header">
 				<Button text="← Back to Blog" href="/blog" variant="link" />
 				<Badge text={tagsToString} />
@@ -37,11 +37,15 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 			<div class="article-content">
 				<slot></slot>
 			</div>
-		</Block>
-	</div>
-	<ThemeSwitcher slot="theme" />
-	<InfoCardBlogPost slot="latest" />
-</MainLayout>
+			<div class="article-widget">
+				<BottleFetch />
+			</div>
+			</Block>
+		</div>
+		<ThemeSwitcher slot="theme" />
+		<InfoCardBlogPost slot="latest" />
+	</MainLayout>
+</BaseLayout>
 
 <style>
 	.article-header {
@@ -75,7 +79,10 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		padding-bottom: 100px;
+		padding-bottom: 40px;
+	}
+	.article-widget {
+		padding-bottom: 40px;
 	}
 	.article-content code,
 	.article-content pre {

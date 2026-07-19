@@ -1,22 +1,30 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogInfoCard from "../../components/InfoCardContent/Blog.astro";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
 import BlogRoll from "../../components/BlogRoll/BlogRoll.astro";
+import BottleFetch from "../../components/BottleFetch/BottleFetch.astro";
 ---
 
-<BaseHead
+<BaseLayout
 	title="Blog – Kira Menshov"
-	description="Blog posts by Kira Menshov, frontend developer."
-/>
-
-<MainLayout>
-	<BlogRoll slot="main" />
-	<ThemeSwitcher slot="theme" />
-	<BlogInfoCard slot="latest" />
-</MainLayout>
+	description="Blog posts by Kira Menshov, frontend developer.">
+	<MainLayout>
+		<div slot="main" class="blog-main">
+			<BlogRoll />
+			<BottleFetch />
+		</div>
+		<ThemeSwitcher slot="theme" />
+		<BlogInfoCard slot="latest" />
+	</MainLayout>
+</BaseLayout>
 <style>
+	.blog-main {
+		display: flex;
+		flex-direction: column;
+		gap: var(--default-layout-gap);
+	}
 	.sidebar-title {
 		font-size: 1.3rem;
 		color: var(--text-high-contrast);
