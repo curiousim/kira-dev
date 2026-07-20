@@ -1,73 +1,82 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+import { personSchema, websiteSchema } from "../lib/schema";
 
 const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
 <BaseLayout
 	title="Kira Menshov – Software Engineer"
-	description="Personal site of Kira Menshov, frontend engineer.">
+	description="Personal site of Kira Menshov, software engineer focused on frontend. Notes on building things, agentic AI, and learning out loud."
+	image="/og/index.png"
+	imageAlt="Kira Menshov — Software engineer"
+	imageWidth={1200}
+	imageHeight={630}
+>
+	<JsonLd schema={[websiteSchema, personSchema]} />
 	<MainLayout>
-	<Block slot="main">
-		<div class="main-content">
-			<h1 class="main-title">
-				Hi,<br />I'm Kira<br />Front-End Developer
-			</h1>
-			<div class="intro">
-				<p>
-					Well, <u>mostly</u> a front-end developer. I happened to fall
-					into this rabbit hole {yearsInTheField}+ years ago, and
-					while I’m interested in many other things outside of
-					front-end, my main focus is still web development. But I
-					think, in general, I just like to build things, solve
-					problems, and learn about new technologies.
-				</p>
+		<Block slot="main">
+			<div class="main-content">
+				<h1 class="main-title">
+					Hi,<br />I'm Kira<br />Front-End Developer
+				</h1>
+				<div class="intro">
+					<p>
+						Well, <u>mostly</u> a front-end developer. I happened to fall
+						into this rabbit hole {yearsInTheField}+ years ago, and
+						while I’m interested in many other things outside of
+						front-end, my main focus is still web development. But I
+						think, in general, I just like to build things, solve
+						problems, and learn about new technologies.
+					</p>
 
-				<p>
-					I worked at <a href="https://cheq.ai/">Cheq</a>,
-					<a href="https://esh.com/">EshOS</a>, and
-					<a href="https://torq.io/">Torq</a> as a senior front-end developer.
-					But frankly, I feel like a forever junior — there is so much
-					to learn and explore in this field. The difference is that now
-					I know how many more areas and technologies are out there.
-				</p>
+					<p>
+						I worked at <a href="https://cheq.ai/">Cheq</a>,
+						<a href="https://esh.com/">EshOS</a>, and
+						<a href="https://torq.io/">Torq</a> as a senior front-end
+						developer. But frankly, I feel like a forever junior — there
+						is so much to learn and explore in this field. The difference
+						is that now I know how many more areas and technologies are
+						out there.
+					</p>
 
-				<p>
-					I also love to write and try to put on paper, quite
-					literally 📖🖋️, everything I learn. So why not share it with
-					others?
-				</p>
+					<p>
+						I also love to write and try to put on paper, quite
+						literally 📖🖋️, everything I learn. So why not share it
+						with others?
+					</p>
+				</div>
+				<div class="buttons-container">
+					<LinkButton
+						text="Bluesky -->"
+						href="https://bsky.app/profile/kiramnshv.bsky.social"
+						variant="outline"
+						outside
+					/>
+					<LinkButton
+						text="Github -->"
+						href="https://github.com/curiousim"
+						variant="outline"
+						outside
+					/>
+					<LinkButton
+						text="LinkedIn -->"
+						href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
+						variant="outline"
+						outside
+					/>
+				</div>
 			</div>
-			<div class="buttons-container">
-				<LinkButton
-					text="Bluesky -->"
-					href="https://bsky.app/profile/kiramnshv.bsky.social"
-					variant="outline"
-					outside
-				/>
-				<LinkButton
-					text="Github -->"
-					href="https://github.com/curiousim"
-					variant="outline"
-					outside
-				/>
-				<LinkButton
-					text="LinkedIn -->"
-					href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
-					variant="outline"
-					outside
-				/>
-			</div>
+		</Block>
+		<div slot="theme">
+			<ThemeSwitcher />
 		</div>
-	</Block>
-	<div slot="theme">
-		<ThemeSwitcher />
-	</div>
 		<InfoCardMainPage slot="latest" />
 	</MainLayout>
 </BaseLayout>

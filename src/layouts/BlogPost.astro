@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
@@ -7,8 +8,33 @@ import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
 import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
 import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
+import { blogPostingSchema } from "../lib/schema";
 
-const { title, description, pubDate, tags = [] } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	tags = [],
+	heroImage,
+	slug,
+} = Astro.props;
+const isGeneratedCard = !heroImage;
+const ogImage =
+	heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const absoluteImage = new URL(ogImage, Astro.site ?? Astro.url).toString();
+const articleSchema = pubDate
+	? blogPostingSchema({
+			title,
+			description,
+			url: pageUrl,
+			image: absoluteImage,
+			pubDate: new Date(pubDate),
+			updatedDate: updatedDate ? new Date(updatedDate) : undefined,
+			tags,
+		})
+	: undefined;
 
 const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
 const pubDateOptions: Intl.DateTimeFormatOptions = {
@@ -21,26 +47,43 @@ const pubDateFormatted = pubDate
 	: "";
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+	title={title}
+	description={description}
+	image={ogImage}
+	imageWidth={isGeneratedCard ? 1200 : undefined}
+	imageHeight={isGeneratedCard ? 630 : undefined}
+	type={pubDate ? "article" : "website"}
+	pubDate={pubDate ? new Date(pubDate) : undefined}
+	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+	tags={tags}
+>
+	{articleSchema && <JsonLd schema={articleSchema} />}
 	<MainLayout>
 		<div slot="main">
 			<Block>
-			<div class="article-header">
-				<Button text="← Back to Blog" href="/blog/" variant="link" />
-				<Badge text={tagsToString} />
-			</div>
-			{pubDate && (
-				<div class="article-meta">
-					<span class="article-date">{pubDateFormatted}</span>
+				<div class="article-header">
+					<Button
+						text="← Back to Blog"
+						href="/blog/"
+						variant="link"
+					/>
+					<Badge text={tagsToString} />
 				</div>
-			)}
-			<h1 class="article-title">{title}</h1>
-			<div class="article-content">
-				<slot></slot>
-			</div>
-			<div class="article-widget">
-				<BottleFetch />
-			</div>
+				{
+					pubDate && (
+						<div class="article-meta">
+							<span class="article-date">{pubDateFormatted}</span>
+						</div>
+					)
+				}
+				<h1 class="article-title">{title}</h1>
+				<div class="article-content">
+					<slot />
+				</div>
+				<div class="article-widget">
+					<BottleFetch />
+				</div>
 			</Block>
 		</div>
 		<ThemeSwitcher slot="theme" />
@@ -98,6 +141,17 @@ const pubDateFormatted = pubDate
 		overflow-x: auto;
 		border-radius: var(--radii-10);
 		margin: 1.5em 0;
+	}
+	:global(.article-content a) {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		cursor: pointer;
+		transition: color 0.15s ease;
+	}
+	:global(.article-content a:hover),
+	:global(.article-content a:focus-visible) {
+		color: var(--badge-background);
 	}
 	:global(.article-content img) {
 		display: block;
