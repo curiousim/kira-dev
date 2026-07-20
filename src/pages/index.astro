@@ -20,7 +20,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	imageHeight={630}
 >
 	<JsonLd schema={[websiteSchema, personSchema]} />
-	<MainLayout>
+	<MainLayout stretchLatest>
 		<Block slot="main">
 			<div class="main-content">
 				<h1 class="main-title">
@@ -54,10 +54,9 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 				</div>
 				<div class="buttons-container">
 					<LinkButton
-						text="Bluesky -->"
-						href="https://bsky.app/profile/kiramnshv.bsky.social"
+						text="Blog -->"
+						href="/blog/"
 						variant="outline"
-						outside
 					/>
 					<LinkButton
 						text="Github -->"
@@ -68,6 +67,12 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 					<LinkButton
 						text="LinkedIn -->"
 						href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
+						variant="outline"
+						outside
+					/>
+					<LinkButton
+						text="Flickr -->"
+						href="https://www.flickr.com/photos/204721301@N03/"
 						variant="outline"
 						outside
 					/>

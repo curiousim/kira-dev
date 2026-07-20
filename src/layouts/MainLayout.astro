@@ -2,12 +2,18 @@
 import HamburgerMenu from "../components/common/HamburgerMenu.astro";
 import ScrollToTop from "../components/common/ScrollToTop.astro";
 import { INTERNAL_LINKS } from "../consts";
+
+interface Props {
+	stretchLatest?: boolean;
+}
+
+const { stretchLatest = false } = Astro.props;
 ---
 
 <div class="shell">
 	<!-- Top controls: theme + hamburger. Becomes the right-column header on desktop -->
 	<header class="controls" aria-label="Site controls">
-		<slot name="theme"></slot>
+		<slot name="theme" />
 		<div class="controls__menu" aria-label="Primary navigation">
 			<HamburgerMenu links={INTERNAL_LINKS} />
 		</div>
@@ -15,12 +21,15 @@ import { INTERNAL_LINKS } from "../consts";
 
 	<!-- Main reading area -->
 	<main class="main" id="content">
-		<slot name="main"></slot>
+		<slot name="main" />
 	</main>
 
 	<!-- Latest articles block -->
-	<section class="latest" aria-label="Featured content">
-		<slot name="latest"></slot>
+	<section
+		class:list={["latest", { "latest--stretch": stretchLatest }]}
+		aria-label="Featured content"
+	>
+		<slot name="latest" />
 	</section>
 
 	<!-- Back to top / CTA -->
@@ -66,6 +75,10 @@ import { INTERNAL_LINKS } from "../consts";
 		align-self: start;
 		height: fit-content;
 	}
+	.latest--stretch {
+		align-self: stretch;
+		height: auto;
+	}
 
 	.back {
 		display: none; /* Hidden on large screens */
@@ -98,6 +111,10 @@ import { INTERNAL_LINKS } from "../consts";
 		.controls__menu {
 			display: block;
 			justify-self: end;
+		}
+		.latest--stretch {
+			align-self: start;
+			height: fit-content;
 		}
 		.back {
 			display: block;
