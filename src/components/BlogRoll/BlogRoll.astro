@@ -4,35 +4,249 @@ import ArticleCard from "./ArticleCard.astro";
 import Block from "../common/Block.astro";
 import LinkButton from "../common/LinkButton.astro";
 import Badge from "../common/Badge.astro";
+import {
+	POST_CATEGORIES,
+	POST_CATEGORY_LABELS,
+	type PostCategory,
+} from "../../data/postCategories";
 
 const unsortedPosts = await getCollection("posts");
 
 const posts = unsortedPosts
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const categoryCounts = Object.fromEntries(
+	POST_CATEGORIES.map((category) => [
+		category,
+		posts.filter((post) => post.data.category === category).length,
+	]),
+) as Record<PostCategory, number>;
 ---
 
 <Block backgroundColor="primary" growWithContent={true}>
-	<div class="blog-roll-header">
-		<LinkButton text="<-- Main" href="/" variant="link" />
-		<Badge text="BLOG" />
-	</div>
-	<div class="blog-roll">
-		{posts.map((post) => <ArticleCard post={post} />)}
+	<div class="blog-roll-container" data-blog-roll>
+		<div class="blog-roll-header">
+			<LinkButton text="<-- Main" href="/" variant="link" />
+			<Badge text="BLOG" />
+		</div>
+
+		<div class="blog-filters">
+			<div
+				class="blog-filter-buttons"
+				role="group"
+				aria-label="Filter posts by category"
+			>
+				<button type="button" data-filter="all" aria-pressed="true">
+					All <span aria-hidden="true">{posts.length}</span>
+				</button>
+				{
+					POST_CATEGORIES.map((category) => (
+						<button
+							type="button"
+							data-filter={category}
+							aria-pressed="false"
+						>
+							{POST_CATEGORY_LABELS[category]}{" "}
+							<span aria-hidden="true">
+								{categoryCounts[category]}
+							</span>
+						</button>
+					))
+				}
+			</div>
+			<p class="blog-filter-status" data-filter-status aria-live="polite">
+				Showing {posts.length}
+				{posts.length === 1 ? "post" : "posts"}
+			</p>
+		</div>
+
+		<div class="blog-roll">
+			{posts.map((post) => <ArticleCard post={post} />)}
+		</div>
+
+		<div class="blog-empty-state" data-empty-state hidden>
+			<p data-empty-message>No posts yet.</p>
+			<button type="button" data-show-all>Show all posts</button>
+		</div>
 	</div>
 </Block>
 
+<script>
+	const blogRoll = document.querySelector<HTMLElement>("[data-blog-roll]");
+
+	if (blogRoll) {
+		const categories = ["coding", "life"] as const;
+		type Filter = (typeof categories)[number] | "all";
+		const buttons = Array.from(
+			blogRoll.querySelectorAll<HTMLButtonElement>("[data-filter]"),
+		);
+		const cards = Array.from(
+			blogRoll.querySelectorAll<HTMLElement>("[data-post-card]"),
+		);
+		const status = blogRoll.querySelector<HTMLElement>(
+			"[data-filter-status]",
+		);
+		const emptyState =
+			blogRoll.querySelector<HTMLElement>("[data-empty-state]");
+		const emptyMessage = blogRoll.querySelector<HTMLElement>(
+			"[data-empty-message]",
+		);
+		const showAll =
+			blogRoll.querySelector<HTMLButtonElement>("[data-show-all]");
+
+		const isFilter = (value: string | null): value is Filter =>
+			value === "all" ||
+			categories.includes(value as (typeof categories)[number]);
+
+		const setFilter = (filter: Filter, updateUrl = false) => {
+			let visibleCount = 0;
+
+			for (const card of cards) {
+				const visible =
+					filter === "all" || card.dataset.category === filter;
+				card.hidden = !visible;
+				if (visible) visibleCount += 1;
+			}
+
+			for (const button of buttons) {
+				button.setAttribute(
+					"aria-pressed",
+					String(button.dataset.filter === filter),
+				);
+			}
+
+			if (status) {
+				const label =
+					filter === "all"
+						? ""
+						: `${filter[0].toUpperCase()}${filter.slice(1)} `;
+				status.textContent = `Showing ${visibleCount} ${label}${visibleCount === 1 ? "post" : "posts"}`;
+			}
+
+			if (emptyMessage) {
+				emptyMessage.textContent =
+					filter === "all"
+						? "No posts yet."
+						: `No ${filter[0].toUpperCase()}${filter.slice(1)} posts yet.`;
+			}
+
+			if (emptyState) emptyState.hidden = visibleCount > 0;
+
+			if (updateUrl) {
+				const url = new URL(window.location.href);
+				if (filter === "all") url.searchParams.delete("category");
+				else url.searchParams.set("category", filter);
+				history.pushState({ filter }, "", url);
+			}
+		};
+
+		for (const button of buttons) {
+			button.addEventListener("click", () => {
+				const filter = button.dataset.filter ?? null;
+				if (isFilter(filter)) setFilter(filter, true);
+			});
+		}
+
+		showAll?.addEventListener("click", () => setFilter("all", true));
+		window.addEventListener("popstate", () => {
+			const filter = new URL(window.location.href).searchParams.get(
+				"category",
+			);
+			setFilter(isFilter(filter) ? filter : "all");
+		});
+
+		const initialFilter = new URL(window.location.href).searchParams.get(
+			"category",
+		);
+		setFilter(isFilter(initialFilter) ? initialFilter : "all");
+	}
+</script>
+
 <style>
+	.blog-roll-container {
+		display: flex;
+		flex-direction: column;
+		gap: var(--default-layout-gap);
+	}
 	.blog-roll-header {
-		margin-bottom: 1rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
+	.blog-filters {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--default-layout-gap);
+		flex-wrap: wrap;
+	}
+	.blog-filter-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+	.blog-filter-buttons button,
+	.blog-empty-state button {
+		appearance: none;
+		border: 2px solid var(--button-border-color);
+		background: transparent;
+		color: var(--text-main);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+		line-height: 1;
+		padding: 0.65rem 0.8rem;
+		cursor: pointer;
+	}
+	.blog-filter-buttons button span {
+		display: inline-block;
+		min-width: 1.4em;
+		margin-left: 0.35rem;
+		padding: 0.15rem 0.3rem;
+		background: var(--block-card-background);
+		color: var(--block-card-text);
+	}
+	.blog-filter-buttons button:hover,
+	.blog-filter-buttons button:focus-visible,
+	.blog-empty-state button:hover,
+	.blog-empty-state button:focus-visible,
+	.blog-filter-buttons button[aria-pressed="true"] {
+		background: var(--button-hover-background);
+		border-color: var(--button-hover-background);
+		color: var(--button-hover-color);
+	}
+	.blog-filter-status {
+		color: var(--text-main);
+		font-size: var(--fs-300);
 	}
 	.blog-roll {
 		display: flex;
 		flex-direction: column;
 		border-radius: var(--radii-10);
 		gap: 1.2rem;
+	}
+	.blog-empty-state {
+		padding: var(--big-layout-gap);
+		border: 2px dashed var(--button-border-color);
+		text-align: center;
+	}
+	.blog-empty-state[hidden] {
+		display: none;
+	}
+	.blog-empty-state p {
+		margin-bottom: 1rem;
+		color: var(--text-main);
+	}
+	@media (max-width: 600px) {
+		.blog-filters {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+		.blog-filter-buttons {
+			width: 100%;
+		}
+		.blog-filter-buttons button {
+			flex: 1;
+		}
 	}
 </style>

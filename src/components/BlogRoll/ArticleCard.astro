@@ -1,5 +1,6 @@
 ---
 import type { TPost } from "../../types/post";
+import { POST_CATEGORY_LABELS } from "../../data/postCategories";
 import LinkButton from "../common/LinkButton.astro";
 
 interface Props {
@@ -9,18 +10,23 @@ const { post } = Astro.props;
 const slug = post.id.replace(/\.mdx?$/, "");
 ---
 
-<div class="blog-card">
+<article class="blog-card" data-post-card data-category={post.data.category}>
 	<div class="blog-card-content">
-		<span class="blog-date">
-			{post.data.pubDate.toLocaleDateString()}
-		</span>
+		<div class="blog-card-meta">
+			<time datetime={post.data.pubDate.toISOString()} class="blog-date">
+				{post.data.pubDate.toLocaleDateString()}
+			</time>
+			<span class="blog-category">
+				{POST_CATEGORY_LABELS[post.data.category]}
+			</span>
+		</div>
 		<h2>{post.data.title}</h2>
 		<div class="blog-description-action">
 			<p class="blog-desc">{post.data.description}</p>
 			<LinkButton text="READ" href={`/blog/${slug}/`} variant="outline" />
 		</div>
 	</div>
-</div>
+</article>
 
 <style>
 	.blog-card {
@@ -45,6 +51,27 @@ const slug = post.id.replace(/\.mdx?$/, "");
 		h2 {
 			color: var(--block-card-text);
 		}
+	}
+	.blog-card[hidden] {
+		display: none;
+	}
+	.blog-card-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--default-layout-gap);
+		padding-bottom: 10px;
+	}
+	.blog-category {
+		flex: none;
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+		line-height: 1;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--badge-text);
+		background: var(--badge-background);
+		padding: 0.3rem 0.6rem;
 	}
 	.blog-description-action {
 		margin-top: 10px;
@@ -73,7 +100,6 @@ const slug = post.id.replace(/\.mdx?$/, "");
 		color: var(--text-blog-date);
 		font-size: 14px;
 		letter-spacing: 0.04em;
-		padding-bottom: 10px;
 	}
 	.blog-desc {
 		color: var(--text-main);

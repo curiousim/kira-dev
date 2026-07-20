@@ -9,6 +9,10 @@ import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
 import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 import { blogPostingSchema } from "../lib/schema";
+import {
+	POST_CATEGORY_LABELS,
+	type PostCategory,
+} from "../data/postCategories";
 
 const {
 	title,
@@ -16,6 +20,7 @@ const {
 	pubDate,
 	updatedDate,
 	tags = [],
+	category,
 	heroImage,
 	slug,
 } = Astro.props;
@@ -32,11 +37,13 @@ const articleSchema = pubDate
 			image: absoluteImage,
 			pubDate: new Date(pubDate),
 			updatedDate: updatedDate ? new Date(updatedDate) : undefined,
-			tags,
+			tags: category ? [category, ...tags] : tags,
 		})
 	: undefined;
 
-const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
+const headerBadge = category
+	? POST_CATEGORY_LABELS[category as PostCategory].toUpperCase()
+	: "ABOUT";
 const pubDateOptions: Intl.DateTimeFormatOptions = {
 	year: "numeric",
 	month: "long",
@@ -56,7 +63,7 @@ const pubDateFormatted = pubDate
 	type={pubDate ? "article" : "website"}
 	pubDate={pubDate ? new Date(pubDate) : undefined}
 	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
-	tags={tags}
+	tags={category ? [category, ...tags] : tags}
 >
 	{articleSchema && <JsonLd schema={articleSchema} />}
 	<MainLayout>
@@ -68,7 +75,7 @@ const pubDateFormatted = pubDate
 						href="/blog/"
 						variant="link"
 					/>
-					<Badge text={tagsToString} />
+					<Badge text={headerBadge} />
 				</div>
 				{
 					pubDate && (
