@@ -1,0 +1,19 @@
+---
+import { getEntry } from "astro:content";
+import PhotoGrid from "./PhotoGrid.astro";
+import Lightbox from "./Lightbox.astro";
+
+interface Props {
+	album: string;
+}
+
+const { album } = Astro.props;
+const entry = await getEntry("albums", album);
+if (!entry) {
+	throw new Error(`Gallery: album "${album}" not found in src/content/albums/`);
+}
+---
+
+<!-- Only one Gallery may be used per post because Lightbox has a fixed id. -->
+<PhotoGrid photos={entry.data.photos} />
+<Lightbox />

@@ -4,6 +4,13 @@ interface Props {
 }
 
 const { links = [] } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isCurrent = (href: string) => {
+	const target = href.replace(/\/+$/, "") || "/";
+	return target === "/"
+		? currentPath === "/"
+		: currentPath === target || currentPath.startsWith(target + "/");
+};
 ---
 
 <div class="hamburger-wrapper">
@@ -20,7 +27,10 @@ const { links = [] } = Astro.props;
 		<ul class="menu-list">
 			{links.map((link) => (
 				<li class="menu-item">
-					<a href={link.href} class="menu-link">
+					<a
+						href={link.href}
+						class="menu-link"
+						aria-current={isCurrent(link.href) ? "page" : undefined}>
 						{link.title}
 					</a>
 				</li>
@@ -162,6 +172,11 @@ const { links = [] } = Astro.props;
 
 	.menu-link:hover {
 		text-decoration: underline;
+	}
+
+	.menu-link[aria-current="page"] {
+		text-decoration: underline;
+		font-weight: 500;
 	}
 
 	/* Hide on desktop */

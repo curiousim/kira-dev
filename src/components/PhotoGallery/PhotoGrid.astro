@@ -1,0 +1,90 @@
+---
+import { Image, getImage } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	photos: CollectionEntry<"albums">["data"]["photos"];
+}
+
+const { photos } = Astro.props;
+
+const items = await Promise.all(
+	photos.map(async (photo) => ({
+		photo,
+		full: await getImage({
+			src: photo.src,
+			width: Math.min(photo.src.width, 2048),
+			format: "webp",
+			quality: 85,
+		}),
+	}))
+);
+---
+
+<ul class="photo-grid" role="list">
+	{
+		items.map(({ photo, full }) => (
+			<li class="photo-cell">
+				<a
+					href={full.src}
+					class="photo-link"
+					data-lightbox
+					data-alt={photo.alt}
+					data-caption={photo.caption ?? ""}>
+					<Image
+						src={photo.src}
+						alt={photo.alt}
+						widths={[240, 480, 720]}
+						sizes="(max-width: 900px) 45vw, 240px"
+						width={480}
+						class="photo-thumb"
+						loading="lazy"
+					/>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.photo-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: var(--default-layout-gap);
+	}
+	.photo-link {
+		display: block;
+		border-radius: var(--radii-10);
+		overflow: hidden;
+	}
+	.photo-link:focus-visible {
+		outline: 2px solid var(--button-border-color);
+		outline-offset: 2px;
+	}
+	.photo-thumb {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		transition: transform 0.2s ease;
+	}
+	.photo-link:hover .photo-thumb {
+		transform: scale(1.04);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.photo-thumb {
+			transition: none;
+		}
+		.photo-link:hover .photo-thumb {
+			transform: none;
+		}
+	}
+	@media (max-width: 900px) {
+		.photo-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

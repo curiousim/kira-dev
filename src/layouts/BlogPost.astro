@@ -1,5 +1,5 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
+import BaseLayout from "./BaseLayout.astro";
 import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
@@ -7,67 +7,89 @@ import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
 import Badge from "../components/common/Badge.astro";
 import Button from "../components/common/LinkButton.astro";
+import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 import { blogPostingSchema } from "../lib/schema";
 
-const { title, description, pubDate, updatedDate, tags = [], heroImage, slug } = Astro.props;
-const isGeneratedCard = !heroImage;
-const ogImage = heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
-const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
-const absoluteImage = new URL(ogImage, Astro.site ?? Astro.url).toString();
-const articleSchema = blogPostingSchema({
+const {
 	title,
 	description,
-	url: pageUrl,
-	image: absoluteImage,
-	pubDate: new Date(pubDate),
-	updatedDate: updatedDate ? new Date(updatedDate) : undefined,
-	tags,
-});
+	pubDate,
+	updatedDate,
+	tags = [],
+	heroImage,
+	slug,
+} = Astro.props;
+const isGeneratedCard = !heroImage;
+const ogImage =
+	heroImage ?? (slug ? `/og/blog/${slug}.png` : "/og/default.png");
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const absoluteImage = new URL(ogImage, Astro.site ?? Astro.url).toString();
+const articleSchema = pubDate
+	? blogPostingSchema({
+			title,
+			description,
+			url: pageUrl,
+			image: absoluteImage,
+			pubDate: new Date(pubDate),
+			updatedDate: updatedDate ? new Date(updatedDate) : undefined,
+			tags,
+		})
+	: undefined;
 
 const tagsToString = tags.length > 0 ? tags.join(", ") : "BLOG";
-const pubDateObj = new Date(pubDate);
 const pubDateOptions: Intl.DateTimeFormatOptions = {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
 };
-const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
+const pubDateFormatted = pubDate
+	? new Date(pubDate).toLocaleDateString("en-US", pubDateOptions)
+	: "";
 ---
 
-<BaseHead
+<BaseLayout
 	title={title}
 	description={description}
 	image={ogImage}
 	imageWidth={isGeneratedCard ? 1200 : undefined}
 	imageHeight={isGeneratedCard ? 630 : undefined}
-	type="article"
-	pubDate={new Date(pubDate)}
+	type={pubDate ? "article" : "website"}
+	pubDate={pubDate ? new Date(pubDate) : undefined}
 	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
 	tags={tags}
-/>
-<JsonLd schema={articleSchema} />
-
-<MainLayout>
-	<div slot="main">
-		<Block>
-			<div class="article-header">
-				<Button text="← Back to Blog" href="/blog" variant="link" />
-				<Badge text={tagsToString} />
-			</div>
-			<div class="article-meta">
-				<span class="article-date">
-					{pubDateFormatted}
-				</span>
-			</div>
-			<h1 class="article-title">{title}</h1>
-			<div class="article-content">
-				<slot></slot>
-			</div>
-		</Block>
-	</div>
-	<ThemeSwitcher slot="theme" />
-	<InfoCardBlogPost slot="latest" />
-</MainLayout>
+>
+	{articleSchema && <JsonLd schema={articleSchema} />}
+	<MainLayout>
+		<div slot="main">
+			<Block>
+				<div class="article-header">
+					<Button
+						text="← Back to Blog"
+						href="/blog/"
+						variant="link"
+					/>
+					<Badge text={tagsToString} />
+				</div>
+				{
+					pubDate && (
+						<div class="article-meta">
+							<span class="article-date">{pubDateFormatted}</span>
+						</div>
+					)
+				}
+				<h1 class="article-title">{title}</h1>
+				<div class="article-content">
+					<slot />
+				</div>
+				<div class="article-widget">
+					<BottleFetch />
+				</div>
+			</Block>
+		</div>
+		<ThemeSwitcher slot="theme" />
+		<InfoCardBlogPost slot="latest" />
+	</MainLayout>
+</BaseLayout>
 
 <style>
 	.article-header {
@@ -90,7 +112,7 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 		font-size: 2.7rem;
 		font-weight: 700;
 		margin: 0 0 2rem 0;
-		color: var(--text-color);
+		color: var(--text-main);
 		line-height: 1.1;
 		word-break: break-word;
 	}
@@ -101,51 +123,24 @@ const pubDateFormatted = pubDateObj.toLocaleDateString("en-US", pubDateOptions);
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		padding-bottom: 100px;
+		padding-bottom: 40px;
 	}
-	.article-content code,
-	.article-content pre {
-		font-family: "JetBrains Mono", monospace;
-		background: #f5f5f5;
-		color: #222;
+	.article-widget {
+		padding-bottom: 40px;
+	}
+	.article-content :global(:not(pre) > code) {
+		font-family: var(--ff-heading);
+		background: var(--code-background);
+		color: var(--code-text);
 		border-radius: 0.5em;
 		padding: 0.2em 0.5em;
-		font-size: 1em;
+		font-size: 0.95em;
 	}
-	.article-content pre {
+	.article-content :global(pre) {
 		padding: 1em;
 		overflow-x: auto;
-		background: #ededed;
+		border-radius: var(--radii-10);
 		margin: 1.5em 0;
-	}
-	.sidebar-title {
-		font-size: 1.3rem;
-		color: var(--text-high-contrast);
-		margin-bottom: 1rem;
-	}
-	.blog-read-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5em;
-		font-family: var(--ff-heading);
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--text-high-contrast);
-		background: var(--blog-btn-bg, transparent);
-		border: 2px solid var(--text-high-contrast);
-		border-radius: 0.5em;
-		padding: 0.4em 1.5em;
-		text-decoration: none;
-		transition: background 0.2s, color 0.2s, border-color 0.2s;
-		margin-top: 1.5rem;
-	}
-	.blog-read-btn:hover {
-		background: var(--accent);
-		color: #fff;
-		border-color: var(--accent);
-	}
-	.arrow {
-		font-size: 1.2em;
 	}
 	:global(.article-content a) {
 		color: inherit;

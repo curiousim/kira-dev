@@ -38,7 +38,7 @@ const author = "Kira Menshov";
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
@@ -46,61 +46,32 @@ const author = "Kira Menshov";
 	rel="preload"
 	href="/fonts/JetBrainsMono-Regular.woff2"
 	as="font"
-	type="font/woff"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/JetBrainsMono-Italic.woff2"
-	as="font"
-	type="font/woff"
+	type="font/woff2"
 	crossorigin
 />
 <link
 	rel="preload"
 	href="/fonts/JetBrainsMono-Bold.woff2"
 	as="font"
-	type="font/woff"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/JetBrainsMono-Light.woff2"
-	as="font"
-	type="font/woff"
+	type="font/woff2"
 	crossorigin
 />
 <link
 	rel="preload"
 	href="/fonts/sf-pro-display-regular.woff2"
 	as="font"
-	type="font/woff"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/sf-pro-display-italic.woff2"
-	as="font"
-	type="font/woff"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/sf-pro-display-bold.woff2"
-	as="font"
-	type="font/woff"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/sf-pro-display-light.woff2"
-	as="font"
-	type="font/woff"
+	type="font/woff2"
 	crossorigin
 />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title="Kira Menshov"
+	href={new URL("rss.xml", Astro.site)}
+/>
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -119,7 +90,11 @@ const author = "Kira Menshov";
 <meta property="og:image:secure_url" content={absoluteImage} />
 <meta property="og:image:alt" content={imageAlt ?? title} />
 {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
-{imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+{
+	imageHeight && (
+		<meta property="og:image:height" content={String(imageHeight)} />
+	)
+}
 
 {
 	type === "article" && pubDate && (

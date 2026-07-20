@@ -1,0 +1,35 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+	imageAlt?: string;
+	imageWidth?: number;
+	imageHeight?: number;
+	type?: "website" | "article";
+	pubDate?: Date;
+	updatedDate?: Date;
+	tags?: string[];
+}
+
+const headProps = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead {...headProps} />
+		<script is:inline>
+			try {
+				const theme = localStorage.getItem("theme");
+				if (theme)
+					document.documentElement.setAttribute("data-theme", theme);
+			} catch (e) {}
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

@@ -1,52 +1,32 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import BlogInfoCard from "../../components/InfoCardContent/Blog.astro";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
 import BlogRoll from "../../components/BlogRoll/BlogRoll.astro";
+import BottleFetch from "../../components/BottleFetch/BottleFetch.astro";
 ---
 
-<BaseHead
+<BaseLayout
 	title="Blog – Kira Menshov"
 	description="Blog posts by Kira Menshov on software, agentic AI, and the things I learn while building."
 	image="/og/blog.png"
 	imageWidth={1200}
 	imageHeight={630}
-/>
-
-<MainLayout>
-	<BlogRoll slot="main" />
-	<ThemeSwitcher slot="theme" />
-	<BlogInfoCard slot="latest" />
-</MainLayout>
+>
+	<MainLayout>
+		<div slot="main" class="blog-main">
+			<BlogRoll />
+			<BottleFetch />
+		</div>
+		<ThemeSwitcher slot="theme" />
+		<BlogInfoCard slot="latest" />
+	</MainLayout>
+</BaseLayout>
 <style>
-	.sidebar-title {
-		font-size: 1.3rem;
-		color: var(--text-high-contrast);
-		margin-bottom: 1rem;
-	}
-	.blog-read-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5em;
-		font-family: var(--ff-heading);
-		font-size: 1.1rem;
-		font-weight: 700;
-		color: var(--text-high-contrast);
-		background: var(--blog-btn-bg, transparent);
-		border: 2px solid var(--text-high-contrast);
-		border-radius: 0.5em;
-		padding: 0.4em 1.5em;
-		text-decoration: none;
-		transition: background 0.2s, color 0.2s, border-color 0.2s;
-		margin-top: 1.5rem;
-	}
-	.blog-read-btn:hover {
-		background: var(--accent);
-		color: #fff;
-		border-color: var(--accent);
-	}
-	.arrow {
-		font-size: 1.2em;
+	.blog-main {
+		display: flex;
+		flex-direction: column;
+		gap: var(--default-layout-gap);
 	}
 </style>

@@ -1,5 +1,4 @@
 ---
-import Block from "../common/Block.astro";
 import YellowButton from "./YellowButton.astro";
 import BlueButton from "./BlueButton.astro";
 import PinkButton from "./PinkButton.astro";
@@ -9,18 +8,24 @@ import PinkButton from "./PinkButton.astro";
 	<div class="theme-switcher">
 		<button
 			aria-label="Yellow theme"
+			aria-pressed="false"
+			data-theme-choice="yellow"
 			class="theme-btn theme-yellow"
 			onclick="window.setTheme && window.setTheme('yellow')">
 			<YellowButton />
 		</button>
 		<button
 			aria-label="Pink theme"
+			aria-pressed="false"
+			data-theme-choice="pink"
 			class="theme-btn theme-pink"
 			onclick="window.setTheme && window.setTheme('pink')">
 			<PinkButton />
 		</button>
 		<button
 			aria-label="Blue theme"
+			aria-pressed="false"
+			data-theme-choice="blue"
 			class="theme-btn theme-blue"
 			onclick="window.setTheme && window.setTheme('blue')">
 			<BlueButton />
@@ -30,11 +35,19 @@ import PinkButton from "./PinkButton.astro";
 	<script is:inline>
 		window.setTheme = function (theme) {
 			document.documentElement.setAttribute("data-theme", theme);
-			localStorage.setItem("theme", theme);
+			try {
+				localStorage.setItem("theme", theme);
+			} catch (e) {}
+			document.querySelectorAll("[data-theme-choice]").forEach(function (btn) {
+				btn.setAttribute(
+					"aria-pressed",
+					String(btn.getAttribute("data-theme-choice") === theme)
+				);
+			});
 		};
-		// On load, set theme from localStorage if available
-		const saved = localStorage.getItem("theme");
-		if (saved) document.documentElement.setAttribute("data-theme", saved);
+		window.setTheme(
+			document.documentElement.getAttribute("data-theme") || "yellow"
+		);
 	</script>
 	<style>
 		.theme-switcher-container {
@@ -66,6 +79,9 @@ import PinkButton from "./PinkButton.astro";
 		.theme-btn:hover {
 			transform: scale(1.1);
 		}
+		.theme-btn[aria-pressed="true"] {
+			transform: scale(1.1);
+		}
 
 		@media (max-width: 900px) {
 			.theme-switcher-container {
@@ -74,6 +90,8 @@ import PinkButton from "./PinkButton.astro";
 			}
 
 			.theme-btn {
+				flex: 0 0 48px;
+				width: 48px;
 				height: 48px;
 			}
 		}

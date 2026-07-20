@@ -6,26 +6,15 @@ interface Props {
 	outside?: boolean;
 }
 const { variant = "outline", text, href = "#", outside = false } = Astro.props;
-const isLink = variant === "link";
 ---
 
-{isLink ? (
-	<a
-		href={href}
-		class={`button ${variant}`}
-		target={outside ? "_blank" : "_self"}
-		rel={outside ? "noopener noreferrer" : ""}>
-		{text}
-	</a>
-) : (
-	<a
-		class={`button ${variant}`}
-		href={href}
-		target={outside ? "_blank" : "_self"}
-		rel={outside ? "noopener noreferrer" : ""}>
-		{text}
-	</a>
-)}
+<a
+	class={`button ${variant}`}
+	href={href}
+	target={outside ? "_blank" : undefined}
+	rel={outside ? "noopener noreferrer" : undefined}>
+	{text}
+</a>
 
 <style>
 	.button {
@@ -38,25 +27,27 @@ const isLink = variant === "link";
 		color: var(--button-border-color);
 		text-align: center;
 		text-transform: uppercase;
-		font-size: var(--fs400);
+		font-size: var(--fs-400);
 		cursor: pointer;
-		min-width: 200px;
+		min-width: min(200px, 100%);
+		max-width: 100%;
 		width: fit-content;
 		height: 40px;
+		padding-inline: 1rem;
 		font-family: var(--ff-heading);
 		font-weight: 300;
 		text-decoration: none;
 	}
 
 	.button:hover {
-		border-color: var(--button-hover-background-color);
-		background-color: var(--button-hover-background-color);
+		border-color: var(--button-hover-background);
+		background-color: var(--button-hover-background);
 		color: var(--button-hover-color);
 	}
 
-	.button:focus {
-		outline: none;
-		outline-offset: 0px;
+	.button:focus-visible {
+		outline: 2px solid var(--button-border-color);
+		outline-offset: 2px;
 	}
 
 	.colored {
@@ -69,8 +60,8 @@ const isLink = variant === "link";
 	}
 
 	.outline:hover {
-		background-color: var(--button-hovered-background);
-		border-color: var(--button-hovered-background);
+		background-color: var(--button-hover-background);
+		border-color: var(--button-hover-background);
 	}
 
 	.secondary {
@@ -95,6 +86,6 @@ const isLink = variant === "link";
 	.link:hover {
 		background: transparent;
 		border: none;
-		color: var(--button-hovered-background);
+		color: var(--button-hover-background);
 	}
 </style>

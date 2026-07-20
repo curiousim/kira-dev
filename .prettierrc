@@ -1,8 +1,0 @@
-{
-  "plugins": ["prettier-plugin-astro"],
-  "tabWidth": 4,
-  "useTabs": true,
-  "bracketSameLine": true,
-  "jsxBracketSameLine": true,
-  "semi": true
-}

@@ -1,0 +1,149 @@
+<dialog class="lightbox" id="lightbox">
+	<button class="lightbox-btn lightbox-close" aria-label="Close">✕</button>
+	<button class="lightbox-btn lightbox-prev" aria-label="Previous photo">
+		←
+	</button>
+	<figure class="lightbox-figure">
+		<img class="lightbox-img" alt="" />
+		<figcaption class="lightbox-caption"></figcaption>
+	</figure>
+	<button class="lightbox-btn lightbox-next" aria-label="Next photo">
+		→
+	</button>
+</dialog>
+
+<script>
+	const dialog = document.getElementById(
+		"lightbox"
+	) as HTMLDialogElement | null;
+
+	if (dialog) {
+		const img = dialog.querySelector<HTMLImageElement>(".lightbox-img")!;
+		const caption = dialog.querySelector<HTMLElement>(".lightbox-caption")!;
+		const links = Array.from(
+			document.querySelectorAll<HTMLAnchorElement>("a[data-lightbox]")
+		);
+		let current = 0;
+
+		function show(index: number) {
+			current = (index + links.length) % links.length;
+			const link = links[current];
+			img.src = link.href;
+			img.alt = link.dataset.alt ?? "";
+			caption.textContent = link.dataset.caption ?? "";
+			for (const offset of [1, -1]) {
+				const neighbour =
+					links[(current + offset + links.length) % links.length];
+				if (neighbour !== link) new Image().src = neighbour.href;
+			}
+		}
+
+		links.forEach((link, index) => {
+			link.addEventListener("click", (event) => {
+				event.preventDefault();
+				show(index);
+				dialog.showModal();
+			});
+		});
+
+		dialog
+			.querySelector(".lightbox-close")
+			?.addEventListener("click", () => dialog.close());
+		dialog
+			.querySelector(".lightbox-prev")
+			?.addEventListener("click", () => show(current - 1));
+		dialog
+			.querySelector(".lightbox-next")
+			?.addEventListener("click", () => show(current + 1));
+
+		dialog.addEventListener("keydown", (event) => {
+			if (event.key === "ArrowLeft") show(current - 1);
+			if (event.key === "ArrowRight") show(current + 1);
+		});
+
+		// A click on the backdrop lands on the dialog element itself
+		dialog.addEventListener("click", (event) => {
+			if (event.target === dialog) dialog.close();
+		});
+
+		dialog.addEventListener("close", () => {
+			img.removeAttribute("src");
+		});
+	}
+</script>
+
+<style>
+	.lightbox {
+		border: none;
+		padding: 0;
+		background: transparent;
+		max-width: 100vw;
+		max-height: 100vh;
+		width: 100vw;
+		height: 100vh;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		gap: var(--default-layout-gap);
+	}
+	.lightbox[open] {
+		display: flex;
+	}
+	.lightbox::backdrop {
+		background: var(--lightbox-backdrop);
+	}
+	.lightbox-figure {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		min-width: 0;
+	}
+	.lightbox-img {
+		max-width: min(88vw, 1600px);
+		max-height: 82vh;
+		object-fit: contain;
+		border-radius: var(--radii-10);
+	}
+	.lightbox-caption {
+		color: var(--lightbox-foreground);
+		font-family: var(--ff-body);
+		font-size: var(--fs-400);
+		text-align: center;
+	}
+	.lightbox-caption:empty {
+		display: none;
+	}
+	.lightbox-btn {
+		background: transparent;
+		border: none;
+		color: var(--lightbox-foreground);
+		font-size: var(--fs-800);
+		font-family: var(--ff-heading);
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+	.lightbox-btn:focus-visible {
+		outline: 2px solid var(--lightbox-foreground);
+		outline-offset: 2px;
+	}
+	.lightbox-close {
+		position: absolute;
+		top: var(--default-layout-gap);
+		right: var(--default-layout-gap);
+	}
+	@media (max-width: 900px) {
+		.lightbox-prev,
+		.lightbox-next {
+			position: absolute;
+			bottom: var(--default-layout-gap);
+		}
+		.lightbox-prev {
+			left: var(--default-layout-gap);
+		}
+		.lightbox-next {
+			right: var(--default-layout-gap);
+		}
+	}
+</style>

@@ -33,7 +33,6 @@ const pages: Record<string, Page> = {
 };
 
 export const { getStaticPaths, GET } = await OGImageRoute({
-	param: "route",
 	pages,
 	getImageOptions: (_route, page) =>
 		brandedImage({
