@@ -3,6 +3,10 @@ import InfoCard from "../common/InfoCard.astro";
 import { getLatestPost } from "../../lib/posts";
 import { entrySlug } from "../../lib/slug";
 
+/**
+ * Sidebar "latest" card for the homepage and every blog post — shows the
+ * most recent published post, or just the badge if none exist yet.
+ */
 const latestPost = await getLatestPost();
 ---
 

@@ -3,7 +3,15 @@ import HamburgerMenu from "../components/common/HamburgerMenu.astro";
 import ScrollToTop from "../components/common/ScrollToTop.astro";
 import { INTERNAL_LINKS } from "../consts";
 
+/**
+ * The CSS Grid page shell: `main` (2fr) + `controls`/`latest` sidebar (1fr)
+ * on desktop, stacked single-column on mobile. Named slots: `main`,
+ * `theme`, `latest`. Reached through `PageLayout` for standard pages, or
+ * directly when a page's body doesn't fit a single `Block` (see
+ * `PageLayout`'s own doc comment).
+ */
 interface Props {
+	/** Stretch the `latest` sidebar slot to match main content height instead of sizing to its own content. @default false */
 	stretchLatest?: boolean;
 }
 

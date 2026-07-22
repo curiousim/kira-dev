@@ -1,6 +1,11 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 
+/**
+ * Document root: `<html>`/`<head>`/`<body>` plus the FOUC-prevention inline
+ * script that applies the saved theme before first paint. Every page
+ * renders through this (usually via `PageLayout`, not directly).
+ */
 interface Props {
 	title: string;
 	description: string;

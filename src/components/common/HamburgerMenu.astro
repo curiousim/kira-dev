@@ -1,5 +1,14 @@
 ---
+/**
+ * Mobile navigation: a hamburger button that expands a dropdown menu.
+ * Hidden entirely at desktop widths (>=900px) via CSS — `MainLayout`
+ * renders it unconditionally and lets the media query decide.
+ *
+ * @example
+ * <HamburgerMenu links={INTERNAL_LINKS} />
+ */
 interface Props {
+	/** Nav links, in display order. @default [] */
 	links?: Array<{ href: string; title: string }>;
 }
 

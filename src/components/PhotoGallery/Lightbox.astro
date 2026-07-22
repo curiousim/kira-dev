@@ -1,3 +1,12 @@
+---
+/**
+ * Full-screen photo viewer. Renders once per page (fixed `id="lightbox"`
+ * — only one may exist per page) and opens whenever a `data-lightbox`
+ * anchor rendered by `PhotoGrid` is clicked. Supports arrow-key and
+ * on-screen prev/next navigation and Escape to close.
+ */
+---
+
 <dialog class="lightbox" id="lightbox">
 	<button class="lightbox-btn lightbox-close" aria-label="Close">✕</button>
 	<button class="lightbox-btn lightbox-prev" aria-label="Previous photo">

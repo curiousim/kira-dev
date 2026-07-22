@@ -2,7 +2,18 @@
 import { Image, getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
+/**
+ * Responsive thumbnail grid for one album. Each thumbnail links to its
+ * full-size webp and carries `data-lightbox`/`data-alt`/`data-caption`
+ * attributes — pair with a single page-level `<Lightbox />` (not one per
+ * grid) to open them.
+ *
+ * @example
+ * <PhotoGrid photos={album.data.photos} />
+ * <Lightbox />
+ */
 interface Props {
+	/** An album's `photos` array from the `albums` content collection. */
 	photos: CollectionEntry<"albums">["data"]["photos"];
 }
 

@@ -1,5 +1,16 @@
 ---
+/**
+ * Bordered aside for calling out a note within blog post content — a left
+ * accent bar plus a subtle border. Used inside MDX post bodies.
+ *
+ * @example
+ * <Callout>
+ *   <strong>Note</strong>
+ *   <p>Some supporting detail.</p>
+ * </Callout>
+ */
 interface Props {
+	/** CSS max-width value, e.g. "60ch" or "400px". @default "88%" */
 	maxWidth?: string;
 }
 

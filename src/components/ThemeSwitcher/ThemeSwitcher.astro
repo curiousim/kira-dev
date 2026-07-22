@@ -2,6 +2,12 @@
 import YellowButton from "./YellowButton.astro";
 import BlueButton from "./BlueButton.astro";
 import PinkButton from "./PinkButton.astro";
+
+/**
+ * The three theme-picker buttons shown in every page's `theme` slot.
+ * Persists the choice to `data-theme` + localStorage; `BaseLayout`'s own
+ * inline head script reads that value before first paint to avoid a flash.
+ */
 ---
 
 <div class="theme-switcher-container">
@@ -10,90 +16,97 @@ import PinkButton from "./PinkButton.astro";
 			aria-label="Yellow theme"
 			aria-pressed="false"
 			data-theme-choice="yellow"
-			class="theme-btn theme-yellow"
-			onclick="window.setTheme && window.setTheme('yellow')">
+			class="theme-btn theme-yellow">
 			<YellowButton />
 		</button>
 		<button
 			aria-label="Pink theme"
 			aria-pressed="false"
 			data-theme-choice="pink"
-			class="theme-btn theme-pink"
-			onclick="window.setTheme && window.setTheme('pink')">
+			class="theme-btn theme-pink">
 			<PinkButton />
 		</button>
 		<button
 			aria-label="Blue theme"
 			aria-pressed="false"
 			data-theme-choice="blue"
-			class="theme-btn theme-blue"
-			onclick="window.setTheme && window.setTheme('blue')">
+			class="theme-btn theme-blue">
 			<BlueButton />
 		</button>
 	</div>
+</div>
 
-	<script is:inline>
-		window.setTheme = function (theme) {
-			document.documentElement.setAttribute("data-theme", theme);
-			try {
-				localStorage.setItem("theme", theme);
-			} catch (e) {}
-			document.querySelectorAll("[data-theme-choice]").forEach(function (btn) {
+<script>
+	function setTheme(theme: string) {
+		document.documentElement.setAttribute("data-theme", theme);
+		try {
+			localStorage.setItem("theme", theme);
+		} catch {
+			// localStorage unavailable (private mode, disabled) — theme just
+			// won't persist across reloads.
+		}
+		document
+			.querySelectorAll<HTMLElement>("[data-theme-choice]")
+			.forEach((btn) => {
 				btn.setAttribute(
 					"aria-pressed",
-					String(btn.getAttribute("data-theme-choice") === theme)
+					String(btn.dataset.themeChoice === theme),
 				);
 			});
-		};
-		window.setTheme(
-			document.documentElement.getAttribute("data-theme") || "yellow"
-		);
-	</script>
-	<style>
+	}
+
+	document
+		.querySelectorAll<HTMLButtonElement>("[data-theme-choice]")
+		.forEach((btn) => {
+			btn.addEventListener("click", () => setTheme(btn.dataset.themeChoice!));
+		});
+
+	setTheme(document.documentElement.getAttribute("data-theme") || "yellow");
+</script>
+
+<style>
+	.theme-switcher-container {
+		width: 100%;
+		padding: var(--default-layout-gap) var(--default-layout-gap);
+		background: var(--surface-raised);
+		border-radius: var(--radius-md);
+	}
+	.theme-switcher {
+		display: flex;
+		width: 100%;
+		gap: var(--default-layout-gap);
+		justify-content: space-between;
+		align-items: center;
+	}
+	.theme-btn {
+		background: none;
+		border: none;
+		cursor: pointer;
+		transition: transform var(--duration-fast);
+		padding: 0;
+		width: 30%;
+		height: 120px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.theme-btn:hover {
+		transform: scale(1.1);
+	}
+	.theme-btn[aria-pressed="true"] {
+		transform: scale(1.1);
+	}
+
+	@media (max-width: 899px) {
 		.theme-switcher-container {
-			width: 100%;
-			padding: var(--default-layout-gap) 0;
-			background: var(--surface-raised);
 			border-radius: var(--radius-md);
-			padding: var(--default-layout-gap) var(--default-layout-gap);
+			padding: 10px;
 		}
-		.theme-switcher {
-			display: flex;
-			width: 100%;
-			gap: var(--default-layout-gap);
-			justify-content: space-between;
-			align-items: center;
-		}
+
 		.theme-btn {
-			background: none;
-			border: none;
-			cursor: pointer;
-			transition: transform var(--duration-fast);
-			padding: 0;
-			width: 30%;
-			height: 120px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			flex: 0 0 48px;
+			width: 48px;
+			height: 48px;
 		}
-		.theme-btn:hover {
-			transform: scale(1.1);
-		}
-		.theme-btn[aria-pressed="true"] {
-			transform: scale(1.1);
-		}
-
-		@media (max-width: 899px) {
-			.theme-switcher-container {
-				border-radius: var(--radius-md);
-				padding: 10px;
-			}
-
-			.theme-btn {
-				flex: 0 0 48px;
-				width: 48px;
-				height: 48px;
-			}
-		}
-	</style>
-</div>
+	}
+</style>

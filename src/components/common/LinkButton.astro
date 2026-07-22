@@ -1,8 +1,19 @@
 ---
+/**
+ * Themed link styled as a button. Renders an `<a>`, never a `<button>` —
+ * use for navigation only; for in-page actions use a real `<button>`.
+ *
+ * @example
+ * <LinkButton text="Read" href="/blog/post/" variant="outline" />
+ */
 interface Props {
+	/** `link` is borderless inline text; `colored`/`secondary` use accent surfaces. @default "outline" */
 	variant?: "outline" | "link" | "colored" | "secondary";
+	/** Visible label. Uppercased by CSS on `outline`/`colored`/`secondary` — pass natural case. */
 	text: string;
+	/** Destination. @default "#" */
 	href?: string;
+	/** Open in a new tab with `rel="noopener noreferrer"`. @default false */
 	outside?: boolean;
 }
 const { variant = "outline", text, href = "#", outside = false } = Astro.props;

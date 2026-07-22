@@ -1,5 +1,13 @@
 ---
+/**
+ * Small uppercase label used for section tags ("BLOG", "PHOTOS") and post
+ * categories. Purely presentational — no link, no interaction.
+ *
+ * @example
+ * <Badge text="BOOKS" />
+ */
 interface Props {
+	/** Label text. Rendered as-is; callers pass it pre-uppercased. */
 	text: string;
 }
 

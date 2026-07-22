@@ -1,6 +1,6 @@
 # kira.dev
 
-Personal site and blog of Kira Menshov. Built with [Astro 5](https://astro.build), MDX, and a custom three-theme design-token system (yellow/blue/pink). Deployed to Cloudflare Pages on push to `master`.
+Personal site and blog of Kira Menshov. Built with [Astro 7](https://astro.build), MDX, and a custom three-theme design-token system (yellow/blue/pink). Deployed to Cloudflare Pages on push to `master`.
 
 ## Commands
 

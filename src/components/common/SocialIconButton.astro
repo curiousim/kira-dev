@@ -1,7 +1,18 @@
 ---
+/**
+ * External profile link with an inline SVG icon. Always opens in a new tab.
+ * Adding a new platform means adding a case to the icon union, an inline
+ * `<svg>` branch below, and its fill rule in the `<style>` block.
+ *
+ * @example
+ * <SocialIconButton icon="github" label="GitHub" href="https://github.com/curiousim" />
+ */
 interface Props {
+	/** Which inline SVG to render. */
 	icon: "github" | "linkedin" | "flickr" | "strava" | "frontend-masters";
+	/** Accessible name; also used in the "(opens in a new tab)" aria-label suffix. */
 	label: string;
+	/** Profile URL. */
 	href: string;
 }
 
