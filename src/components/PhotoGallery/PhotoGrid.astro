@@ -35,7 +35,7 @@ const items = await Promise.all(
 						src={photo.src}
 						alt={photo.alt}
 						widths={[240, 480, 720]}
-						sizes="(max-width: 900px) 45vw, 240px"
+						sizes="(max-width: 899px) 45vw, 240px"
 						width={480}
 						class="photo-thumb"
 						loading="lazy"
@@ -57,7 +57,7 @@ const items = await Promise.all(
 	}
 	.photo-link {
 		display: block;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		overflow: hidden;
 	}
 	.photo-link:focus-visible {
@@ -69,7 +69,7 @@ const items = await Promise.all(
 		width: 100%;
 		aspect-ratio: 1;
 		object-fit: cover;
-		transition: transform 0.2s ease;
+		transition: transform var(--duration-base) var(--ease-out);
 	}
 	.photo-link:hover .photo-thumb {
 		transform: scale(1.04);
@@ -82,7 +82,7 @@ const items = await Promise.all(
 			transform: none;
 		}
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.photo-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}

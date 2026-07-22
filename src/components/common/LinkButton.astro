@@ -32,8 +32,8 @@ const { variant = "outline", text, href = "#", outside = false } = Astro.props;
 		min-width: min(200px, 100%);
 		max-width: 100%;
 		width: fit-content;
-		height: 40px;
-		padding-inline: 1rem;
+		height: var(--space-7);
+		padding-inline: var(--space-4);
 		font-family: var(--ff-heading);
 		font-weight: 300;
 		text-decoration: none;
@@ -65,12 +65,9 @@ const { variant = "outline", text, href = "#", outside = false } = Astro.props;
 	}
 
 	.secondary {
-		background-color: var(
-			--button-secondary-background,
-			var(--background-secondary)
-		);
-		border-color: var(--button-secondary-border, var(--accent));
-		color: var(--button-secondary-text, var(--text-high-contrast));
+		background-color: var(--button-secondary-background);
+		border-color: var(--button-secondary-border);
+		color: var(--button-secondary-text);
 	}
 
 	.link {

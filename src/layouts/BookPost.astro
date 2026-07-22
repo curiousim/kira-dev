@@ -91,13 +91,13 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 		height: auto;
 		aspect-ratio: 2 / 3;
 		object-fit: contain;
-		box-shadow: 0 12px 28px var(--book-cover-shadow);
+		box-shadow: var(--book-cover-shadow-lg);
 	}
 
 	.book-intro h1 {
 		font-size: var(--fs-900);
 		line-height: 1.1;
-		margin: 0.5rem 0;
+		margin: var(--space-2) 0;
 	}
 
 	.book-date,
@@ -108,14 +108,14 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 	}
 
 	.book-description {
-		margin-top: 1.5rem;
+		margin-top: var(--space-5);
 		font-size: var(--fs-500);
 	}
 
 	.book-content {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--space-5);
 		padding-block: var(--big-layout-gap);
 		color: var(--text-main);
 		font-size: 1.18rem;
@@ -150,7 +150,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 		}
 
 		.book-content {
-			font-size: 1rem;
+			font-size: var(--fs-400);
 		}
 	}
 </style>

@@ -1,0 +1,34 @@
+/**
+ * Tier 3 — Component tokens.
+ *
+ * Defaults for specific UI parts, expressed in terms of tier-2 roles so they
+ * pick up the active theme automatically without being redeclared per
+ * theme. Only declare a value here directly (not via a tier-2 var) when it
+ * is genuinely constant across all three themes.
+ */
+@layer base {
+	:root {
+		--button-border-color: var(--border-emphasis);
+
+		/* `.colored` and `.link` LinkButton variants had no backing token —
+		   they rendered by CSS fallback accident. Give them real defaults. */
+		--button-colored-background: var(--surface-accent);
+		--button-link-color: var(--text-main);
+
+		/* Block.astro already references these with a fallback; declaring
+		   them here makes the fallback redundant but keeps intent explicit. */
+		--button-secondary-background: var(--surface-accent);
+		--button-secondary-border: var(--accent);
+		--button-secondary-text: var(--text-inverse);
+
+		/* Derived once — resolves per active theme via --badge-background,
+		   so it doesn't need restating in each [data-theme] block. */
+		--blockquote-accent: var(--badge-background);
+
+		/* Constant across all three themes today. */
+		--lightbox-backdrop: hsla(0, 0%, 8%, 0.92);
+		--lightbox-foreground: var(--clr-white);
+		--book-cover-shadow: var(--shadow-md);
+		--book-cover-shadow-lg: var(--shadow-lg);
+	}
+}

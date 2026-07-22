@@ -97,14 +97,14 @@ const pubDateFormatted = pubDate
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		margin-bottom: 1.5rem;
+		margin-bottom: var(--space-5);
 	}
 	.article-meta {
-		margin-bottom: 0.5rem;
+		margin-bottom: var(--space-2);
 	}
 	.article-date {
 		color: var(--text-blog-date);
-		font-size: 1rem;
+		font-size: var(--fs-400);
 		font-family: var(--ff-heading);
 		letter-spacing: 0.04em;
 	}
@@ -112,7 +112,7 @@ const pubDateFormatted = pubDate
 		font-family: var(--ff-heading);
 		font-size: 2.7rem;
 		font-weight: 700;
-		margin: 0 0 2rem 0;
+		margin: 0 0 var(--space-6) 0;
 		color: var(--text-main);
 		line-height: 1.1;
 		word-break: break-word;
@@ -123,11 +123,11 @@ const pubDateFormatted = pubDate
 		line-height: 1.7;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
-		padding-bottom: 40px;
+		gap: var(--space-5);
+		padding-bottom: var(--space-7);
 	}
 	.article-widget {
-		padding-bottom: 40px;
+		padding-bottom: var(--space-7);
 	}
 	.article-content :global(:not(pre) > code) {
 		font-family: var(--ff-heading);
@@ -140,7 +140,7 @@ const pubDateFormatted = pubDate
 	.article-content :global(pre) {
 		padding: 1em;
 		overflow-x: auto;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		margin: 1.5em 0;
 	}
 	:global(.article-content a) {
@@ -148,7 +148,7 @@ const pubDateFormatted = pubDate
 		text-decoration: underline;
 		text-underline-offset: 2px;
 		cursor: pointer;
-		transition: color 0.15s ease;
+		transition: color var(--duration-fast) var(--ease-out);
 	}
 	:global(.article-content a:hover),
 	:global(.article-content a:focus-visible) {
@@ -158,7 +158,7 @@ const pubDateFormatted = pubDate
 		display: block;
 		max-width: 100%;
 		height: auto;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		margin: 0 auto;
 	}
 	:global(.article-content .post-hero) {
@@ -172,12 +172,12 @@ const pubDateFormatted = pubDate
 		max-width: 360px;
 		margin: 0 auto;
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.article-title {
-			font-size: 1.5rem;
+			font-size: var(--fs-700);
 		}
 		.article-content {
-			font-size: 1rem;
+			font-size: var(--fs-400);
 		}
 	}
 </style>

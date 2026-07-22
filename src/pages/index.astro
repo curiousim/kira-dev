@@ -115,7 +115,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	.intro {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--space-5);
 		color: var(--text-main);
 		font-size: 1.15rem;
 		line-height: 1.7;
@@ -124,22 +124,22 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 1rem;
+		gap: var(--space-4);
 		margin-top: auto;
 	}
 	.primary-buttons,
 	.social-buttons {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: var(--space-5);
 	}
 	.primary-buttons {
 		width: 100%;
 	}
 	.social-buttons {
-		gap: 0.75rem;
+		gap: var(--space-3);
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.main-title {
 			margin-top: 0px;
 			margin-bottom: 36px;
@@ -150,10 +150,10 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		}
 		.primary-buttons {
 			width: 100%;
-			gap: 1rem;
+			gap: var(--space-4);
 		}
 		.social-buttons {
-			gap: 0.5rem;
+			gap: var(--space-2);
 		}
 		.primary-buttons :global(a) {
 			flex: 1;

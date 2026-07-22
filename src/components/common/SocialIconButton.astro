@@ -80,16 +80,16 @@ const { icon, label, href } = Astro.props;
 	.social-button {
 		display: grid;
 		place-items: center;
-		width: 40px;
-		height: 40px;
-		padding: 8px;
+		width: var(--space-7);
+		height: var(--space-7);
+		padding: var(--space-2);
 		border: 0;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		background: transparent;
 		text-decoration: none;
 		transition:
-			background-color 0.15s ease,
-			transform 0.15s ease;
+			background-color var(--duration-fast) var(--ease-out),
+			transform var(--duration-fast) var(--ease-out);
 	}
 
 	.social-button:hover,
@@ -134,7 +134,7 @@ const { icon, label, href } = Astro.props;
 		fill: var(--social-icon-primary);
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.social-button {
 			width: 36px;
 			height: 36px;

@@ -101,7 +101,7 @@ for (let i = 1; i < 4; i++) {
 
 const TOKEN_MAP: Record<string, string> = {
 	sky: "--block-card-background",
-	ground: "--background-secondary",
+	ground: "--surface-accent",
 	road: "--clr-gray-700",
 	roadLine: "--clr-gray-100",
 	curb: "--clr-gray-500",

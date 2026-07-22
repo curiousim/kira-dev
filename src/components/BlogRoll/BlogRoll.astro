@@ -169,7 +169,7 @@ const categoryCounts = Object.fromEntries(
 	.blog-filter-buttons {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: var(--space-2);
 	}
 	.blog-filter-buttons button,
 	.blog-empty-state button {
@@ -203,7 +203,7 @@ const categoryCounts = Object.fromEntries(
 	.blog-roll {
 		display: flex;
 		flex-direction: column;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		gap: 1.2rem;
 	}
 	.blog-empty-state {
@@ -215,7 +215,7 @@ const categoryCounts = Object.fromEntries(
 		display: none;
 	}
 	.blog-empty-state p {
-		margin-bottom: 1rem;
+		margin-bottom: var(--space-4);
 		color: var(--text-main);
 	}
 	@media (max-width: 600px) {

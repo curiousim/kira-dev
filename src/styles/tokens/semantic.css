@@ -1,81 +1,30 @@
+/**
+ * Tier 2 — Semantic roles.
+ *
+ * Everything a theme (yellow / blue / pink) needs to change lives here, and
+ * only here. Adding a theme-varying value means adding one property to each
+ * of the three blocks below — never touch a component's stylesheet to
+ * switch a color. `--theme-btn-*` is the one component-shaped exception: the
+ * theme-switcher buttons must render differently depending on which theme is
+ * currently active, so their tokens are necessarily per-active-theme too.
+ */
 @layer base {
-	:root {
-		--clr-white: hsl(0, 0%, 100%);
-		--clr-black: hsla(0, 0%, 16%, 1);
-		/* grey */
-		--clr-gray-100: hsla(0, 0%, 95%, 1);
-		--clr-gray-500: hsla(0, 0%, 69%, 1);
-		--clr-gray-700: hsla(0, 0%, 56%, 1);
-		--clr-gray-900: hsla(0, 1%, 53%, 1);
-		/* blue */
-		--clr-blueberry-100: hsla(231, 59%, 89%, 1);
-		--clr-blueberry-200: hsla(231, 59%, 80%, 1);
-		--clr-blueberry-300: hsla(229, 88%, 70%, 1);
-		--clr-blueberry-500: hsla(229, 90%, 65%, 1);
-		--clr-blueberry-600: hsla(229, 61%, 56%, 1);
-		--clr-blueberry-700: hsla(229, 61%, 47%, 1);
-		/* pink */
-		--clr-pink-100: hsla(331, 76%, 94%, 1);
-		--clr-pink-300: hsla(331, 76%, 87%, 1);
-		--clr-pink-500: hsla(331, 95%, 75%, 1);
-		/* lavender */
-		--clr-lavender-100: hsla(266, 66%, 94%, 1);
-		--clr-lavender-200: hsla(266, 66%, 85%, 1);
-		--clr-lavender-300: hsla(266, 66%, 77%, 1);
-		--clr-lavender-500: hsla(266, 66%, 62%, 1);
-		/* yellow */
-		/* --clr-yellow-300: hsla(52, 100%, 68%, 0.4); */
-		--clr-yellow-500: hsla(52, 100%, 68%, 1);
-		--clr-yellow-700: hsla(44, 100%, 61%, 1);
-
-		--ff-heading: "JetBrains Mono", monospace;
-		--ff-body:
-			"SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
-			Roboto, sans-serif;
-
-		--radii-10: 10px;
-
-		--default-layout-gap: 24px;
-		--big-layout-gap: 40px;
-
-		--fs-300: 14px;
-		--fs-400: 16px;
-		--fs-500: 18px;
-		--fs-600: 20px;
-		--fs-700: 24px;
-		--fs-800: 32px;
-		--fs-900: 44px;
-		--fs-1000: 55.2px;
-
-		@media (max-width: 900px) {
-			--default-layout-gap: 16px;
-			--big-layout-gap: 24px;
-
-			--fs-300: 13px;
-			--fs-400: 15px;
-			--fs-500: 16px;
-			--fs-600: 18px;
-			--fs-700: 20px;
-			--fs-800: 24px;
-			--fs-900: 32px;
-			--fs-1000: 40px;
-		}
-	}
-	/* in another selector for syntax highlighting reasons only */
 	:root {
 		/* Default theme: yellow */
 		--badge-background: var(--clr-pink-500);
 		--badge-text: var(--clr-yellow-500);
 
-		--background-main: var(--clr-gray-900);
-		--background-content: var(--clr-gray-100);
-		--background-secondary: var(--clr-yellow-500);
+		--surface-main: var(--clr-gray-900);
+		--surface-raised: var(--clr-gray-100);
+		--surface-accent: var(--clr-yellow-500);
+
+		/* BORDER / FOCUS */
+		--border-emphasis: var(--clr-black);
 
 		/* BUTTON */
-		--button-border-color: var(--clr-black);
-		--button-blog-card-background-hover: var(--clr-blueberry-500);
-		--button-blog-card-color: var(--clr-black);
-		--button-blog-card-color-hover: var(--clr-white);
+		--card-action-background-hover: var(--clr-blueberry-500);
+		--card-action-color: var(--clr-black);
+		--card-action-color-hover: var(--clr-white);
 		--button-hover-background: var(--clr-pink-500);
 		--button-hover-color: var(--clr-white);
 
@@ -85,154 +34,131 @@
 		--block-card-text: var(--clr-black);
 
 		--text-main: var(--clr-black);
-		--text-high-contrast: var(--clr-black);
+		--text-inverse: var(--clr-black);
 		--text-info-card: var(--clr-black);
 		--text-blog-date: var(--clr-gray-900);
 		--code-background: var(--clr-gray-100);
 		--code-text: var(--clr-black);
-		--lightbox-backdrop: hsla(0, 0%, 8%, 0.92);
-		--lightbox-foreground: var(--clr-white);
 
 		--accent: #ffb6c1;
-		--blockquote-accent: var(--badge-background);
 
 		/* SOCIAL ICONS */
 		--social-icon-primary: var(--clr-black);
 		--social-icon-secondary: var(--clr-gray-700);
 		--social-button-hover-background: var(--clr-pink-500);
-		--book-cover-shadow: hsla(0, 0%, 0%, 0.22);
 
 		/* THEME SWITCHER BUTTONS */
-		/* Yellow Button */
 		--theme-btn-yellow-background: var(--clr-yellow-500);
 		--theme-btn-yellow-foreground: var(--clr-black);
 		--theme-btn-yellow-hover-background: var(--clr-yellow-500);
 		--theme-btn-yellow-hover-foreground: var(--clr-black);
 
-		/* Blue Button */
 		--theme-btn-blue-background: var(--clr-blueberry-500);
 		--theme-btn-blue-foreground: var(--clr-white);
 		--theme-btn-blue-hover-background: var(--clr-black);
 		--theme-btn-blue-hover-foreground: var(--clr-gray-700);
 		--theme-btn-blue-hover-accent: var(--clr-blueberry-500);
 
-		/* Pink Button */
 		--theme-btn-pink-background: var(--clr-pink-500);
 		--theme-btn-pink-foreground: var(--clr-black);
 		--theme-btn-pink-hover-background: var(--clr-pink-500);
 		--theme-btn-pink-hover-foreground: var(--clr-black);
 	}
+
 	[data-theme="blue"] {
 		--badge-background: var(--clr-black);
 		--badge-text: var(--clr-blueberry-500);
 
-		--background-main: var(--clr-black);
-		--background-content: var(--clr-blueberry-500);
-		--background-secondary: var(--clr-blueberry-500);
+		--surface-main: var(--clr-black);
+		--surface-raised: var(--clr-blueberry-500);
+		--surface-accent: var(--clr-blueberry-500);
 
-		/* BUTTON */
-		--button-border-color: var(--clr-white);
+		--border-emphasis: var(--clr-white);
+
 		--button-hover-color: var(--clr-black);
 		--button-hover-background: var(--clr-white);
-		--button-blog-card-background-hover: var(--clr-blueberry-700);
-		--button-blog-card-color: var(--clr-white);
-		--button-blog-card-color-hover: var(--clr-white);
+		--card-action-background-hover: var(--clr-blueberry-700);
+		--card-action-color: var(--clr-white);
+		--card-action-color-hover: var(--clr-white);
 
-		/* BLOCK CARD */
 		--block-card-background: var(--clr-blueberry-300);
 		--block-card-background-hover: var(--clr-blueberry-600);
 		--block-card-text: var(--clr-white);
 
 		--text-main: var(--clr-white);
-		--text-high-contrast: var(--clr-black);
+		--text-inverse: var(--clr-black);
 		--text-info-card: var(--clr-white);
 		--text-blog-date: var(--clr-white);
 		--code-background: var(--clr-blueberry-100);
 		--code-text: var(--clr-black);
-		--lightbox-backdrop: hsla(0, 0%, 8%, 0.92);
-		--lightbox-foreground: var(--clr-white);
 
 		--accent: #ffb6c1;
-		--blockquote-accent: var(--badge-background);
 
-		/* SOCIAL ICONS */
 		--social-icon-primary: var(--clr-white);
 		--social-icon-secondary: var(--clr-gray-100);
 		--social-button-hover-background: var(--clr-black);
 
-		/* THEME SWITCHER BUTTONS */
-		/* Yellow Button */
 		--theme-btn-yellow-background: var(--clr-black);
 		--theme-btn-yellow-foreground: var(--clr-yellow-500);
 		--theme-btn-yellow-hover-background: var(--clr-black);
 		--theme-btn-yellow-hover-foreground: var(--clr-yellow-500);
 
-		/* Blue Button */
 		--theme-btn-blue-background: var(--clr-black);
 		--theme-btn-blue-foreground: var(--clr-white);
 		--theme-btn-blue-hover-background: var(--clr-black);
 		--theme-btn-blue-hover-foreground: var(--clr-gray-700);
 		--theme-btn-blue-hover-accent: var(--clr-blueberry-500);
 
-		/* Pink Button */
 		--theme-btn-pink-background: var(--clr-black);
 		--theme-btn-pink-foreground: var(--clr-pink-500);
 		--theme-btn-pink-hover-background: var(--clr-black);
 		--theme-btn-pink-hover-foreground: var(--clr-pink-500);
 	}
+
 	[data-theme="pink"] {
 		--badge-background: var(--clr-yellow-500);
 		--badge-text: var(--clr-black);
 
-		--background-main: var(--clr-pink-500);
-		--background-content: var(--clr-gray-100);
-		--background-secondary: var(--clr-lavender-500);
+		--surface-main: var(--clr-pink-500);
+		--surface-raised: var(--clr-gray-100);
+		--surface-accent: var(--clr-lavender-500);
 
-		/* BUTTON */
-		--button-border-color: var(--clr-black);
+		--border-emphasis: var(--clr-black);
+
 		--button-hover-color: var(--clr-white);
-		--button-blog-card-background-hover: var(--clr-lavender-500);
-		--button-blog-card-color: var(--clr-black);
-		--button-blog-card-color-hover: var(--clr-white);
+		--card-action-background-hover: var(--clr-lavender-500);
+		--card-action-color: var(--clr-black);
+		--card-action-color-hover: var(--clr-white);
 		--button-hover-background: var(--clr-black);
 
-		/* BLOCK CARD */
 		--block-card-background-hover: var(--clr-lavender-200);
 		--block-card-background: var(--clr-lavender-100);
 		--block-card-text: var(--clr-black);
 
 		--text-main: var(--clr-black);
-		--text-high-contrast: var(--clr-white);
+		--text-inverse: var(--clr-white);
 		--text-info-card: var(--clr-white);
 		--text-blog-date: var(--clr-gray-900);
 		--code-background: var(--clr-lavender-100);
 		--code-text: var(--clr-black);
-		--lightbox-backdrop: hsla(0, 0%, 8%, 0.92);
-		--lightbox-foreground: var(--clr-white);
 
 		--accent: var(--clr-yellow-500);
-		--blockquote-accent: var(--badge-background);
 
-		/* SOCIAL ICONS */
 		--social-icon-primary: var(--clr-black);
 		--social-icon-secondary: var(--clr-gray-700);
 		--social-button-hover-background: var(--clr-yellow-500);
 
-		/* THEME SWITCHER BUTTONS */
-		/* Yellow Button */
 		--theme-btn-yellow-background: var(--clr-pink-500);
 		--theme-btn-yellow-foreground: var(--clr-yellow-500);
 		--theme-btn-yellow-hover-background: var(--clr-pink-500);
 		--theme-btn-yellow-hover-foreground: var(--clr-yellow-500);
 
-		/* Blue Button */
 		--theme-btn-blue-background: var(--clr-pink-500);
 		--theme-btn-blue-foreground: var(--clr-blueberry-500);
 		--theme-btn-blue-hover-background: var(--clr-pink-500);
 		--theme-btn-blue-hover-foreground: var(--clr-blueberry-500);
 		--theme-btn-blue-hover-accent: var(--clr-blueberry-500);
 
-		/* Pink Button */
 		--theme-btn-pink-background: var(--clr-pink-500);
 		--theme-btn-pink-foreground: var(--clr-black);
 		--theme-btn-pink-hover-background: var(--clr-pink-500);

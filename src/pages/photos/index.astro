@@ -37,7 +37,7 @@ const albums = (await getCollection("albums")).sort(
 										src={cover}
 										alt=""
 										widths={[320, 640, 960]}
-										sizes="(max-width: 900px) 90vw, 420px"
+										sizes="(max-width: 899px) 90vw, 420px"
 										width={640}
 										class="album-cover"
 										loading="lazy"
@@ -70,7 +70,7 @@ const albums = (await getCollection("albums")).sort(
 
 <style>
 	.albums-header {
-		margin-bottom: 1rem;
+		margin-bottom: var(--space-4);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -88,7 +88,7 @@ const albums = (await getCollection("albums")).sort(
 	}
 	.album-card {
 		background: var(--block-card-background);
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		overflow: hidden;
 	}
 	.album-card:hover {
@@ -105,12 +105,12 @@ const albums = (await getCollection("albums")).sort(
 		display: block;
 	}
 	.album-meta {
-		padding: 1rem;
+		padding: var(--space-4);
 	}
 	.album-meta h2 {
 		color: var(--block-card-text);
 		font-size: var(--fs-600);
-		margin-bottom: 0.25rem;
+		margin-bottom: var(--space-1);
 	}
 	.album-info {
 		color: var(--text-blog-date);
