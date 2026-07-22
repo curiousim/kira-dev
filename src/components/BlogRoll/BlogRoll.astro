@@ -55,10 +55,6 @@ const categoryCounts = Object.fromEntries(
 					))
 				}
 			</div>
-			<p class="blog-filter-status" data-filter-status aria-live="polite">
-				Showing {posts.length}
-				{posts.length === 1 ? "post" : "posts"}
-			</p>
 		</div>
 
 		<div class="blog-roll">
@@ -83,9 +79,6 @@ const categoryCounts = Object.fromEntries(
 		);
 		const cards = Array.from(
 			blogRoll.querySelectorAll<HTMLElement>("[data-post-card]"),
-		);
-		const status = blogRoll.querySelector<HTMLElement>(
-			"[data-filter-status]",
 		);
 		const emptyState =
 			blogRoll.querySelector<HTMLElement>("[data-empty-state]");
@@ -114,14 +107,6 @@ const categoryCounts = Object.fromEntries(
 					"aria-pressed",
 					String(button.dataset.filter === filter),
 				);
-			}
-
-			if (status) {
-				const label =
-					filter === "all"
-						? ""
-						: `${filter[0].toUpperCase()}${filter.slice(1)} `;
-				status.textContent = `Showing ${visibleCount} ${label}${visibleCount === 1 ? "post" : "posts"}`;
 			}
 
 			if (emptyMessage) {
@@ -214,10 +199,6 @@ const categoryCounts = Object.fromEntries(
 		background: var(--button-hover-background);
 		border-color: var(--button-hover-background);
 		color: var(--button-hover-color);
-	}
-	.blog-filter-status {
-		color: var(--text-main);
-		font-size: var(--fs-300);
 	}
 	.blog-roll {
 		display: flex;

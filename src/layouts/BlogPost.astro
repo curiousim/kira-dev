@@ -66,33 +66,27 @@ const pubDateFormatted = pubDate
 	tags={category ? [category, ...tags] : tags}
 >
 	{articleSchema && <JsonLd schema={articleSchema} />}
-	<MainLayout>
-		<div slot="main">
-			<Block>
-				<div class="article-header">
-					<Button
-						text="← Back to Blog"
-						href="/blog/"
-						variant="link"
-					/>
-					<Badge text={headerBadge} />
-				</div>
-				{
-					pubDate && (
-						<div class="article-meta">
-							<span class="article-date">{pubDateFormatted}</span>
-						</div>
-					)
-				}
-				<h1 class="article-title">{title}</h1>
-				<div class="article-content">
-					<slot />
-				</div>
-				<div class="article-widget">
-					<BottleFetch />
-				</div>
-			</Block>
-		</div>
+	<MainLayout stretchLatest>
+		<Block slot="main">
+			<div class="article-header">
+				<Button text="← Back to Blog" href="/blog/" variant="link" />
+				<Badge text={headerBadge} />
+			</div>
+			{
+				pubDate && (
+					<div class="article-meta">
+						<span class="article-date">{pubDateFormatted}</span>
+					</div>
+				)
+			}
+			<h1 class="article-title">{title}</h1>
+			<div class="article-content">
+				<slot />
+			</div>
+			<div class="article-widget">
+				<BottleFetch />
+			</div>
+		</Block>
 		<ThemeSwitcher slot="theme" />
 		<InfoCardBlogPost slot="latest" />
 	</MainLayout>

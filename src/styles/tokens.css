@@ -29,7 +29,8 @@
 		--clr-yellow-700: hsla(44, 100%, 61%, 1);
 
 		--ff-heading: "JetBrains Mono", monospace;
-		--ff-body: "SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
+		--ff-body:
+			"SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
 			Roboto, sans-serif;
 
 		--radii-10: 10px;
@@ -95,6 +96,12 @@
 		--accent: #ffb6c1;
 		--blockquote-accent: var(--badge-background);
 
+		/* SOCIAL ICONS */
+		--social-icon-primary: var(--clr-black);
+		--social-icon-secondary: var(--clr-gray-700);
+		--social-button-hover-background: var(--clr-pink-500);
+		--book-cover-shadow: hsla(0, 0%, 0%, 0.22);
+
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
 		--theme-btn-yellow-background: var(--clr-yellow-500);
@@ -148,6 +155,11 @@
 		--accent: #ffb6c1;
 		--blockquote-accent: var(--badge-background);
 
+		/* SOCIAL ICONS */
+		--social-icon-primary: var(--clr-white);
+		--social-icon-secondary: var(--clr-gray-100);
+		--social-button-hover-background: var(--clr-black);
+
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */
 		--theme-btn-yellow-background: var(--clr-black);
@@ -200,6 +212,11 @@
 
 		--accent: var(--clr-yellow-500);
 		--blockquote-accent: var(--badge-background);
+
+		/* SOCIAL ICONS */
+		--social-icon-primary: var(--clr-black);
+		--social-icon-secondary: var(--clr-gray-700);
+		--social-button-hover-background: var(--clr-yellow-500);
 
 		/* THEME SWITCHER BUTTONS */
 		/* Yellow Button */

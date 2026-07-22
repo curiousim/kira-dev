@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
+import SocialIconButton from "../components/common/SocialIconButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import { personSchema, websiteSchema } from "../lib/schema";
 
@@ -52,30 +53,46 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 						with others?
 					</p>
 				</div>
-				<div class="buttons-container">
-					<LinkButton
-						text="Blog -->"
-						href="/blog/"
-						variant="outline"
-					/>
-					<LinkButton
-						text="Github -->"
-						href="https://github.com/curiousim"
-						variant="outline"
-						outside
-					/>
-					<LinkButton
-						text="LinkedIn -->"
-						href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
-						variant="outline"
-						outside
-					/>
-					<LinkButton
-						text="Flickr -->"
-						href="https://www.flickr.com/photos/204721301@N03/"
-						variant="outline"
-						outside
-					/>
+				<div class="button-groups">
+					<div class="primary-buttons">
+						<LinkButton
+							text="Blog -->"
+							href="/blog/"
+							variant="outline"
+						/>
+						<LinkButton
+							text="Books -->"
+							href="/books/"
+							variant="outline"
+						/>
+					</div>
+					<div class="social-buttons" aria-label="Kira elsewhere">
+						<SocialIconButton
+							icon="github"
+							label="GitHub"
+							href="https://github.com/curiousim"
+						/>
+						<SocialIconButton
+							icon="linkedin"
+							label="LinkedIn"
+							href="https://www.linkedin.com/in/kira-menshov-b447b72a/"
+						/>
+						<SocialIconButton
+							icon="flickr"
+							label="Flickr"
+							href="https://www.flickr.com/photos/204721301@N03/"
+						/>
+						<SocialIconButton
+							icon="strava"
+							label="Strava"
+							href="https://www.strava.com/athletes/21237811"
+						/>
+						<SocialIconButton
+							icon="frontend-masters"
+							label="Frontend Masters"
+							href="https://master.dev/u/kiramenshov/"
+						/>
+					</div>
 				</div>
 			</div>
 		</Block>
@@ -103,11 +120,24 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		font-size: 1.15rem;
 		line-height: 1.7;
 	}
-	.buttons-container {
+	.button-groups {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-top: auto;
+	}
+	.primary-buttons,
+	.social-buttons {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1.5rem;
-		margin-top: auto;
+	}
+	.primary-buttons {
+		width: 100%;
+	}
+	.social-buttons {
+		gap: 0.75rem;
 	}
 	@media (max-width: 900px) {
 		.main-title {
@@ -115,10 +145,18 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 			margin-bottom: 36px;
 		}
 
-		.buttons-container {
+		.button-groups {
 			margin-top: 50px;
-			flex-direction: column;
+		}
+		.primary-buttons {
+			width: 100%;
 			gap: 1rem;
+		}
+		.social-buttons {
+			gap: 0.5rem;
+		}
+		.primary-buttons :global(a) {
+			flex: 1;
 		}
 	}
 </style>

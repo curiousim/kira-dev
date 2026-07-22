@@ -14,7 +14,7 @@ import BottleFetch from "../../components/BottleFetch/BottleFetch.astro";
 	imageWidth={1200}
 	imageHeight={630}
 >
-	<MainLayout>
+	<MainLayout stretchLatest>
 		<div slot="main" class="blog-main">
 			<BlogRoll />
 			<BottleFetch />
@@ -28,5 +28,10 @@ import BottleFetch from "../../components/BottleFetch/BottleFetch.astro";
 		display: flex;
 		flex-direction: column;
 		gap: var(--default-layout-gap);
+		height: 100%;
+	}
+
+	.blog-main > :global(.block) {
+		flex: 1;
 	}
 </style>

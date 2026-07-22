@@ -1,0 +1,105 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	book: CollectionEntry<"books">;
+}
+
+const { book } = Astro.props;
+const slug = book.id.replace(/\.mdx?$/, "");
+---
+
+<li class="book-tile">
+	<a href={`/books/${slug}/`} class="book-link">
+		<div class="cover-frame">
+			<img
+				src={book.data.cover}
+				alt={book.data.coverAlt}
+				class="book-cover"
+				loading="lazy"
+				width="360"
+				height="540"
+			/>
+		</div>
+		<div class="book-meta">
+			<h2>{book.data.title}</h2>
+			<p class="book-author">{book.data.author}</p>
+			<p class="book-description">{book.data.description}</p>
+		</div>
+	</a>
+</li>
+
+<style>
+	.book-tile {
+		min-width: 0;
+	}
+
+	.book-link {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		background: var(--block-card-background);
+		border-radius: var(--radii-10);
+		overflow: hidden;
+		text-decoration: none;
+		transition:
+			background-color 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.book-link:hover,
+	.book-link:focus-visible {
+		background: var(--block-card-background-hover);
+		transform: translateY(-3px);
+	}
+
+	.book-link:focus-visible {
+		outline: 2px solid var(--button-border-color);
+		outline-offset: 3px;
+	}
+
+	.cover-frame {
+		display: grid;
+		place-items: center;
+		aspect-ratio: 4 / 5;
+		padding: 1.5rem;
+		background: var(--background-secondary);
+	}
+
+	.book-cover {
+		width: auto;
+		height: 100%;
+		max-width: 100%;
+		object-fit: contain;
+		border-radius: calc(var(--radii-10) / 2);
+		box-shadow: 0 10px 24px var(--book-cover-shadow);
+	}
+
+	.book-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 1rem;
+	}
+
+	.book-meta h2 {
+		color: var(--block-card-text);
+		font-size: var(--fs-600);
+		line-height: 1.25;
+	}
+
+	.book-author {
+		color: var(--text-blog-date);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+	}
+
+	.book-description {
+		color: var(--block-card-text);
+		font-size: var(--fs-400);
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+	}
+</style>

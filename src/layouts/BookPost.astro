@@ -1,0 +1,156 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import MainLayout from "./MainLayout.astro";
+import Block from "../components/common/Block.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+import BooksInfoCard from "../components/InfoCardContent/Books.astro";
+import Badge from "../components/common/Badge.astro";
+import LinkButton from "../components/common/LinkButton.astro";
+
+const {
+	title,
+	author,
+	description,
+	pubDate,
+	updatedDate,
+	cover,
+	coverAlt,
+	tags = [],
+} = Astro.props;
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+	year: "numeric",
+	month: "long",
+	day: "numeric",
+};
+---
+
+<BaseLayout
+	title={`${title} – Kira Menshov`}
+	description={description}
+	image={cover}
+	type="article"
+	pubDate={new Date(pubDate)}
+	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+	tags={tags}
+>
+	<MainLayout>
+		<Block slot="main">
+			<div class="book-header-row">
+				<LinkButton
+					text="← Back to Books"
+					href="/books/"
+					variant="link"
+				/>
+				<Badge text="BOOK" />
+			</div>
+			<header class="book-intro">
+				<img src={cover} alt={coverAlt} width="240" height="360" />
+				<div>
+					<p class="book-date">
+						{
+							new Date(pubDate).toLocaleDateString(
+								"en-US",
+								dateOptions,
+							)
+						}
+					</p>
+					<h1>{title}</h1>
+					<p class="book-author">by {author}</p>
+					<p class="book-description">{description}</p>
+				</div>
+			</header>
+			<article class="book-content">
+				<slot />
+			</article>
+		</Block>
+		<ThemeSwitcher slot="theme" />
+		<BooksInfoCard slot="latest" />
+	</MainLayout>
+</BaseLayout>
+
+<style>
+	.book-header-row {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: var(--big-layout-gap);
+	}
+
+	.book-intro {
+		display: grid;
+		grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+		align-items: center;
+		gap: var(--big-layout-gap);
+		padding-bottom: var(--big-layout-gap);
+		border-bottom: 1px solid var(--button-border-color);
+	}
+
+	.book-intro img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2 / 3;
+		object-fit: contain;
+		box-shadow: 0 12px 28px var(--book-cover-shadow);
+	}
+
+	.book-intro h1 {
+		font-size: var(--fs-900);
+		line-height: 1.1;
+		margin: 0.5rem 0;
+	}
+
+	.book-date,
+	.book-author {
+		color: var(--text-blog-date);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+	}
+
+	.book-description {
+		margin-top: 1.5rem;
+		font-size: var(--fs-500);
+	}
+
+	.book-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		padding-block: var(--big-layout-gap);
+		color: var(--text-main);
+		font-size: 1.18rem;
+		line-height: 1.7;
+	}
+
+	.book-content :global(a) {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.book-content :global(img) {
+		display: block;
+		max-width: 100%;
+		height: auto;
+		margin: 0 auto;
+	}
+
+	@media (max-width: 600px) {
+		.book-intro {
+			grid-template-columns: 1fr;
+		}
+
+		.book-intro img {
+			width: min(220px, 70%);
+			justify-self: center;
+		}
+
+		.book-intro h1 {
+			font-size: var(--fs-800);
+		}
+
+		.book-content {
+			font-size: 1rem;
+		}
+	}
+</style>

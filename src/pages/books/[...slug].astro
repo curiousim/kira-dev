@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from "astro:content";
+import BookPost from "../../layouts/BookPost.astro";
+
+export async function getStaticPaths() {
+	const books = (await getCollection("books")).filter(
+		(book) => !book.data.draft,
+	);
+
+	return books.map((book) => ({
+		params: { slug: book.id.replace(/\.mdx?$/, "") },
+		props: { book },
+	}));
+}
+
+const { book } = Astro.props;
+const { Content } = await render(book);
+---
+
+<BookPost {...book.data}>
+	<Content />
+</BookPost>

@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Block from "../../components/common/Block.astro";
+import Badge from "../../components/common/Badge.astro";
+import LinkButton from "../../components/common/LinkButton.astro";
+import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
+import BooksInfoCard from "../../components/InfoCardContent/Books.astro";
+import BookTile from "../../components/Books/BookTile.astro";
+
+const books = (await getCollection("books"))
+	.filter((book) => !book.data.draft)
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout
+	title="Books – Kira Menshov"
+	description="Book notes and reading reflections by Kira Menshov."
+>
+	<MainLayout stretchLatest>
+		<Block slot="main">
+			<div class="books-content">
+				<div class="books-header">
+					<LinkButton text="<-- Main" href="/" variant="link" />
+					<Badge text="BOOKS" />
+				</div>
+				{
+					books.length > 0 ? (
+						<ul class="books-grid" role="list">
+							{books.map((book) => (
+								<BookTile book={book} />
+							))}
+						</ul>
+					) : (
+						<div class="books-empty">
+							<p>The first book note is still being written.</p>
+							<span>Check back soon.</span>
+						</div>
+					)
+				}
+			</div>
+		</Block>
+		<ThemeSwitcher slot="theme" />
+		<BooksInfoCard slot="latest" />
+	</MainLayout>
+</BaseLayout>
+
+<style>
+	.books-content {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.books-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: var(--default-layout-gap);
+	}
+
+	.books-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+		gap: var(--default-layout-gap);
+	}
+
+	.books-empty {
+		display: grid;
+		place-items: center;
+		flex: 1;
+		min-height: 360px;
+		padding: var(--big-layout-gap);
+		border: 2px dashed var(--button-border-color);
+		text-align: center;
+	}
+
+	.books-empty p {
+		font-family: var(--ff-heading);
+		font-size: var(--fs-600);
+	}
+
+	.books-empty span {
+		color: var(--text-blog-date);
+		font-family: var(--ff-body);
+		font-size: var(--fs-400);
+	}
+
+	@media (max-width: 900px) {
+		.books-content {
+			height: auto;
+		}
+	}
+</style>
