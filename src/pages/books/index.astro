@@ -39,7 +39,7 @@ const books = (await getCollection("books"))
 	.books-content {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		flex: 1;
 	}
 
 	.books-grid {
@@ -67,11 +67,5 @@ const books = (await getCollection("books"))
 		color: var(--text-blog-date);
 		font-family: var(--ff-body);
 		font-size: var(--fs-400);
-	}
-
-	@media (max-width: 899px) {
-		.books-content {
-			height: auto;
-		}
 	}
 </style>

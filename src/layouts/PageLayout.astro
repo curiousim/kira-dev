@@ -69,15 +69,40 @@ const {
 >
 	<MainLayout stretchLatest={stretchLatest}>
 		<Block slot="main" growWithContent={growWithContent}>
-			<SectionHeader
-				backHref={backLink.href}
-				backLabel={backLink.label}
-				badge={badge}
-			/>
-			<slot />
+			<div class="page-body">
+				<SectionHeader
+					backHref={backLink.href}
+					backLabel={backLink.label}
+					badge={badge}
+				/>
+				<div class="page-content">
+					<slot />
+				</div>
+			</div>
 		</Block>
 		<ThemeSwitcher slot="theme" />
 		<slot name="sidebar" slot="latest" />
 	</MainLayout>
 	<slot name="overlay" />
 </BaseLayout>
+
+<style>
+	/*
+	 * The header is a sibling of the page content, so the content area has to
+	 * claim the Block's *remaining* height rather than all of it — otherwise a
+	 * child sized to `height: 100%` (the books empty state) overflows the
+	 * Block by exactly the header's height.
+	 */
+	.page-body {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.page-content {
+		flex: 1;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+	}
+</style>

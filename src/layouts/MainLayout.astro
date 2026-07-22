@@ -11,7 +11,11 @@ import { INTERNAL_LINKS } from "../consts";
  * `PageLayout`'s own doc comment).
  */
 interface Props {
-	/** Stretch the `latest` sidebar slot to match main content height instead of sizing to its own content. @default false */
+	/**
+	 * Let the `latest` sidebar card fill its column instead of sizing to its
+	 * own content. On desktop it fills at most one viewport — a long page
+	 * pins the card rather than stretching it. @default false
+	 */
 	stretchLatest?: boolean;
 }
 
@@ -81,9 +85,25 @@ const { stretchLatest = false } = Astro.props;
 		align-self: start;
 		height: fit-content;
 	}
-	.latest--stretch {
-		align-self: stretch;
-		height: auto;
+
+	/* DESKTOP */
+	@media (min-width: 900px) {
+		/* Follow the reader down long pages instead of scrolling away. */
+		.latest {
+			position: sticky;
+			top: var(--pad);
+		}
+
+		/*
+		 * `height: 100%` fills the sidebar row, so on a short page the card
+		 * still bottom-aligns with `main`. The max-height is what keeps a long
+		 * article from stretching the card to the *article's* height — past
+		 * one viewport it stops growing and pins instead.
+		 */
+		.latest--stretch {
+			height: 100%;
+			max-height: calc(100dvh - (2 * var(--pad)));
+		}
 	}
 
 	.back {
@@ -117,10 +137,6 @@ const { stretchLatest = false } = Astro.props;
 		.controls__menu {
 			display: block;
 			justify-self: end;
-		}
-		.latest--stretch {
-			align-self: start;
-			height: fit-content;
 		}
 		.back {
 			display: block;
