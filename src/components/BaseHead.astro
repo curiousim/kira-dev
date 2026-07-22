@@ -25,6 +25,8 @@ interface Props {
 	updatedDate?: Date;
 	/** Rendered as repeated `article:tag` meta tags when `type` is "article". */
 	tags?: string[];
+	/** Adds `<meta name="robots" content="noindex">`. @default false */
+	noindex?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -40,6 +42,7 @@ const {
 	pubDate,
 	updatedDate,
 	tags = [],
+	noindex = false,
 } = Astro.props;
 
 const absoluteImage = new URL(image, Astro.site ?? Astro.url).toString();
@@ -51,6 +54,7 @@ const author = "Kira Menshov";
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <meta name="generator" content={Astro.generator} />
+{noindex && <meta name="robots" content="noindex" />}
 
 <!-- Font preloads -->
 <link

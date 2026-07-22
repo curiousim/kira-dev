@@ -1,0 +1,486 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+import HamburgerMenu from "../components/common/HamburgerMenu.astro";
+import Badge from "../components/common/Badge.astro";
+import Block from "../components/common/Block.astro";
+import Callout from "../components/common/Callout.astro";
+import LinkButton from "../components/common/LinkButton.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import InfoCard from "../components/common/InfoCard.astro";
+import SocialIconButton from "../components/common/SocialIconButton.astro";
+import ArticleCard from "../components/BlogRoll/ArticleCard.astro";
+import BookTile from "../components/Books/BookTile.astro";
+import { getCollection } from "astro:content";
+import { INTERNAL_LINKS } from "../consts";
+
+const [post] = await getCollection("posts");
+const [book] = await getCollection("books");
+
+const colorGroups: Array<{ label: string; tokens: string[] }> = [
+	{
+		label: "Grey",
+		tokens: [
+			"--clr-white",
+			"--clr-gray-100",
+			"--clr-gray-500",
+			"--clr-gray-700",
+			"--clr-gray-900",
+			"--clr-black",
+		],
+	},
+	{
+		label: "Blueberry",
+		tokens: [
+			"--clr-blueberry-100",
+			"--clr-blueberry-200",
+			"--clr-blueberry-300",
+			"--clr-blueberry-500",
+			"--clr-blueberry-600",
+			"--clr-blueberry-700",
+		],
+	},
+	{
+		label: "Pink",
+		tokens: ["--clr-pink-100", "--clr-pink-300", "--clr-pink-500"],
+	},
+	{
+		label: "Lavender",
+		tokens: [
+			"--clr-lavender-100",
+			"--clr-lavender-200",
+			"--clr-lavender-300",
+			"--clr-lavender-500",
+		],
+	},
+	{
+		label: "Yellow",
+		tokens: ["--clr-yellow-500", "--clr-yellow-700"],
+	},
+];
+
+const semanticTokens = [
+	"--surface-main",
+	"--surface-raised",
+	"--surface-accent",
+	"--text-main",
+	"--text-inverse",
+	"--text-info-card",
+	"--text-blog-date",
+	"--badge-background",
+	"--badge-text",
+	"--block-card-background",
+	"--block-card-background-hover",
+	"--block-card-text",
+	"--border-emphasis",
+	"--code-background",
+	"--code-text",
+];
+
+const spaceTokens = [
+	"--space-1",
+	"--space-2",
+	"--space-3",
+	"--space-4",
+	"--space-5",
+	"--space-6",
+	"--space-7",
+	"--space-8",
+];
+
+const radiusTokens = [
+	"--radius-sm",
+	"--radius-md",
+	"--radius-lg",
+	"--radius-full",
+];
+const fsTokens = [
+	"--fs-300",
+	"--fs-400",
+	"--fs-500",
+	"--fs-600",
+	"--fs-700",
+	"--fs-800",
+	"--fs-900",
+	"--fs-1000",
+];
+const shadowTokens = ["--shadow-sm", "--shadow-md", "--shadow-lg"];
+---
+
+<BaseLayout
+	title="Design system — Kira Menshov"
+	description="Living style guide: tokens and components, in all three themes."
+	noindex
+>
+	<div class="design-page">
+		<header class="design-header">
+			<div>
+				<h1>Design system</h1>
+				<p>
+					Every token and component, rendered live. Switch themes to
+					check all three at once — this page is the fastest way to
+					catch a token regression.
+				</p>
+			</div>
+			<ThemeSwitcher />
+		</header>
+
+		<section class="design-section">
+			<h2>Colors — primitives</h2>
+			<p class="section-note">
+				Tier 1, <code>src/styles/tokens/primitives.css</code>.
+				Theme-agnostic.
+			</p>
+			{
+				colorGroups.map((group) => (
+					<div class="swatch-group">
+						<h3>{group.label}</h3>
+						<div class="swatch-row">
+							{group.tokens.map((token) => (
+								<div class="swatch">
+									<div
+										class="swatch-color"
+										style={`background: var(${token});`}
+									/>
+									<code>{token}</code>
+								</div>
+							))}
+						</div>
+					</div>
+				))
+			}
+		</section>
+
+		<section class="design-section">
+			<h2>Colors — semantic roles</h2>
+			<p class="section-note">
+				Tier 2, <code>src/styles/tokens/semantic.css</code>. The only
+				tier a theme overrides — switch themes above to see these
+				change.
+			</p>
+			<div class="swatch-row">
+				{
+					semanticTokens.map((token) => (
+						<div class="swatch">
+							<div
+								class="swatch-color"
+								style={`background: var(${token});`}
+							/>
+							<code>{token}</code>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>Type scale</h2>
+			<div class="stack">
+				{
+					fsTokens.map((token) => (
+						<p style={`font-size: var(${token}); margin: 0;`}>
+							<code>{token}</code> — The quick brown fox
+						</p>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>Spacing</h2>
+			<div class="stack">
+				{
+					spaceTokens.map((token) => (
+						<div class="space-row">
+							<code>{token}</code>
+							<div
+								class="space-bar"
+								style={`width: var(${token});`}
+							/>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>Radius &amp; shadow</h2>
+			<div class="swatch-row">
+				{
+					radiusTokens.map((token) => (
+						<div class="swatch">
+							<div
+								class="radius-demo"
+								style={`border-radius: var(${token});`}
+							/>
+							<code>{token}</code>
+						</div>
+					))
+				}
+				{
+					shadowTokens.map((token) => (
+						<div class="swatch">
+							<div
+								class="shadow-demo"
+								style={`box-shadow: var(${token});`}
+							/>
+							<code>{token}</code>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>SectionHeader</h2>
+			<Block>
+				<SectionHeader backHref="/" backLabel="Main" badge="EXAMPLE" />
+			</Block>
+		</section>
+
+		<section class="design-section">
+			<h2>Badge</h2>
+			<div class="component-row">
+				<Badge text="BLOG" />
+				<Badge text="CODING" />
+				<Badge text="404" />
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>LinkButton</h2>
+			<div class="component-row">
+				<LinkButton text="Outline" variant="outline" />
+				<LinkButton text="Link variant" variant="link" />
+				<LinkButton text="Colored" variant="colored" />
+				<LinkButton text="Secondary" variant="secondary" />
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>Block</h2>
+			<div class="component-row component-row--stretch">
+				<Block>
+					<p>Primary surface (--surface-raised)</p>
+				</Block>
+				<Block backgroundColor="secondary">
+					<p>Secondary surface (--surface-accent)</p>
+				</Block>
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>Callout</h2>
+			<Callout>
+				<strong>Note</strong>
+				<p>Used inside MDX post bodies for asides.</p>
+			</Callout>
+		</section>
+
+		<section class="design-section">
+			<h2>InfoCard</h2>
+			<div class="component-row component-row--stretch">
+				<div class="sidebar-demo">
+					<InfoCard
+						badge="ABOUT"
+						title="Example title"
+						body="Body copy for the sidebar card."
+						ctaText="Main -->"
+						ctaHref="/"
+					/>
+				</div>
+				<div class="sidebar-demo">
+					<InfoCard
+						badge="BLOG"
+						topLink={{ text: "TO BLOG", href: "/blog/" }}
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="design-section">
+			<h2>SocialIconButton</h2>
+			<div class="component-row">
+				<SocialIconButton icon="github" label="GitHub" href="#" />
+				<SocialIconButton icon="linkedin" label="LinkedIn" href="#" />
+				<SocialIconButton icon="flickr" label="Flickr" href="#" />
+				<SocialIconButton icon="strava" label="Strava" href="#" />
+				<SocialIconButton
+					icon="frontend-masters"
+					label="Frontend Masters"
+					href="#"
+				/>
+			</div>
+		</section>
+
+		{
+			post && (
+				<section class="design-section">
+					<h2>ArticleCard</h2>
+					<p class="section-note">
+						Live data from the posts collection.
+					</p>
+					<div class="card-demo">
+						<ArticleCard post={post} />
+					</div>
+				</section>
+			)
+		}
+
+		{
+			book && (
+				<section class="design-section">
+					<h2>BookTile</h2>
+					<p class="section-note">
+						Live data from the books collection.
+					</p>
+					<ul class="book-demo" role="list">
+						<BookTile book={book} />
+					</ul>
+				</section>
+			)
+		}
+
+		<section class="design-section">
+			<h2>HamburgerMenu</h2>
+			<p class="section-note">
+				Only visible below 900px — resize to see it, or inspect the
+				markup directly.
+			</p>
+			<div class="component-row">
+				<HamburgerMenu links={INTERNAL_LINKS} />
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.design-page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: var(--big-layout-gap) var(--default-layout-gap);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-8);
+	}
+
+	.design-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: var(--space-5);
+		flex-wrap: wrap;
+	}
+
+	.design-header p {
+		max-width: 60ch;
+		font-size: var(--fs-400);
+	}
+
+	.design-header :global(.theme-switcher-container) {
+		width: 260px;
+	}
+
+	.design-section h2 {
+		margin-bottom: var(--space-2);
+	}
+
+	.section-note {
+		color: var(--text-blog-date);
+		font-size: var(--fs-300);
+		margin-bottom: var(--space-4);
+	}
+
+	.swatch-group {
+		margin-bottom: var(--space-4);
+	}
+
+	.swatch-group h3 {
+		font-size: var(--fs-400);
+		margin-bottom: var(--space-2);
+	}
+
+	.swatch-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+	}
+
+	.swatch {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-1);
+	}
+
+	.swatch-color {
+		width: 64px;
+		height: 64px;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border-emphasis);
+	}
+
+	.swatch code {
+		font-size: var(--fs-300);
+	}
+
+	.radius-demo,
+	.shadow-demo {
+		width: 64px;
+		height: 64px;
+		background: var(--block-card-background);
+	}
+
+	.stack {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.space-row {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+	}
+
+	.space-row code {
+		width: 90px;
+		flex: none;
+	}
+
+	.space-bar {
+		height: var(--space-3);
+		background: var(--badge-background);
+	}
+
+	.component-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-4);
+	}
+
+	.component-row--stretch {
+		align-items: stretch;
+	}
+
+	.component-row--stretch > * {
+		flex: 1;
+		min-width: 240px;
+	}
+
+	.sidebar-demo {
+		height: 320px;
+	}
+
+	.card-demo,
+	.book-demo {
+		max-width: 480px;
+	}
+
+	.book-demo {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+</style>

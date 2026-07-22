@@ -17,6 +17,8 @@ interface Props {
 	pubDate?: Date;
 	updatedDate?: Date;
 	tags?: string[];
+	/** Adds `<meta name="robots" content="noindex">` — used by the /design style guide. @default false */
+	noindex?: boolean;
 }
 
 const headProps = Astro.props;
