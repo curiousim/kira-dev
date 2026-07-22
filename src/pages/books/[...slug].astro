@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BookPost from "../../layouts/BookPost.astro";
+import { entrySlug } from "../../lib/slug";
 
 export async function getStaticPaths() {
 	const books = (await getCollection("books")).filter(
@@ -8,7 +9,7 @@ export async function getStaticPaths() {
 	);
 
 	return books.map((book) => ({
-		params: { slug: book.id.replace(/\.mdx?$/, "") },
+		params: { slug: entrySlug(book) },
 		props: { book },
 	}));
 }

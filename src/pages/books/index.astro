@@ -1,11 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import MainLayout from "../../layouts/MainLayout.astro";
-import Block from "../../components/common/Block.astro";
-import Badge from "../../components/common/Badge.astro";
-import LinkButton from "../../components/common/LinkButton.astro";
-import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
 import BooksInfoCard from "../../components/InfoCardContent/Books.astro";
 import BookTile from "../../components/Books/BookTile.astro";
 
@@ -14,50 +9,37 @@ const books = (await getCollection("books"))
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<BaseLayout
+<PageLayout
 	title="Books – Kira Menshov"
 	description="Book notes and reading reflections by Kira Menshov."
+	badge="BOOKS"
+	backLink={{ href: "/", label: "Main" }}
+	stretchLatest
 >
-	<MainLayout stretchLatest>
-		<Block slot="main">
-			<div class="books-content">
-				<div class="books-header">
-					<LinkButton text="<-- Main" href="/" variant="link" />
-					<Badge text="BOOKS" />
+	<BooksInfoCard slot="sidebar" />
+	<div class="books-content">
+		{
+			books.length > 0 ? (
+				<ul class="books-grid" role="list">
+					{books.map((book) => (
+						<BookTile book={book} />
+					))}
+				</ul>
+			) : (
+				<div class="books-empty">
+					<p>The first book note is still being written.</p>
+					<span>Check back soon.</span>
 				</div>
-				{
-					books.length > 0 ? (
-						<ul class="books-grid" role="list">
-							{books.map((book) => (
-								<BookTile book={book} />
-							))}
-						</ul>
-					) : (
-						<div class="books-empty">
-							<p>The first book note is still being written.</p>
-							<span>Check back soon.</span>
-						</div>
-					)
-				}
-			</div>
-		</Block>
-		<ThemeSwitcher slot="theme" />
-		<BooksInfoCard slot="latest" />
-	</MainLayout>
-</BaseLayout>
+			)
+		}
+	</div>
+</PageLayout>
 
 <style>
 	.books-content {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-	}
-
-	.books-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: var(--default-layout-gap);
 	}
 
 	.books-grid {

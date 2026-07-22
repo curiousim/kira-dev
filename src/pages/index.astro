@@ -8,13 +8,14 @@ import LinkButton from "../components/common/LinkButton.astro";
 import SocialIconButton from "../components/common/SocialIconButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import { personSchema, websiteSchema } from "../lib/schema";
+import { PAGE_META } from "../consts";
 
 const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
 <BaseLayout
-	title="Kira Menshov – Software Engineer"
-	description="Personal site of Kira Menshov, software engineer focused on frontend. Notes on building things, agentic AI, and learning out loud."
+	title={PAGE_META.index.title}
+	description={PAGE_META.index.description}
 	image="/og/index.png"
 	imageAlt="Kira Menshov — Software engineer"
 	imageWidth={1200}

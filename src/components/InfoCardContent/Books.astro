@@ -1,23 +1,11 @@
 ---
-import Badge from "../common/Badge.astro";
-import Block from "../common/Block.astro";
-import LinkButton from "../common/LinkButton.astro";
-
-import "./style.css";
+import InfoCard from "../common/InfoCard.astro";
 ---
 
-<Block backgroundColor="secondary">
-	<div class="blog-banner">
-		<div class="sidebar-title">
-			<Badge text="BOOKS" />
-		</div>
-		<div class="blog-latest-post">
-			<h2>Notes from the margins</h2>
-			<p>
-				Books I have read, ideas I want to remember, and the thoughts
-				they sent me chasing.
-			</p>
-		</div>
-		<LinkButton text="Main -->" href="/" variant="outline" />
-	</div>
-</Block>
+<InfoCard
+	badge="BOOKS"
+	title="Notes from the margins"
+	body="Books I have read, ideas I want to remember, and the thoughts they sent me chasing."
+	ctaText="Main -->"
+	ctaHref="/"
+/>

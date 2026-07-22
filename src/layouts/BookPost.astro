@@ -4,8 +4,21 @@ import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import BooksInfoCard from "../components/InfoCardContent/Books.astro";
-import Badge from "../components/common/Badge.astro";
-import LinkButton from "../components/common/LinkButton.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import { formatDate } from "../lib/date";
+
+/** Page shell for a single book note, rendered from `src/content/books/`. */
+interface Props {
+	title: string;
+	author: string;
+	description: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	/** Cover image path, also used as the OG card image. */
+	cover: string;
+	coverAlt: string;
+	tags?: string[];
+}
 
 const {
 	title,
@@ -17,12 +30,6 @@ const {
 	coverAlt,
 	tags = [],
 } = Astro.props;
-
-const dateOptions: Intl.DateTimeFormatOptions = {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-};
 ---
 
 <BaseLayout
@@ -30,31 +37,21 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 	description={description}
 	image={cover}
 	type="article"
-	pubDate={new Date(pubDate)}
-	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+	pubDate={pubDate}
+	updatedDate={updatedDate}
 	tags={tags}
 >
 	<MainLayout>
 		<Block slot="main">
-			<div class="book-header-row">
-				<LinkButton
-					text="← Back to Books"
-					href="/books/"
-					variant="link"
-				/>
-				<Badge text="BOOK" />
-			</div>
+			<SectionHeader
+				backHref="/books/"
+				backLabel="Back to Books"
+				badge="BOOK"
+			/>
 			<header class="book-intro">
 				<img src={cover} alt={coverAlt} width="240" height="360" />
 				<div>
-					<p class="book-date">
-						{
-							new Date(pubDate).toLocaleDateString(
-								"en-US",
-								dateOptions,
-							)
-						}
-					</p>
+					<p class="book-date">{formatDate(pubDate)}</p>
 					<h1>{title}</h1>
 					<p class="book-author">by {author}</p>
 					<p class="book-description">{description}</p>
@@ -70,13 +67,6 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 </BaseLayout>
 
 <style>
-	.book-header-row {
-		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
-		margin-bottom: var(--big-layout-gap);
-	}
-
 	.book-intro {
 		display: grid;
 		grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);

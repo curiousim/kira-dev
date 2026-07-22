@@ -1,0 +1,83 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import MainLayout from "./MainLayout.astro";
+import Block from "../components/common/Block.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
+
+/**
+ * The page shell every non-post route composes by hand today: BaseLayout +
+ * MainLayout + a Block with a back-link/badge header, plus the theme
+ * switcher and a sidebar. Use this instead of re-assembling those four
+ * pieces — a new page becomes a `title`/`description`/`badge`/`backLink`
+ * plus a `sidebar` slot.
+ *
+ * Reach for BaseLayout + MainLayout directly only when a page's main
+ * content isn't a single bordered Block (e.g. BlogPost's article layout,
+ * or the blog roll's own multi-section body).
+ *
+ * @example
+ * <PageLayout
+ *   title="Books – Kira Menshov"
+ *   description="Book notes and reading reflections by Kira Menshov."
+ *   badge="BOOKS"
+ *   backLink={{ href: "/", label: "Main" }}
+ * >
+ *   <BooksInfoCard slot="sidebar" />
+ *   <p>Main content...</p>
+ *   <Lightbox slot="overlay" />
+ * </PageLayout>
+ */
+interface Props {
+	/** `<title>` and OG title. */
+	title: string;
+	/** Meta description and OG description. */
+	description: string;
+	/** OG image path. @default "/og/default.png" */
+	image?: string;
+	imageWidth?: number;
+	imageHeight?: number;
+	/** Badge text in the section header, e.g. "BOOKS". */
+	badge: string;
+	/** Back link shown next to the badge. */
+	backLink: { href: string; label: string };
+	/** Grow the main Block to fill available height even with little content. @default false */
+	growWithContent?: boolean;
+	/** Stretch the sidebar `latest` slot to match main content height. @default false */
+	stretchLatest?: boolean;
+}
+
+const {
+	title,
+	description,
+	image,
+	imageWidth,
+	imageHeight,
+	badge,
+	backLink,
+	growWithContent = false,
+	stretchLatest = false,
+} = Astro.props;
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	image={image}
+	imageWidth={imageWidth}
+	imageHeight={imageHeight}
+>
+	<MainLayout stretchLatest={stretchLatest}>
+		<Block slot="main" growWithContent={growWithContent}>
+			<SectionHeader
+				backHref={backLink.href}
+				backLabel={backLink.label}
+				badge={badge}
+			/>
+			<slot />
+		</Block>
+		<ThemeSwitcher slot="theme" />
+		<slot name="sidebar" slot="latest" />
+	</MainLayout>
+	<slot name="overlay" />
+</BaseLayout>

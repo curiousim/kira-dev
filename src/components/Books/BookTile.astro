@@ -1,12 +1,14 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { entrySlug } from "../../lib/slug";
 
+/** A single book cover tile in the books grid, linking to its note. */
 interface Props {
 	book: CollectionEntry<"books">;
 }
 
 const { book } = Astro.props;
-const slug = book.id.replace(/\.mdx?$/, "");
+const slug = entrySlug(book);
 ---
 
 <li class="book-tile">

@@ -1,20 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import ArticleCard from "./ArticleCard.astro";
 import Block from "../common/Block.astro";
-import LinkButton from "../common/LinkButton.astro";
-import Badge from "../common/Badge.astro";
+import SectionHeader from "../common/SectionHeader.astro";
 import {
 	POST_CATEGORIES,
 	POST_CATEGORY_LABELS,
 	type PostCategory,
 } from "../../data/postCategories";
+import { getPublishedPosts } from "../../lib/posts";
 
-const unsortedPosts = await getCollection("posts");
-
-const posts = unsortedPosts
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+/** The filterable blog listing: category chips + post cards, client-side filtered by `data-filter`. */
+const posts = await getPublishedPosts();
 
 const categoryCounts = Object.fromEntries(
 	POST_CATEGORIES.map((category) => [
@@ -26,10 +22,7 @@ const categoryCounts = Object.fromEntries(
 
 <Block backgroundColor="primary" growWithContent={true}>
 	<div class="blog-roll-container" data-blog-roll>
-		<div class="blog-roll-header">
-			<LinkButton text="<-- Main" href="/" variant="link" />
-			<Badge text="BLOG" />
-		</div>
+		<SectionHeader backHref="/" backLabel="Main" badge="BLOG" />
 
 		<div class="blog-filters">
 			<div
@@ -153,11 +146,6 @@ const categoryCounts = Object.fromEntries(
 		display: flex;
 		flex-direction: column;
 		gap: var(--default-layout-gap);
-	}
-	.blog-roll-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
 	}
 	.blog-filters {
 		display: flex;

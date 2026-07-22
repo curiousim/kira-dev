@@ -1,80 +1,56 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import MainLayout from "../../layouts/MainLayout.astro";
-import Block from "../../components/common/Block.astro";
-import Badge from "../../components/common/Badge.astro";
-import LinkButton from "../../components/common/LinkButton.astro";
-import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
 import InfoCardMainPage from "../../components/InfoCardContent/MainPage.astro";
+import { formatMonthYear } from "../../lib/date";
 
 const albums = (await getCollection("albums")).sort(
-	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 ---
 
-<BaseLayout
+<PageLayout
 	title="Photos – Kira Menshov"
-	description="Photo albums by Kira Menshov.">
-	<MainLayout>
-		<Block slot="main" growWithContent={true}>
-			<div class="albums-header">
-				<LinkButton text="<-- Main" href="/" variant="link" />
-				<Badge text="PHOTOS" />
-			</div>
-			<ul class="album-list" role="list">
-				{
-					albums.map((album) => {
-						const cover =
-							album.data.cover ?? album.data.photos[0].src;
-						return (
-							<li class="album-card">
-								<a
-									href={`/photos/${album.id}/`}
-									class="album-link">
-									<Image
-										src={cover}
-										alt=""
-										widths={[320, 640, 960]}
-										sizes="(max-width: 899px) 90vw, 420px"
-										width={640}
-										class="album-cover"
-										loading="lazy"
-									/>
-									<div class="album-meta">
-										<h2>{album.data.title}</h2>
-										<p class="album-info">
-											{album.data.pubDate.toLocaleDateString(
-												"en-US",
-												{
-													year: "numeric",
-													month: "long",
-												}
-											)}
-											{" · "}
-											{album.data.photos.length} photos
-										</p>
-									</div>
-								</a>
-							</li>
-						);
-					})
-				}
-			</ul>
-		</Block>
-		<ThemeSwitcher slot="theme" />
-		<InfoCardMainPage slot="latest" />
-	</MainLayout>
-</BaseLayout>
+	description="Photo albums by Kira Menshov."
+	badge="PHOTOS"
+	backLink={{ href: "/", label: "Main" }}
+	growWithContent
+>
+	<InfoCardMainPage slot="sidebar" />
+	<ul class="album-list" role="list">
+		{
+			albums.map((album) => {
+				const cover = album.data.cover ?? album.data.photos[0].src;
+				return (
+					<li class="album-card">
+						<a href={`/photos/${album.id}/`} class="album-link">
+							<Image
+								src={cover}
+								alt=""
+								widths={[320, 640, 960]}
+								sizes="(max-width: 899px) 90vw, 420px"
+								width={640}
+								class="album-cover"
+								loading="lazy"
+							/>
+							<div class="album-meta">
+								<h2>{album.data.title}</h2>
+								<p class="album-info">
+									{formatMonthYear(album.data.pubDate)}
+									{" · "}
+									{album.data.photos.length} photos
+								</p>
+							</div>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</PageLayout>
 
 <style>
-	.albums-header {
-		margin-bottom: var(--space-4);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
 	.album-list {
 		list-style: none;
 		margin: 0;

@@ -1,11 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import MainLayout from "../../layouts/MainLayout.astro";
-import Block from "../../components/common/Block.astro";
-import Badge from "../../components/common/Badge.astro";
-import LinkButton from "../../components/common/LinkButton.astro";
-import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
+import PageLayout from "../../layouts/PageLayout.astro";
 import InfoCardMainPage from "../../components/InfoCardContent/MainPage.astro";
 import PhotoGrid from "../../components/PhotoGallery/PhotoGrid.astro";
 import Lightbox from "../../components/PhotoGallery/Lightbox.astro";
@@ -21,36 +16,25 @@ export async function getStaticPaths() {
 const album = Astro.props;
 ---
 
-<BaseLayout
+<PageLayout
 	title={`${album.data.title} – Kira Menshov`}
-	description={album.data.description ?? `Photo album: ${album.data.title}`}>
-	<MainLayout>
-		<Block slot="main" growWithContent={true}>
-			<div class="album-header">
-				<LinkButton text="<-- Photos" href="/photos/" variant="link" />
-				<Badge text="PHOTOS" />
-			</div>
-			<h1 class="album-title">{album.data.title}</h1>
-			{
-				album.data.description && (
-					<p class="album-description">{album.data.description}</p>
-				)
-			}
-			<PhotoGrid photos={album.data.photos} />
-		</Block>
-		<ThemeSwitcher slot="theme" />
-		<InfoCardMainPage slot="latest" />
-	</MainLayout>
-	<Lightbox />
-</BaseLayout>
+	description={album.data.description ?? `Photo album: ${album.data.title}`}
+	badge="PHOTOS"
+	backLink={{ href: "/photos/", label: "Photos" }}
+	growWithContent
+>
+	<InfoCardMainPage slot="sidebar" />
+	<h1 class="album-title">{album.data.title}</h1>
+	{
+		album.data.description && (
+			<p class="album-description">{album.data.description}</p>
+		)
+	}
+	<PhotoGrid photos={album.data.photos} />
+	<Lightbox slot="overlay" />
+</PageLayout>
 
 <style>
-	.album-header {
-		margin-bottom: var(--space-4);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
 	.album-title {
 		font-size: var(--fs-800);
 		margin-bottom: var(--space-2);

@@ -2,19 +2,22 @@
 import type { TPost } from "../../types/post";
 import { POST_CATEGORY_LABELS } from "../../data/postCategories";
 import LinkButton from "../common/LinkButton.astro";
+import { entrySlug } from "../../lib/slug";
+import { formatShortDate } from "../../lib/date";
 
+/** A single post card in the blog roll grid, filterable by category via `data-category`. */
 interface Props {
 	post: TPost;
 }
 const { post } = Astro.props;
-const slug = post.id.replace(/\.mdx?$/, "");
+const slug = entrySlug(post);
 ---
 
 <article class="blog-card" data-post-card data-category={post.data.category}>
 	<div class="blog-card-content">
 		<div class="blog-card-meta">
 			<time datetime={post.data.pubDate.toISOString()} class="blog-date">
-				{post.data.pubDate.toLocaleDateString()}
+				{formatShortDate(post.data.pubDate)}
 			</time>
 			<span class="blog-category">
 				{POST_CATEGORY_LABELS[post.data.category]}

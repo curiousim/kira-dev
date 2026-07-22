@@ -5,14 +5,32 @@ import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
-import Badge from "../components/common/Badge.astro";
-import Button from "../components/common/LinkButton.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
 import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 import { blogPostingSchema } from "../lib/schema";
+import { formatDate } from "../lib/date";
 import {
 	POST_CATEGORY_LABELS,
 	type PostCategory,
 } from "../data/postCategories";
+
+/**
+ * Post/page shell for anything backed by markdown content: blog posts and
+ * the About page (which reuses it with no `pubDate`/`category`, rendering
+ * as an "ABOUT"-badged page instead of a dated article).
+ */
+interface Props {
+	title: string;
+	description: string;
+	pubDate?: Date;
+	updatedDate?: Date;
+	tags?: string[];
+	category?: PostCategory;
+	/** Overrides the generated OG card with a specific image. */
+	heroImage?: string;
+	/** Post slug, used to build the generated OG card path. */
+	slug?: string;
+}
 
 const {
 	title,
@@ -35,8 +53,8 @@ const articleSchema = pubDate
 			description,
 			url: pageUrl,
 			image: absoluteImage,
-			pubDate: new Date(pubDate),
-			updatedDate: updatedDate ? new Date(updatedDate) : undefined,
+			pubDate,
+			updatedDate,
 			tags: category ? [category, ...tags] : tags,
 		})
 	: undefined;
@@ -44,14 +62,7 @@ const articleSchema = pubDate
 const headerBadge = category
 	? POST_CATEGORY_LABELS[category as PostCategory].toUpperCase()
 	: "ABOUT";
-const pubDateOptions: Intl.DateTimeFormatOptions = {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
-};
-const pubDateFormatted = pubDate
-	? new Date(pubDate).toLocaleDateString("en-US", pubDateOptions)
-	: "";
+const pubDateFormatted = pubDate ? formatDate(pubDate) : "";
 ---
 
 <BaseLayout
@@ -61,17 +72,18 @@ const pubDateFormatted = pubDate
 	imageWidth={isGeneratedCard ? 1200 : undefined}
 	imageHeight={isGeneratedCard ? 630 : undefined}
 	type={pubDate ? "article" : "website"}
-	pubDate={pubDate ? new Date(pubDate) : undefined}
-	updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+	pubDate={pubDate}
+	updatedDate={updatedDate}
 	tags={category ? [category, ...tags] : tags}
 >
 	{articleSchema && <JsonLd schema={articleSchema} />}
 	<MainLayout stretchLatest>
 		<Block slot="main">
-			<div class="article-header">
-				<Button text="← Back to Blog" href="/blog/" variant="link" />
-				<Badge text={headerBadge} />
-			</div>
+			<SectionHeader
+				backHref="/blog/"
+				backLabel="Back to Blog"
+				badge={headerBadge}
+			/>
 			{
 				pubDate && (
 					<div class="article-meta">
@@ -93,12 +105,6 @@ const pubDateFormatted = pubDate
 </BaseLayout>
 
 <style>
-	.article-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin-bottom: var(--space-5);
-	}
 	.article-meta {
 		margin-bottom: var(--space-2);
 	}

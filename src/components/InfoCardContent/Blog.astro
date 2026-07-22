@@ -1,32 +1,16 @@
 ---
-import Badge from "../common/Badge.astro";
-import Block from "../common/Block.astro";
-import LinkButton from "../common/LinkButton.astro";
+import InfoCard from "../common/InfoCard.astro";
+import { getLatestPost } from "../../lib/posts";
+import { entrySlug } from "../../lib/slug";
 
-import "./style.css";
+const latestPost = await getLatestPost();
 ---
 
-<Block backgroundColor="secondary">
-	<div class="blog-banner">
-		<div class="sidebar-title">
-			<Badge text="ABOUT" />
-		</div>
-		<div class="blog-latest-post">
-			<h2>
-				{
-					`
-                Kira
-                Software_engineer
-                `
-				}
-			</h2>
-			<p>
-				I'm mostly a front-end developer, but really I just like to
-				build things, solve problems, and learn new technologies. I
-				write to make sense of what I learn, and sometimes share it here
-				too. It's messy, but it helps. At least me.
-			</p>
-		</div>
-		<LinkButton text="Main -->" href={`/`} variant="outline" />
-	</div>
-</Block>
+<InfoCard
+	badge="BLOG"
+	topLink={{ text: "TO BLOG", href: "/blog/" }}
+	title={latestPost?.data.title}
+	body={latestPost?.data.description}
+	ctaText={latestPost && "Read"}
+	ctaHref={latestPost && `/blog/${entrySlug(latestPost)}/`}
+/>
