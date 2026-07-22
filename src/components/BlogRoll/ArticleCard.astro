@@ -2,19 +2,22 @@
 import type { TPost } from "../../types/post";
 import { POST_CATEGORY_LABELS } from "../../data/postCategories";
 import LinkButton from "../common/LinkButton.astro";
+import { entrySlug } from "../../lib/slug";
+import { formatShortDate } from "../../lib/date";
 
+/** A single post card in the blog roll grid, filterable by category via `data-category`. */
 interface Props {
 	post: TPost;
 }
 const { post } = Astro.props;
-const slug = post.id.replace(/\.mdx?$/, "");
+const slug = entrySlug(post);
 ---
 
 <article class="blog-card" data-post-card data-category={post.data.category}>
 	<div class="blog-card-content">
 		<div class="blog-card-meta">
 			<time datetime={post.data.pubDate.toISOString()} class="blog-date">
-				{post.data.pubDate.toLocaleDateString()}
+				{formatShortDate(post.data.pubDate)}
 			</time>
 			<span class="blog-category">
 				{POST_CATEGORY_LABELS[post.data.category]}
@@ -32,8 +35,8 @@ const slug = post.id.replace(/\.mdx?$/, "");
 	.blog-card {
 		position: relative;
 		background: var(--block-card-background);
-		border-radius: var(--radii-10);
-		padding: 1rem;
+		border-radius: var(--radius-md);
+		padding: var(--space-4);
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
@@ -79,21 +82,21 @@ const slug = post.id.replace(/\.mdx?$/, "");
 		align-items: center;
 		justify-content: space-between;
 		flex: 1;
-		color: var(--button-blog-card-color);
+		color: var(--card-action-color);
 
 		p {
 			color: var(--block-card-text);
 		}
 
 		> a {
-			border-color: var(--button-blog-card-color);
-			color: var(--button-blog-card-color);
+			border-color: var(--card-action-color);
+			color: var(--card-action-color);
 		}
 
 		> a:hover {
-			background-color: var(--button-blog-card-background-hover);
-			border-color: var(--button-blog-card-background-hover);
-			color: var(--button-blog-card-color-hover);
+			background-color: var(--card-action-background-hover);
+			border-color: var(--card-action-background-hover);
+			color: var(--card-action-color-hover);
 		}
 	}
 	.blog-date {
@@ -104,15 +107,15 @@ const slug = post.id.replace(/\.mdx?$/, "");
 	.blog-desc {
 		color: var(--text-main);
 		font-size: 1.1rem;
-		margin: 0 0 0.5rem 0;
+		margin: 0 0 var(--space-2) 0;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.blog-card {
-			padding: 1.2rem 1rem;
+			padding: 1.2rem var(--space-4);
 			height: auto;
 			flex-direction: column;
 			gap: 10px;

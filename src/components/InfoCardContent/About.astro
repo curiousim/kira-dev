@@ -1,0 +1,17 @@
+---
+import InfoCard from "../common/InfoCard.astro";
+
+/**
+ * Sidebar card carrying a short version of the main page, with a CTA back
+ * to it. Belongs on every page *except* the main page — rendering it on `/`
+ * would show a "Main -->" button pointing at the page you're already on.
+ */
+---
+
+<InfoCard
+	badge="ABOUT"
+	title="Kira Software_engineer"
+	body="I'm mostly a front-end developer, but really I just like to build things, solve problems, and learn new technologies. I write to make sense of what I learn, and sometimes share it here too. It's messy, but it helps. At least me."
+	ctaText="Main -->"
+	ctaHref="/"
+/>

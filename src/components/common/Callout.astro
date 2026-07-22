@@ -1,5 +1,16 @@
 ---
+/**
+ * Bordered aside for calling out a note within blog post content — a left
+ * accent bar plus a subtle border. Used inside MDX post bodies.
+ *
+ * @example
+ * <Callout>
+ *   <strong>Note</strong>
+ *   <p>Some supporting detail.</p>
+ * </Callout>
+ */
 interface Props {
+	/** CSS max-width value, e.g. "60ch" or "400px". @default "88%" */
 	maxWidth?: string;
 }
 
@@ -14,17 +25,17 @@ const { maxWidth = "88%" } = Astro.props;
 	.callout {
 		border: 1px solid var(--block-card-background-hover);
 		border-left: 7px solid var(--blockquote-accent);
-		border-radius: var(--radii-10);
-		padding: 1.25rem 1.5rem;
+		border-radius: var(--radius-md);
+		padding: 1.25rem var(--space-5);
 		max-width: var(--callout-max-width);
 		margin: 0 auto;
 	}
 	.callout :global(> * + *) {
-		margin-top: 0.5rem;
+		margin-top: var(--space-2);
 	}
 	.callout :global(p + ul),
 	.callout :global(p + ol) {
-		margin-top: 0.25rem;
+		margin-top: var(--space-1);
 	}
 	.callout :global(strong) {
 		font-size: 0.75em;
@@ -37,12 +48,12 @@ const { maxWidth = "88%" } = Astro.props;
 		padding-left: 1.2rem;
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: var(--space-1);
 	}
 	.callout :global(p) {
 		margin: 0;
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.callout {
 			max-width: 100%;
 		}

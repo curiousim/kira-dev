@@ -1,3 +1,12 @@
+---
+/**
+ * Full-screen photo viewer. Renders once per page (fixed `id="lightbox"`
+ * — only one may exist per page) and opens whenever a `data-lightbox`
+ * anchor rendered by `PhotoGrid` is clicked. Supports arrow-key and
+ * on-screen prev/next navigation and Escape to close.
+ */
+---
+
 <dialog class="lightbox" id="lightbox">
 	<button class="lightbox-btn lightbox-close" aria-label="Close">✕</button>
 	<button class="lightbox-btn lightbox-prev" aria-label="Previous photo">
@@ -14,14 +23,14 @@
 
 <script>
 	const dialog = document.getElementById(
-		"lightbox"
+		"lightbox",
 	) as HTMLDialogElement | null;
 
 	if (dialog) {
 		const img = dialog.querySelector<HTMLImageElement>(".lightbox-img")!;
 		const caption = dialog.querySelector<HTMLElement>(".lightbox-caption")!;
 		const links = Array.from(
-			document.querySelectorAll<HTMLAnchorElement>("a[data-lightbox]")
+			document.querySelectorAll<HTMLAnchorElement>("a[data-lightbox]"),
 		);
 		let current = 0;
 
@@ -97,14 +106,14 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--space-3);
 		min-width: 0;
 	}
 	.lightbox-img {
 		max-width: min(88vw, 1600px);
 		max-height: 82vh;
 		object-fit: contain;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 	}
 	.lightbox-caption {
 		color: var(--lightbox-foreground);
@@ -122,7 +131,7 @@
 		font-size: var(--fs-800);
 		font-family: var(--ff-heading);
 		cursor: pointer;
-		padding: 0.5rem;
+		padding: var(--space-2);
 	}
 	.lightbox-btn:focus-visible {
 		outline: 2px solid var(--lightbox-foreground);
@@ -133,7 +142,7 @@
 		top: var(--default-layout-gap);
 		right: var(--default-layout-gap);
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.lightbox-prev,
 		.lightbox-next {
 			position: absolute;

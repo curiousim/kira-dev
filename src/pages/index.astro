@@ -2,19 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
+import LatestPostInfoCard from "../components/InfoCardContent/LatestPost.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import SocialIconButton from "../components/common/SocialIconButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import { personSchema, websiteSchema } from "../lib/schema";
+import { PAGE_META } from "../consts";
 
 const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
 <BaseLayout
-	title="Kira Menshov – Software Engineer"
-	description="Personal site of Kira Menshov, software engineer focused on frontend. Notes on building things, agentic AI, and learning out loud."
+	title={PAGE_META.index.title}
+	description={PAGE_META.index.description}
 	image="/og/index.png"
 	imageAlt="Kira Menshov — Software engineer"
 	imageWidth={1200}
@@ -99,7 +100,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		<div slot="theme">
 			<ThemeSwitcher />
 		</div>
-		<InfoCardMainPage slot="latest" />
+		<LatestPostInfoCard slot="latest" />
 	</MainLayout>
 </BaseLayout>
 <style>
@@ -115,7 +116,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 	.intro {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--space-5);
 		color: var(--text-main);
 		font-size: 1.15rem;
 		line-height: 1.7;
@@ -124,24 +125,24 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 1rem;
+		gap: var(--space-4);
 		margin-top: auto;
 	}
 	.primary-buttons,
 	.social-buttons {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: var(--space-5);
 	}
 	.primary-buttons {
 		width: 100%;
 	}
 	.social-buttons {
-		gap: 0.75rem;
+		gap: var(--space-3);
 	}
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.main-title {
-			margin-top: 0px;
+			margin-top: 0;
 			margin-bottom: 36px;
 		}
 
@@ -150,10 +151,10 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		}
 		.primary-buttons {
 			width: 100%;
-			gap: 1rem;
+			gap: var(--space-4);
 		}
 		.social-buttons {
-			gap: 0.5rem;
+			gap: var(--space-2);
 		}
 		.primary-buttons :global(a) {
 			flex: 1;

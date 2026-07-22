@@ -1,10 +1,9 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
+import { PAGE_META } from "../consts";
 ---
 
-<Layout
-	title="About Me"
-	description="About Kira Menshov — front-end engineer.">
+<Layout title={PAGE_META.about.title} description={PAGE_META.about.description}>
 	<p>
 		Hi, I'm Kira — a front-end engineer since 2019. I've worked at Cheq,
 		EshOS, and Torq as a senior front-end developer, and I like building

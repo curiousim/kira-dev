@@ -9,7 +9,12 @@ import rehypeExternalLinks from "rehype-external-links";
 export default defineConfig({
 	site: "https://kiramenshov.com",
 	trailingSlash: "always",
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx(),
+		sitemap({
+			filter: (page) => !page.includes("/design"),
+		}),
+	],
 	markdown: {
 		processor: unified({
 			rehypePlugins: [

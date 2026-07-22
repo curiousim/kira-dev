@@ -1,0 +1,107 @@
+---
+import Badge from "./Badge.astro";
+import Block from "./Block.astro";
+import LinkButton from "./LinkButton.astro";
+
+/**
+ * Sidebar "latest" card — the accent-colored block shown in MainLayout's
+ * `latest` slot on every page. `MainPage`/`Blog`/`Books` info cards were
+ * three near-identical copies of this markup; they're now thin callers of
+ * this component with page-specific copy.
+ *
+ * @example
+ * <InfoCard
+ *   badge="BOOKS"
+ *   title="Notes from the margins"
+ *   body="Books I have read, ideas I want to remember."
+ *   ctaText="Main -->"
+ *   ctaHref="/"
+ * />
+ */
+interface Props {
+	/** Badge shown top-left, e.g. "BLOG" or "ABOUT". */
+	badge: string;
+	/** Optional secondary link next to the badge (the blog card's "TO BLOG" shortcut). */
+	topLink?: { text: string; href: string };
+	/** Heading. Omit along with `body`/`ctaText`/`ctaHref` for a badge-only card. */
+	title?: string;
+	/** Supporting copy under the title. */
+	body?: string;
+	/** Call-to-action label. */
+	ctaText?: string;
+	/** Call-to-action destination. */
+	ctaHref?: string;
+}
+
+const { badge, topLink, title, body, ctaText, ctaHref } = Astro.props;
+const hasContent = Boolean(title && ctaText && ctaHref);
+---
+
+<Block backgroundColor="secondary">
+	<div class="info-card">
+		<div class="info-card-title">
+			<Badge text={badge} />
+			{
+				topLink && (
+					<LinkButton
+						text={topLink.text}
+						href={topLink.href}
+						variant="link"
+					/>
+				)
+			}
+		</div>
+		{
+			hasContent && (
+				<>
+					<div class="info-card-body">
+						<h2>{title}</h2>
+						{body && <p>{body}</p>}
+					</div>
+					<LinkButton
+						text={ctaText!}
+						href={ctaHref!}
+						variant="outline"
+					/>
+				</>
+			)
+		}
+	</div>
+</Block>
+
+<style>
+	.info-card {
+		height: 100%;
+		width: 100%;
+		min-width: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 10fr 1fr;
+	}
+	.info-card :global(h2),
+	.info-card :global(p),
+	.info-card :global(a) {
+		margin: 0;
+		overflow-wrap: anywhere;
+		color: var(--text-info-card) !important;
+		border-color: var(--text-info-card) !important;
+	}
+	.info-card :global(a:hover) {
+		color: var(--button-hover-color) !important;
+	}
+	.info-card-body {
+		width: 100%;
+		min-width: 0;
+		display: flex;
+		justify-content: end;
+		flex-direction: column;
+		gap: var(--space-2);
+		padding-block: var(--space-6);
+	}
+	.info-card-title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: var(--text-info-card);
+	}
+</style>

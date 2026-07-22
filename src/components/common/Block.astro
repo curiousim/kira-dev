@@ -1,29 +1,39 @@
 ---
+/**
+ * Base bordered container used for every page's main content area and
+ * sidebar cards. Fills its grid cell's height by default; use
+ * `growWithContent` for content that should determine its own height
+ * (e.g. a variable-length list) instead of stretching to fill space.
+ *
+ * @example
+ * <Block backgroundColor="secondary">
+ *   <p>Sidebar content</p>
+ * </Block>
+ */
 interface Props {
+	/** `primary` uses `--surface-raised`, `secondary` uses `--surface-accent`. @default "primary" */
 	backgroundColor?: "primary" | "secondary";
+	/** Size to content instead of stretching to fill the parent's height. @default false */
 	growWithContent?: boolean;
 }
 
-const {
-	backgroundColor = "primary",
-	growWithContent = false,
-} = Astro.props;
+const { backgroundColor = "primary", growWithContent = false } = Astro.props;
 ---
 
 <section
 	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`
-	style={`height: ${growWithContent ? "auto" : "100%"};`}>
-	<slot></slot>
+	style={`height: ${growWithContent ? "auto" : "100%"};`}
+>
+	<slot />
 </section>
 <style>
 	.block {
-		background: var(--background-content);
-		border-radius: var(--radii-10);
+		background: var(--surface-raised);
+		border-radius: var(--radius-md);
 		padding: 20px var(--big-layout-gap);
 		width: 100%;
 	}
 	.block-background-secondary {
-		background: var(--background-secondary);
+		background: var(--surface-accent);
 	}
-
 </style>

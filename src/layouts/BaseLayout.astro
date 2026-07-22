@@ -1,6 +1,11 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 
+/**
+ * Document root: `<html>`/`<head>`/`<body>` plus the FOUC-prevention inline
+ * script that applies the saved theme before first paint. Every page
+ * renders through this (usually via `PageLayout`, not directly).
+ */
 interface Props {
 	title: string;
 	description: string;
@@ -12,6 +17,8 @@ interface Props {
 	pubDate?: Date;
 	updatedDate?: Date;
 	tags?: string[];
+	/** Adds `<meta name="robots" content="noindex">` — used by the /design style guide. @default false */
+	noindex?: boolean;
 }
 
 const headProps = Astro.props;
@@ -26,7 +33,9 @@ const headProps = Astro.props;
 				const theme = localStorage.getItem("theme");
 				if (theme)
 					document.documentElement.setAttribute("data-theme", theme);
-			} catch (e) {}
+			} catch {
+				// localStorage unavailable — falls back to the default theme.
+			}
 		</script>
 	</head>
 	<body>

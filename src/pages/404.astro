@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
-import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
+import AboutInfoCard from "../components/InfoCardContent/About.astro";
 ---
 
 <BaseLayout title="404 – Kira Menshov" description="Page not found.">
@@ -17,7 +17,7 @@ import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 			</div>
 		</Block>
 		<ThemeSwitcher slot="theme" />
-		<InfoCardMainPage slot="latest" />
+		<AboutInfoCard slot="latest" />
 	</MainLayout>
 </BaseLayout>
 
@@ -25,7 +25,7 @@ import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
 	.not-found {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: var(--space-5);
 		margin-top: 50px;
 	}
 </style>

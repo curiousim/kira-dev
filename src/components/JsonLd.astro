@@ -1,7 +1,17 @@
 ---
 type Schema = Record<string, unknown>;
 
+/**
+ * Emits a `<script type="application/ld+json">` block. Pass an array to
+ * emit multiple schemas on one page (see `index.astro`'s
+ * `[websiteSchema, personSchema]`); JSON-LD does not support multiple
+ * top-level objects in a single script tag, only an array.
+ *
+ * @example
+ * <JsonLd schema={personSchema} />
+ */
 interface Props {
+	/** One schema.org object, or several to emit together. See `src/lib/schema.ts`. */
 	schema: Schema | Schema[];
 }
 

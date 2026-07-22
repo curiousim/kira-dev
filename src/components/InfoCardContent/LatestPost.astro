@@ -1,0 +1,21 @@
+---
+import InfoCard from "../common/InfoCard.astro";
+import { getLatestPost } from "../../lib/posts";
+import { entrySlug } from "../../lib/slug";
+
+/**
+ * Sidebar card teasing the most recent published post (or just the badge if
+ * none exist yet). Belongs on the main page, where it's the entry point into
+ * the blog — not on the blog itself, where the post is already on screen.
+ */
+const latestPost = await getLatestPost();
+---
+
+<InfoCard
+	badge="BLOG"
+	topLink={{ text: "TO BLOG", href: "/blog/" }}
+	title={latestPost?.data.title}
+	body={latestPost?.data.description}
+	ctaText={latestPost && "Read"}
+	ctaHref={latestPost && `/blog/${entrySlug(latestPost)}/`}
+/>

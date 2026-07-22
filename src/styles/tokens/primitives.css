@@ -1,0 +1,123 @@
+/**
+ * Tier 1 — Primitives.
+ *
+ * Raw values with no semantic meaning: color ramps and design scales
+ * (spacing, radius, type, motion, shadow, z-index). Never reference these
+ * directly from a component — go through a semantic.css or components.css
+ * token instead. This file has no [data-theme] blocks; nothing here changes
+ * when the theme switches.
+ *
+ * Breakpoint convention (documented, not tokenized — CSS custom properties
+ * cannot appear inside an @media condition): the single breakpoint is 900px.
+ * Mobile styles use `@media (max-width: 899px)`, desktop-only overrides use
+ * `@media (min-width: 900px)`. Keep the boundary contiguous — a max/min pair
+ * that doesn't share it leaves a dead zone at fractional widths.
+ */
+@layer base {
+	:root {
+		--clr-white: hsl(0, 0%, 100%);
+		--clr-black: hsla(0, 0%, 16%, 1);
+		/* grey */
+		--clr-gray-100: hsla(0, 0%, 95%, 1);
+		--clr-gray-500: hsla(0, 0%, 69%, 1);
+		--clr-gray-700: hsla(0, 0%, 56%, 1);
+		--clr-gray-900: hsla(0, 1%, 53%, 1);
+		/* blue */
+		--clr-blueberry-100: hsla(231, 59%, 89%, 1);
+		--clr-blueberry-200: hsla(231, 59%, 80%, 1);
+		--clr-blueberry-300: hsla(229, 88%, 70%, 1);
+		--clr-blueberry-500: hsla(229, 90%, 65%, 1);
+		--clr-blueberry-600: hsla(229, 61%, 56%, 1);
+		--clr-blueberry-700: hsla(229, 61%, 47%, 1);
+		/* pink */
+		--clr-pink-100: hsla(331, 76%, 94%, 1);
+		--clr-pink-300: hsla(331, 76%, 87%, 1);
+		--clr-pink-500: hsla(331, 95%, 75%, 1);
+		/* lavender */
+		--clr-lavender-100: hsla(266, 66%, 94%, 1);
+		--clr-lavender-200: hsla(266, 66%, 85%, 1);
+		--clr-lavender-300: hsla(266, 66%, 77%, 1);
+		--clr-lavender-500: hsla(266, 66%, 62%, 1);
+		/* yellow */
+		--clr-yellow-500: hsla(52, 100%, 68%, 1);
+		--clr-yellow-700: hsla(44, 100%, 61%, 1);
+
+		--ff-heading: "JetBrains Mono", monospace;
+		--ff-body:
+			"SF Pro Display", -apple-system, BlinkMacSystemFont, Segoe UI,
+			Roboto, sans-serif;
+
+		/* Spacing scale */
+		--space-1: 4px;
+		--space-2: 8px;
+		--space-3: 12px;
+		--space-4: 16px;
+		--space-5: 24px;
+		--space-6: 32px;
+		--space-7: 40px;
+		--space-8: 56px;
+
+		/* Layout gap aliases — kept so existing component styles don't churn */
+		--default-layout-gap: var(--space-5);
+		--big-layout-gap: var(--space-7);
+
+		/* Radius scale */
+		--radius-sm: 6px;
+		--radius-md: 10px;
+		--radius-lg: 16px;
+		--radius-full: 999px;
+
+		/* Type scale */
+		--fs-300: 14px;
+		--fs-400: 16px;
+		--fs-500: 18px;
+		--fs-600: 20px;
+		--fs-700: 24px;
+		--fs-800: 32px;
+		--fs-900: 44px;
+		--fs-1000: 55.2px;
+
+		--leading-tight: 1.1;
+		--leading-snug: 1.25;
+		--leading-normal: 1.4;
+		--leading-relaxed: 1.6;
+		--leading-loose: 1.7;
+
+		--tracking-normal: 0em;
+		--tracking-wide: 0.04em;
+		--tracking-wider: 0.06em;
+
+		/* Motion scale */
+		--duration-fast: 0.15s;
+		--duration-base: 0.2s;
+		--duration-slow: 0.3s;
+		--ease-out: ease-out;
+		--ease-in-out: ease-in-out;
+
+		/* Elevation scale — complete box-shadow values, not just colors */
+		--shadow-sm: 0 4px 20px hsla(0, 0%, 0%, 0.15);
+		--shadow-md: 0 10px 24px hsla(0, 0%, 0%, 0.22);
+		--shadow-lg: 0 12px 28px hsla(0, 0%, 0%, 0.22);
+
+		/* Stacking order */
+		--z-base: 0;
+		--z-dropdown: 10;
+		--z-sticky: 20;
+		--z-overlay: 1000;
+		--z-modal: 1001;
+
+		@media (max-width: 899px) {
+			--default-layout-gap: var(--space-4);
+			--big-layout-gap: var(--space-5);
+
+			--fs-300: 13px;
+			--fs-400: 15px;
+			--fs-500: 16px;
+			--fs-600: 18px;
+			--fs-700: 20px;
+			--fs-800: 24px;
+			--fs-900: 32px;
+			--fs-1000: 40px;
+		}
+	}
+}

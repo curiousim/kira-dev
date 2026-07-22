@@ -1,5 +1,6 @@
 import { OGImageRoute } from "astro-og-canvas";
 import { brandedImage, type Theme } from "../../og/brand";
+import { PAGE_META } from "../../consts";
 
 interface Page {
 	title: string;
@@ -8,28 +9,10 @@ interface Page {
 }
 
 const pages: Record<string, Page> = {
-	index: {
-		title: "Kira Menshov",
-		description: "Software engineer. I build, I write, I learn out loud.",
-		theme: "yellow",
-	},
-	blog: {
-		title: "Blog — Kira Menshov",
-		description:
-			"Notes on software, agentic AI, and things I learn while building.",
-		theme: "blue",
-	},
-	about: {
-		title: "About — Kira Menshov",
-		description:
-			"Software engineer with a focus on frontend. Currently into agentic AI.",
-		theme: "pink",
-	},
-	default: {
-		title: "kiramenshov.com",
-		description: "Software engineer. I build, I write, I learn out loud.",
-		theme: "yellow",
-	},
+	index: { ...PAGE_META.index, theme: "yellow" },
+	blog: { ...PAGE_META.blog, theme: "blue" },
+	about: { ...PAGE_META.about, theme: "pink" },
+	default: { ...PAGE_META.index, theme: "yellow" },
 };
 
 export const { getStaticPaths, GET } = await OGImageRoute({

@@ -3,17 +3,30 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 
+/**
+ * `<head>` contents: font preloads, canonical/RSS links, and Open
+ * Graph/Twitter meta. Rendered by `BaseLayout` — pages set these via
+ * `BaseLayout`'s own (identical) prop set, not by using this directly.
+ */
 interface Props {
+	/** `<title>` and `og:title`. */
 	title: string;
+	/** Meta description and `og:description`. */
 	description: string;
+	/** OG/Twitter image path, resolved against `Astro.site`. @default "/og/default.png" */
 	image?: string;
+	/** `og:image:alt`. Falls back to `title`. */
 	imageAlt?: string;
 	imageWidth?: number;
 	imageHeight?: number;
+	/** `article` adds the `article:*` meta tags below (requires `pubDate`). @default "website" */
 	type?: "website" | "article";
 	pubDate?: Date;
 	updatedDate?: Date;
+	/** Rendered as repeated `article:tag` meta tags when `type` is "article". */
 	tags?: string[];
+	/** Adds `<meta name="robots" content="noindex">`. @default false */
+	noindex?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -29,6 +42,7 @@ const {
 	pubDate,
 	updatedDate,
 	tags = [],
+	noindex = false,
 } = Astro.props;
 
 const absoluteImage = new URL(image, Astro.site ?? Astro.url).toString();
@@ -40,6 +54,7 @@ const author = "Kira Menshov";
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <meta name="generator" content={Astro.generator} />
+{noindex && <meta name="robots" content="noindex" />}
 
 <!-- Font preloads -->
 <link

@@ -1,17 +1,30 @@
+---
+/** Button shown at the bottom of the mobile layout; scrolls the page back to the top. */
+---
+
 <div class="scroll-to-top-container">
 	<button
 		class="scroll-to-top-btn"
-		onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-		aria-label="Scroll to top">
+		data-scroll-to-top
+		aria-label="Scroll to top"
+	>
 		↑ Back To The Top
 	</button>
 </div>
 
+<script>
+	document
+		.querySelector<HTMLButtonElement>("[data-scroll-to-top]")
+		?.addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		});
+</script>
+
 <style>
 	.scroll-to-top-container {
-		background-color: var(--background-content);
+		background-color: var(--surface-raised);
 		padding: var(--default-layout-gap);
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		text-align: center;
 	}
 	.scroll-to-top-btn {
@@ -22,7 +35,7 @@
 		text-transform: uppercase;
 		color: var(--text-main);
 		cursor: pointer;
-		font-size: 16px;
+		font-size: var(--fs-400);
 		font-weight: 500;
 	}
 </style>

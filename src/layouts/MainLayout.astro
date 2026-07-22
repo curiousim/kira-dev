@@ -3,7 +3,19 @@ import HamburgerMenu from "../components/common/HamburgerMenu.astro";
 import ScrollToTop from "../components/common/ScrollToTop.astro";
 import { INTERNAL_LINKS } from "../consts";
 
+/**
+ * The CSS Grid page shell: `main` (2fr) + `controls`/`latest` sidebar (1fr)
+ * on desktop, stacked single-column on mobile. Named slots: `main`,
+ * `theme`, `latest`. Reached through `PageLayout` for standard pages, or
+ * directly when a page's body doesn't fit a single `Block` (see
+ * `PageLayout`'s own doc comment).
+ */
 interface Props {
+	/**
+	 * Let the `latest` sidebar card fill its column instead of sizing to its
+	 * own content. On desktop it fills at most one viewport — a long page
+	 * pins the card rather than stretching it. @default false
+	 */
 	stretchLatest?: boolean;
 }
 
@@ -40,12 +52,10 @@ const { stretchLatest = false } = Astro.props;
 
 <style>
 	.shell {
-		--gap: var(--default-layout-gap, 24px);
-		--pad: var(--default-layout-gap, 24px);
+		--gap: var(--default-layout-gap);
+		--pad: var(--default-layout-gap);
 		--col-min: 200px; /* minimum for the right column */
-		--sidebar-stick: 24px;
 		min-height: 100dvh;
-		width: var(--shell-max);
 		padding: var(--pad);
 		box-sizing: border-box;
 		display: grid;
@@ -75,9 +85,25 @@ const { stretchLatest = false } = Astro.props;
 		align-self: start;
 		height: fit-content;
 	}
-	.latest--stretch {
-		align-self: stretch;
-		height: auto;
+
+	/* DESKTOP */
+	@media (min-width: 900px) {
+		/* Follow the reader down long pages instead of scrolling away. */
+		.latest {
+			position: sticky;
+			top: var(--pad);
+		}
+
+		/*
+		 * `height: 100%` fills the sidebar row, so on a short page the card
+		 * still bottom-aligns with `main`. The max-height is what keeps a long
+		 * article from stretching the card to the *article's* height — past
+		 * one viewport it stops growing and pins instead.
+		 */
+		.latest--stretch {
+			height: 100%;
+			max-height: calc(100dvh - (2 * var(--pad)));
+		}
 	}
 
 	.back {
@@ -90,7 +116,7 @@ const { stretchLatest = false } = Astro.props;
 	}
 
 	/* MOBILE / SMALL screens */
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.shell {
 			gap: var(--gap);
 			grid-template-columns: 1fr;
@@ -112,26 +138,9 @@ const { stretchLatest = false } = Astro.props;
 			display: block;
 			justify-self: end;
 		}
-		.latest--stretch {
-			align-self: start;
-			height: fit-content;
-		}
 		.back {
 			display: block;
 		}
-	}
-
-	/* Utilities */
-	.visually-hidden {
-		position: absolute !important;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
-		border: 0;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

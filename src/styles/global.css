@@ -1,4 +1,6 @@
-@import "./tokens.css";
+@import "./tokens/primitives.css";
+@import "./tokens/semantic.css";
+@import "./tokens/components.css";
 
 @layer reset {
 	*,
@@ -149,7 +151,7 @@
 		font-family: var(--ff-body);
 		font-size: var(--fs-400);
 		color: var(--text-main);
-		background-color: var(--background-main);
+		background-color: var(--surface-main);
 	}
 
 	h1,
@@ -164,21 +166,17 @@
 	}
 
 	img {
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 	}
 }
 
 @layer utilities {
 	.border-radius-sm {
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 	}
 
 	.text-center {
 		text-align: center;
-	}
-
-	.text-high-contrast {
-		color: var(--text-high-contrast);
 	}
 
 	.visually-hidden {

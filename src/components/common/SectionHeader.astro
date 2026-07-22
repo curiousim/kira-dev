@@ -1,0 +1,38 @@
+---
+import LinkButton from "./LinkButton.astro";
+import Badge from "./Badge.astro";
+
+/**
+ * The back-link + section badge row repeated at the top of every content
+ * page (blog roll, books index, photo albums, a single post). Renders one
+ * consistent back-arrow glyph — previously three pages used `<--` and one
+ * used `←`.
+ *
+ * @example
+ * <SectionHeader backHref="/" backLabel="Main" badge="BLOG" />
+ */
+interface Props {
+	/** Where the back link points. */
+	backHref: string;
+	/** Label after the arrow, e.g. "Main" or "Blog". */
+	backLabel: string;
+	/** Badge text, rendered uppercase by Badge's own styling convention. */
+	badge: string;
+}
+
+const { backHref, backLabel, badge } = Astro.props;
+---
+
+<div class="section-header">
+	<LinkButton text={`← ${backLabel}`} href={backHref} variant="link" />
+	<Badge text={badge} />
+</div>
+
+<style>
+	.section-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: var(--default-layout-gap);
+	}
+</style>

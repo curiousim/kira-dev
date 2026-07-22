@@ -1,7 +1,18 @@
 ---
+/**
+ * External profile link with an inline SVG icon. Always opens in a new tab.
+ * Adding a new platform means adding a case to the icon union, an inline
+ * `<svg>` branch below, and its fill rule in the `<style>` block.
+ *
+ * @example
+ * <SocialIconButton icon="github" label="GitHub" href="https://github.com/curiousim" />
+ */
 interface Props {
+	/** Which inline SVG to render. */
 	icon: "github" | "linkedin" | "flickr" | "strava" | "frontend-masters";
+	/** Accessible name; also used in the "(opens in a new tab)" aria-label suffix. */
 	label: string;
+	/** Profile URL. */
 	href: string;
 }
 
@@ -80,16 +91,16 @@ const { icon, label, href } = Astro.props;
 	.social-button {
 		display: grid;
 		place-items: center;
-		width: 40px;
-		height: 40px;
-		padding: 8px;
+		width: var(--space-7);
+		height: var(--space-7);
+		padding: var(--space-2);
 		border: 0;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		background: transparent;
 		text-decoration: none;
 		transition:
-			background-color 0.15s ease,
-			transform 0.15s ease;
+			background-color var(--duration-fast) var(--ease-out),
+			transform var(--duration-fast) var(--ease-out);
 	}
 
 	.social-button:hover,
@@ -134,7 +145,7 @@ const { icon, label, href } = Astro.props;
 		fill: var(--social-icon-primary);
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 899px) {
 		.social-button {
 			width: 36px;
 			height: 36px;

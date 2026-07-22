@@ -1,12 +1,14 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { entrySlug } from "../../lib/slug";
 
+/** A single book cover tile in the books grid, linking to its note. */
 interface Props {
 	book: CollectionEntry<"books">;
 }
 
 const { book } = Astro.props;
-const slug = book.id.replace(/\.mdx?$/, "");
+const slug = entrySlug(book);
 ---
 
 <li class="book-tile">
@@ -39,12 +41,12 @@ const slug = book.id.replace(/\.mdx?$/, "");
 		flex-direction: column;
 		height: 100%;
 		background: var(--block-card-background);
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		overflow: hidden;
 		text-decoration: none;
 		transition:
-			background-color 0.15s ease,
-			transform 0.15s ease;
+			background-color var(--duration-fast) var(--ease-out),
+			transform var(--duration-fast) var(--ease-out);
 	}
 
 	.book-link:hover,
@@ -62,8 +64,8 @@ const slug = book.id.replace(/\.mdx?$/, "");
 		display: grid;
 		place-items: center;
 		aspect-ratio: 4 / 5;
-		padding: 1.5rem;
-		background: var(--background-secondary);
+		padding: var(--space-5);
+		background: var(--surface-accent);
 	}
 
 	.book-cover {
@@ -71,15 +73,15 @@ const slug = book.id.replace(/\.mdx?$/, "");
 		height: 100%;
 		max-width: 100%;
 		object-fit: contain;
-		border-radius: calc(var(--radii-10) / 2);
-		box-shadow: 0 10px 24px var(--book-cover-shadow);
+		border-radius: var(--radius-sm);
+		box-shadow: var(--book-cover-shadow);
 	}
 
 	.book-meta {
 		display: flex;
 		flex-direction: column;
 		gap: 0.4rem;
-		padding: 1rem;
+		padding: var(--space-4);
 	}
 
 	.book-meta h2 {

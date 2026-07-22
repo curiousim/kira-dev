@@ -43,13 +43,13 @@
 		display: block;
 		width: 100%;
 		border: 2px solid var(--clr-black);
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		image-rendering: pixelated;
 		outline-offset: 2px;
 	}
 	.bottle-fetch__themes {
 		position: absolute;
-		top: 8px;
+		top: var(--space-2);
 		right: 10px;
 		display: flex;
 		gap: 6px;
@@ -61,7 +61,7 @@
 		border: 2px solid var(--clr-black);
 		border-radius: 50%;
 		cursor: pointer;
-		transition: transform 0.15s ease;
+		transition: transform var(--duration-fast) var(--ease-out);
 	}
 	.theme-dot:hover {
 		transform: scale(1.25);
@@ -76,7 +76,7 @@
 		background: var(--clr-pink-500);
 	}
 	/* mark the active theme with an inner ring */
-	:global(html:not([data-theme="blue"]):not([data-theme="pink"]))
+	:global(html:not([data-theme="blue"], [data-theme="pink"]))
 		.theme-dot--yellow,
 	:global(html[data-theme="blue"]) .theme-dot--blue,
 	:global(html[data-theme="pink"]) .theme-dot--pink {

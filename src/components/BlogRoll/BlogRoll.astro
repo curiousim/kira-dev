@@ -1,20 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import ArticleCard from "./ArticleCard.astro";
 import Block from "../common/Block.astro";
-import LinkButton from "../common/LinkButton.astro";
-import Badge from "../common/Badge.astro";
+import SectionHeader from "../common/SectionHeader.astro";
 import {
 	POST_CATEGORIES,
 	POST_CATEGORY_LABELS,
 	type PostCategory,
 } from "../../data/postCategories";
+import { getPublishedPosts } from "../../lib/posts";
 
-const unsortedPosts = await getCollection("posts");
-
-const posts = unsortedPosts
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+/** The filterable blog listing: category chips + post cards, client-side filtered by `data-filter`. */
+const posts = await getPublishedPosts();
 
 const categoryCounts = Object.fromEntries(
 	POST_CATEGORIES.map((category) => [
@@ -26,10 +22,7 @@ const categoryCounts = Object.fromEntries(
 
 <Block backgroundColor="primary" growWithContent={true}>
 	<div class="blog-roll-container" data-blog-roll>
-		<div class="blog-roll-header">
-			<LinkButton text="<-- Main" href="/" variant="link" />
-			<Badge text="BLOG" />
-		</div>
+		<SectionHeader backHref="/" backLabel="Main" badge="BLOG" />
 
 		<div class="blog-filters">
 			<div
@@ -154,11 +147,6 @@ const categoryCounts = Object.fromEntries(
 		flex-direction: column;
 		gap: var(--default-layout-gap);
 	}
-	.blog-roll-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
 	.blog-filters {
 		display: flex;
 		align-items: center;
@@ -169,7 +157,7 @@ const categoryCounts = Object.fromEntries(
 	.blog-filter-buttons {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: var(--space-2);
 	}
 	.blog-filter-buttons button,
 	.blog-empty-state button {
@@ -203,7 +191,7 @@ const categoryCounts = Object.fromEntries(
 	.blog-roll {
 		display: flex;
 		flex-direction: column;
-		border-radius: var(--radii-10);
+		border-radius: var(--radius-md);
 		gap: 1.2rem;
 	}
 	.blog-empty-state {
@@ -215,7 +203,7 @@ const categoryCounts = Object.fromEntries(
 		display: none;
 	}
 	.blog-empty-state p {
-		margin-bottom: 1rem;
+		margin-bottom: var(--space-4);
 		color: var(--text-main);
 	}
 	@media (max-width: 600px) {

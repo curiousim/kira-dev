@@ -1,12 +1,13 @@
 import { OGImageRoute } from "astro-og-canvas";
-import { getCollection } from "astro:content";
 import { brandedImage, pickTheme } from "../../../og/brand";
+import { getPublishedPosts } from "../../../lib/posts";
+import { entrySlug } from "../../../lib/slug";
 
-const posts = await getCollection("posts", ({ data }) => !data.draft);
+const posts = await getPublishedPosts();
 
 const pages = Object.fromEntries(
 	posts.map((post) => {
-		const slug = post.id.replace(/\.mdx?$/, "");
+		const slug = entrySlug(post);
 		return [
 			slug,
 			{
