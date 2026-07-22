@@ -4,7 +4,7 @@ import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "./MainLayout.astro";
 import Block from "../components/common/Block.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
-import InfoCardBlogPost from "../components/InfoCardContent/Blog.astro";
+import AboutInfoCard from "../components/InfoCardContent/About.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
 import BottleFetch from "../components/BottleFetch/BottleFetch.astro";
 import { blogPostingSchema } from "../lib/schema";
@@ -100,7 +100,7 @@ const pubDateFormatted = pubDate ? formatDate(pubDate) : "";
 			</div>
 		</Block>
 		<ThemeSwitcher slot="theme" />
-		<InfoCardBlogPost slot="latest" />
+		<AboutInfoCard slot="latest" />
 	</MainLayout>
 </BaseLayout>
 

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import InfoCardMainPage from "../components/InfoCardContent/MainPage.astro";
+import LatestPostInfoCard from "../components/InfoCardContent/LatestPost.astro";
 import Block from "../components/common/Block.astro";
 import LinkButton from "../components/common/LinkButton.astro";
 import SocialIconButton from "../components/common/SocialIconButton.astro";
@@ -100,7 +100,7 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		<div slot="theme">
 			<ThemeSwitcher />
 		</div>
-		<InfoCardMainPage slot="latest" />
+		<LatestPostInfoCard slot="latest" />
 	</MainLayout>
 </BaseLayout>
 <style>

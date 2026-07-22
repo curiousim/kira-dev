@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
-import BlogInfoCard from "../../components/InfoCardContent/Blog.astro";
+import AboutInfoCard from "../../components/InfoCardContent/About.astro";
 import ThemeSwitcher from "../../components/ThemeSwitcher/ThemeSwitcher.astro";
 import BlogRoll from "../../components/BlogRoll/BlogRoll.astro";
 import BottleFetch from "../../components/BottleFetch/BottleFetch.astro";
@@ -21,7 +21,7 @@ import { PAGE_META } from "../../consts";
 			<BottleFetch />
 		</div>
 		<ThemeSwitcher slot="theme" />
-		<BlogInfoCard slot="latest" />
+		<AboutInfoCard slot="latest" />
 	</MainLayout>
 </BaseLayout>
 <style>

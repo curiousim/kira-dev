@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
-import InfoCardMainPage from "../../components/InfoCardContent/MainPage.astro";
+import AboutInfoCard from "../../components/InfoCardContent/About.astro";
 import PhotoGrid from "../../components/PhotoGallery/PhotoGrid.astro";
 import Lightbox from "../../components/PhotoGallery/Lightbox.astro";
 
@@ -23,7 +23,7 @@ const album = Astro.props;
 	backLink={{ href: "/photos/", label: "Photos" }}
 	growWithContent
 >
-	<InfoCardMainPage slot="sidebar" />
+	<AboutInfoCard slot="sidebar" />
 	<h1 class="album-title">{album.data.title}</h1>
 	{
 		album.data.description && (
