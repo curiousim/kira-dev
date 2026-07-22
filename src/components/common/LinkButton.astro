@@ -23,7 +23,8 @@ const { variant = "outline", text, href = "#", outside = false } = Astro.props;
 	class={`button ${variant}`}
 	href={href}
 	target={outside ? "_blank" : undefined}
-	rel={outside ? "noopener noreferrer" : undefined}>
+	rel={outside ? "noopener noreferrer" : undefined}
+>
 	{text}
 </a>
 

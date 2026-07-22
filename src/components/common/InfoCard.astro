@@ -41,7 +41,15 @@ const hasContent = Boolean(title && ctaText && ctaHref);
 	<div class="info-card">
 		<div class="info-card-title">
 			<Badge text={badge} />
-			{topLink && <LinkButton text={topLink.text} href={topLink.href} variant="link" />}
+			{
+				topLink && (
+					<LinkButton
+						text={topLink.text}
+						href={topLink.href}
+						variant="link"
+					/>
+				)
+			}
 		</div>
 		{
 			hasContent && (
@@ -50,7 +58,11 @@ const hasContent = Boolean(title && ctaText && ctaHref);
 						<h2>{title}</h2>
 						{body && <p>{body}</p>}
 					</div>
-					<LinkButton text={ctaText!} href={ctaHref!} variant="outline" />
+					<LinkButton
+						text={ctaText!}
+						href={ctaHref!}
+						variant="outline"
+					/>
 				</>
 			)
 		}

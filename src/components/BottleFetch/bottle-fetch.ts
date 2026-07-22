@@ -201,7 +201,7 @@ class BottleFetch {
 		if (!ctx) throw new Error("no 2d context");
 		this.ctx = ctx;
 		this.reducedMotion = window.matchMedia(
-			"(prefers-reduced-motion: reduce)"
+			"(prefers-reduced-motion: reduce)",
 		).matches;
 		this.pal = readPalette();
 		this.refreshTheme();
@@ -265,7 +265,7 @@ class BottleFetch {
 				x: rand(1, this.width - 1),
 				y: rand(2, 22),
 				phase: rand(0, Math.PI * 2),
-			})
+			}),
 		);
 	}
 
@@ -557,8 +557,8 @@ class BottleFetch {
 					this.mode === "day"
 						? rand(4, 11)
 						: this.mode === "dawn"
-						? rand(8, 16)
-						: rand(12, 24);
+							? rand(8, 16)
+							: rand(12, 24);
 				const laneOk = this.mode !== "night" || lane === 1;
 				if (this.cars.length < maxCars && laneOk) {
 					const colors = [
@@ -734,7 +734,7 @@ class BottleFetch {
 							wy,
 							2,
 							2,
-							wi % 3 === 0 ? pal.sun : pal.roadLine
+							wi % 3 === 0 ? pal.sun : pal.roadLine,
 						);
 					} else {
 						this.ctx.globalAlpha = 0.55;
@@ -869,13 +869,13 @@ class BottleFetch {
 					[1, 0, 1, 0],
 					[-2, 3, -2, 3],
 					[0, 1, 0, 1],
-			  ]
+				]
 			: [
 					[1, 0, 0, 1],
 					[0, 0, 0, 0],
 					[0, 1, 1, 0],
 					[0, 0, 0, 0],
-			  ];
+				];
 		const legDx = moving ? cycles[frame] : [0, 0, 0, 0];
 		const legXs = [-8, -5, 4, 7];
 		for (let i = 0; i < 4; i++) {
@@ -943,7 +943,7 @@ class BottleFetch {
 
 export function mountBottleFetch() {
 	const canvases = document.querySelectorAll<HTMLCanvasElement>(
-		"canvas[data-bottle-fetch]"
+		"canvas[data-bottle-fetch]",
 	);
 	canvases.forEach((canvas) => {
 		if (canvas.dataset.mounted) return;

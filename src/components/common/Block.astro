@@ -17,16 +17,14 @@ interface Props {
 	growWithContent?: boolean;
 }
 
-const {
-	backgroundColor = "primary",
-	growWithContent = false,
-} = Astro.props;
+const { backgroundColor = "primary", growWithContent = false } = Astro.props;
 ---
 
 <section
 	class=`block border-radius-sm ${backgroundColor === "secondary" ? "block-background-secondary" : "block-background-content"}`
-	style={`height: ${growWithContent ? "auto" : "100%"};`}>
-	<slot></slot>
+	style={`height: ${growWithContent ? "auto" : "100%"};`}
+>
+	<slot />
 </section>
 <style>
 	.block {
@@ -38,5 +36,4 @@ const {
 	.block-background-secondary {
 		background: var(--surface-accent);
 	}
-
 </style>

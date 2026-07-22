@@ -28,7 +28,7 @@ const items = await Promise.all(
 			format: "webp",
 			quality: 85,
 		}),
-	}))
+	})),
 );
 ---
 
@@ -41,7 +41,8 @@ const items = await Promise.all(
 					class="photo-link"
 					data-lightbox
 					data-alt={photo.alt}
-					data-caption={photo.caption ?? ""}>
+					data-caption={photo.caption ?? ""}
+				>
 					<Image
 						src={photo.src}
 						alt={photo.alt}

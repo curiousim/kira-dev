@@ -23,14 +23,14 @@
 
 <script>
 	const dialog = document.getElementById(
-		"lightbox"
+		"lightbox",
 	) as HTMLDialogElement | null;
 
 	if (dialog) {
 		const img = dialog.querySelector<HTMLImageElement>(".lightbox-img")!;
 		const caption = dialog.querySelector<HTMLElement>(".lightbox-caption")!;
 		const links = Array.from(
-			document.querySelectorAll<HTMLAnchorElement>("a[data-lightbox]")
+			document.querySelectorAll<HTMLAnchorElement>("a[data-lightbox]"),
 		);
 		let current = 0;
 

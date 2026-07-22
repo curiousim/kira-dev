@@ -26,7 +26,8 @@ const isCurrent = (href: string) => {
 	<button
 		class="hamburger-button"
 		aria-label="Toggle menu"
-		aria-expanded="false">
+		aria-expanded="false"
+	>
 		<span class="hamburger-line"></span>
 		<span class="hamburger-line"></span>
 		<span class="hamburger-line"></span>
@@ -34,16 +35,21 @@ const isCurrent = (href: string) => {
 
 	<nav class="mobile-menu" aria-hidden="true">
 		<ul class="menu-list">
-			{links.map((link) => (
-				<li class="menu-item">
-					<a
-						href={link.href}
-						class="menu-link"
-						aria-current={isCurrent(link.href) ? "page" : undefined}>
-						{link.title}
-					</a>
-				</li>
-			))}
+			{
+				links.map((link) => (
+					<li class="menu-item">
+						<a
+							href={link.href}
+							class="menu-link"
+							aria-current={
+								isCurrent(link.href) ? "page" : undefined
+							}
+						>
+							{link.title}
+						</a>
+					</li>
+				))
+			}
 		</ul>
 	</nav>
 </div>
@@ -211,7 +217,7 @@ const isCurrent = (href: string) => {
 			// Update aria attributes
 			hamburgerButton.setAttribute(
 				"aria-expanded",
-				(!isActive).toString()
+				(!isActive).toString(),
 			);
 			mobileMenu.setAttribute("aria-hidden", isActive.toString());
 		});

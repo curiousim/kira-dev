@@ -56,6 +56,8 @@ export function blogPostingSchema(opts: {
 			"@type": "WebPage",
 			"@id": opts.url,
 		},
-		...(opts.tags && opts.tags.length > 0 ? { keywords: opts.tags.join(", ") } : {}),
+		...(opts.tags && opts.tags.length > 0
+			? { keywords: opts.tags.join(", ") }
+			: {}),
 	};
 }

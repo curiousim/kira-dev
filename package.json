@@ -12,7 +12,10 @@
 		"astro": "astro",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"check": "astro check"
+		"check": "astro check",
+		"lint": "eslint .",
+		"lint:css": "stylelint \"src/**/*.astro\"",
+		"check:tokens": "node scripts/check-tokens.mjs"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^7.2.1",
@@ -25,11 +28,20 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.9",
+		"@eslint/js": "^9.39.5",
+		"eslint": "^9.39.5",
+		"eslint-plugin-astro": "^1.7.0",
+		"eslint-plugin-jsx-a11y": "^6.10.2",
+		"globals": "^16.5.0",
+		"postcss-html": "^1.8.1",
 		"prettier": "^3.9.5",
 		"prettier-plugin-astro": "^0.14.1",
 		"rehype-external-links": "^3.0.0",
 		"sharp": "^0.34.5",
-		"typescript": "^5.9.3"
+		"stylelint": "^17.14.1",
+		"stylelint-config-standard": "^40.0.0",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.65.0"
 	},
 	"optionalDependencies": {
 		"@astrojs/compiler-binding-linux-x64-gnu": "0.3.1",

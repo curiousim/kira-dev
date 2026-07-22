@@ -31,7 +31,9 @@ const headProps = Astro.props;
 				const theme = localStorage.getItem("theme");
 				if (theme)
 					document.documentElement.setAttribute("data-theme", theme);
-			} catch (e) {}
+			} catch {
+				// localStorage unavailable — falls back to the default theme.
+			}
 		</script>
 	</head>
 	<body>

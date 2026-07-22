@@ -76,7 +76,7 @@
 		background: var(--clr-pink-500);
 	}
 	/* mark the active theme with an inner ring */
-	:global(html:not([data-theme="blue"]):not([data-theme="pink"]))
+	:global(html:not([data-theme="blue"], [data-theme="pink"]))
 		.theme-dot--yellow,
 	:global(html[data-theme="blue"]) .theme-dot--blue,
 	:global(html[data-theme="pink"]) .theme-dot--pink {
