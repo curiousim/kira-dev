@@ -1,0 +1,212 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../../lib/date";
+
+/** A saved video, article, quotation, link, or small idea. */
+interface Props {
+	leaf: CollectionEntry<"leaves">;
+}
+
+const { leaf } = Astro.props;
+const { kind, title, description, pubDate, source, url, image, imageAlt } =
+	leaf.data;
+const kindLabel = kind.replace("-", " ");
+---
+
+<li class="leaf-tile">
+	<article class:list={["leaf-card", { "leaf-card--linked": url }]}>
+		<div class:list={["leaf-media", { "leaf-media--empty": !image }]}>
+			{
+				image ? (
+					<img
+						src={image}
+						alt={imageAlt ?? ""}
+						loading="lazy"
+						width="640"
+						height="360"
+					/>
+				) : (
+					<span aria-hidden="true">{kindLabel}</span>
+				)
+			}
+			{kind === "video" && <span class="play-mark" aria-hidden="true" />}
+		</div>
+
+		<div class="leaf-content">
+			<div class="leaf-meta">
+				<span class="leaf-kind">{kindLabel}</span>
+				<time datetime={pubDate.toISOString()}
+					>{formatDate(pubDate)}</time
+				>
+			</div>
+			<h2>
+				{
+					url ? (
+						<a href={url} target="_blank" rel="noopener noreferrer">
+							{title}
+						</a>
+					) : (
+						title
+					)
+				}
+			</h2>
+			{source && <p class="leaf-source">{source}</p>}
+			{description && <p class="leaf-description">{description}</p>}
+			{
+				url && (
+					<span class="leaf-action" aria-hidden="true">
+						Open ↗
+					</span>
+				)
+			}
+		</div>
+	</article>
+</li>
+
+<style>
+	.leaf-tile {
+		min-width: 0;
+	}
+
+	.leaf-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden;
+		background: var(--block-card-background);
+		border-radius: var(--radius-md);
+		color: var(--block-card-text);
+		transition:
+			background-color var(--duration-fast) var(--ease-out),
+			transform var(--duration-fast) var(--ease-out);
+	}
+
+	.leaf-card--linked:hover,
+	.leaf-card--linked:focus-within {
+		background: var(--block-card-background-hover);
+		transform: translateY(-3px);
+	}
+
+	.leaf-card--linked:focus-within {
+		outline: 2px solid var(--button-border-color);
+		outline-offset: 3px;
+	}
+
+	.leaf-media {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		background: var(--surface-accent);
+	}
+
+	.leaf-media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--duration-slow) var(--ease-out);
+	}
+
+	.leaf-card--linked:hover .leaf-media img,
+	.leaf-card--linked:focus-within .leaf-media img {
+		transform: scale(1.025);
+	}
+
+	.leaf-media--empty {
+		display: grid;
+		place-items: center;
+		padding: var(--space-5);
+		color: var(--text-inverse);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-800);
+		text-transform: uppercase;
+	}
+
+	.play-mark {
+		position: absolute;
+		inset: 50% auto auto 50%;
+		width: var(--space-8);
+		height: var(--space-8);
+		border-radius: var(--radius-full);
+		background: var(--surface-raised);
+		box-shadow: var(--shadow-sm);
+		transform: translate(-50%, -50%);
+	}
+
+	.play-mark::after {
+		content: "";
+		position: absolute;
+		inset: 50% auto auto 53%;
+		border-block: var(--space-2) solid transparent;
+		border-left: var(--space-3) solid var(--text-main);
+		transform: translate(-50%, -50%);
+	}
+
+	.leaf-content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: var(--space-2);
+		padding: var(--space-4);
+	}
+
+	.leaf-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-3);
+		color: var(--text-blog-date);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+	}
+
+	.leaf-kind {
+		text-transform: uppercase;
+	}
+
+	.leaf-content h2 {
+		font-size: var(--fs-600);
+		line-height: var(--leading-snug);
+	}
+
+	.leaf-content h2 a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.leaf-content h2 a::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+	}
+
+	.leaf-source {
+		color: var(--text-blog-date);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+	}
+
+	.leaf-description {
+		display: -webkit-box;
+		overflow: hidden;
+		color: var(--block-card-text);
+		font-size: var(--fs-400);
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+	}
+
+	.leaf-action {
+		margin-top: auto;
+		padding-top: var(--space-3);
+		font-family: var(--ff-heading);
+		font-size: var(--fs-300);
+		text-transform: uppercase;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.leaf-card,
+		.leaf-media img {
+			transition: none;
+		}
+	}
+</style>

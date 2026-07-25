@@ -9,8 +9,6 @@ import SocialIconButton from "../components/common/SocialIconButton.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher/ThemeSwitcher.astro";
 import { personSchema, websiteSchema } from "../lib/schema";
 import { PAGE_META } from "../consts";
-
-const yearsInTheField = new Date().getFullYear() - 2019;
 ---
 
 <BaseLayout
@@ -26,32 +24,31 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 		<Block slot="main">
 			<div class="main-content">
 				<h1 class="main-title">
-					Hi,<br />I'm Kira<br />Front-End Developer
+					Hi,<br />I'm Kira<br />Software Developer
 				</h1>
 				<div class="intro">
 					<p>
-						Well, <u>mostly</u> a front-end developer. I happened to fall
-						into this rabbit hole {yearsInTheField}+ years ago, and
-						while I’m interested in many other things outside of
-						front-end, my main focus is still web development. But I
-						think, in general, I just like to build things, solve
-						problems, and learn about new technologies.
+						Well, mostly a front-end developer. But that's not the
+						point.
 					</p>
 
 					<p>
-						I worked at <a href="https://cheq.ai/">Cheq</a>,
-						<a href="https://esh.com/">EshOS</a>, and
-						<a href="https://torq.io/">Torq</a> as a senior front-end
-						developer. But frankly, I feel like a forever junior — there
-						is so much to learn and explore in this field. The difference
-						is that now I know how many more areas and technologies are
-						out there.
+						In the world of feeds, algorithms and social platforms,
+						I want my own corner of the internet as I loved it in
+						90s-00s. My space, if you know what I mean.
 					</p>
 
 					<p>
-						I also love to write and try to put on paper, quite
-						literally 📖🖋️, everything I learn. So why not share it
-						with others?
+						I like coding and computers, books, running, fountain
+						pens, photography and whatever I'm obsessed about in a
+						given moment. So that's what can expect from this place.
+					</p>
+
+					<p>
+						I also want to share some thought on my professional
+						journey. Mostly for my self, to reflect, consolidate,
+						have time to put my thoughts together. But who knows,
+						maybe it will be interesting to someone else too.
 					</p>
 				</div>
 				<div class="button-groups">
@@ -64,6 +61,11 @@ const yearsInTheField = new Date().getFullYear() - 2019;
 						<LinkButton
 							text="Books -->"
 							href="/books/"
+							variant="outline"
+						/>
+						<LinkButton
+							text="Fallen Leaves -->"
+							href="/fallen-leaves/"
 							variant="outline"
 						/>
 					</div>

@@ -52,4 +52,20 @@ const books = defineCollection({
 	}),
 });
 
-export const collections = { posts, albums, books };
+const leaves = defineCollection({
+	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/leaves" }),
+	schema: z.object({
+		kind: z.enum(["video", "article", "idea", "quote", "link"]),
+		title: z.string(),
+		description: z.string().optional(),
+		pubDate: z.coerce.date(),
+		source: z.string().optional(),
+		url: z.url().optional(),
+		image: z.string().optional(),
+		imageAlt: z.string().optional(),
+		tags: z.array(z.string()).default([]),
+		draft: z.boolean().default(false),
+	}),
+});
+
+export const collections = { posts, albums, books, leaves };

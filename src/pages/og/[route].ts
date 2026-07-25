@@ -12,6 +12,7 @@ const pages: Record<string, Page> = {
 	index: { ...PAGE_META.index, theme: "yellow" },
 	blog: { ...PAGE_META.blog, theme: "blue" },
 	about: { ...PAGE_META.about, theme: "pink" },
+	"fallen-leaves": { ...PAGE_META.fallenLeaves, theme: "yellow" },
 	default: { ...PAGE_META.index, theme: "yellow" },
 };
 

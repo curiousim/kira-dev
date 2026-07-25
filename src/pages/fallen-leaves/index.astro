@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import FallenLeavesInfoCard from "../../components/InfoCardContent/FallenLeaves.astro";
+import LeafTile from "../../components/FallenLeaves/LeafTile.astro";
+import { PAGE_META } from "../../consts";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+const leaves = (await getCollection("leaves"))
+	.filter((leaf) => !leaf.data.draft)
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<PageLayout
+	title={PAGE_META.fallenLeaves.title}
+	description={PAGE_META.fallenLeaves.description}
+	image="/og/fallen-leaves.png"
+	badge="FALLEN LEAVES"
+	backLink={{ href: "/", label: "Main" }}
+	stretchLatest
+>
+	<FallenLeavesInfoCard slot="sidebar" />
+	<div class="leaves-content">
+		<ul class="leaves-grid" role="list">
+			{leaves.map((leaf) => <LeafTile leaf={leaf} />)}
+		</ul>
+	</div>
+</PageLayout>
+
+<style>
+	.leaves-content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+	}
+
+	.leaves-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+		gap: var(--default-layout-gap);
+	}
+</style>

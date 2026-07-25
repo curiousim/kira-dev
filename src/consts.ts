@@ -10,6 +10,7 @@ export const INTERNAL_LINKS = [
 	{ href: "/about/", title: "About" },
 	{ href: "/blog/", title: "Blog" },
 	{ href: "/books/", title: "Books" },
+	{ href: "/fallen-leaves/", title: "Fallen Leaves" },
 	{ href: "/photos/", title: "Photos" },
 ];
 
@@ -32,5 +33,10 @@ export const PAGE_META = {
 	about: {
 		title: "About Me",
 		description: "About Kira Menshov — front-end engineer.",
+	},
+	fallenLeaves: {
+		title: "Fallen Leaves – Kira Menshov",
+		description:
+			"Interesting videos, texts, ideas, and other things Kira Menshov wants to keep.",
 	},
 } as const;
