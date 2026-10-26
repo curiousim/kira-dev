@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro build",
+		"build": "node scripts/prepare-family-atlas.mjs && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
 		"format": "prettier --write .",

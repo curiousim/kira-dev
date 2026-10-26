@@ -24,6 +24,8 @@ jobs:
             - run: npm run check:tokens
             - run: npm run check
             - run: npm run build
+              env:
+                  FAMILY_ATLAS_KEY: ${{ secrets.FAMILY_ATLAS_KEY }}
 
     deploy:
         needs: verify
@@ -39,6 +41,9 @@ jobs:
 
             - run: npm ci
             - run: npm run build
+              env:
+                  FAMILY_ATLAS_KEY: ${{ secrets.FAMILY_ATLAS_KEY }}
+                  REQUIRE_FAMILY_ATLAS: "true"
 
             - name: Publish to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
